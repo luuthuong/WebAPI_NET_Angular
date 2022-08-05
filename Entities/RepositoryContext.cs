@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    internal class RepositoryContext
+    public class RepositoryContext
     {
+        public RepositoryContext()
+        {
+
+        }
     }
 }

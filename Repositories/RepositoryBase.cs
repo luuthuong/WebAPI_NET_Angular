@@ -1,44 +1,49 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Interface;
 using System.Linq.Expressions;
 
 namespace Repositories
 {
-    public class RepositoryBase<T,Context> : IRepositoryBase<T>
+    public class RepositoryBase<T,BaseContext> : DbContext,IRepositoryBase<T> where T:class where BaseContext:DbContext
     {
-        private readonly IdentityUserContext _context;
-        public RepositoryBase(Context context)
+        private readonly BaseContext _context;
+        public RepositoryBase(BaseContext context)
         {
             _context = context;
         }
         public bool Create(T entity)
         {
 
+           _context.Set<T>().Add(entity);
+           return _context.SaveChanges() > 0;
         }
 
         public bool Delete(T entity)
         {
-            throw new NotImplementedException();
+            _context.Remove(entity);
+            return _context.SaveChanges() > 0;
         }
 
         public IQueryable<T> GetAll()
         {
-            throw new NotImplementedException();
+           return _context.Set<T>().AsQueryable().AsNoTracking();
         }
 
         public IQueryable<T> GetByCondition(Expression<Func<T, bool>> condition)
         {
-            throw new NotImplementedException();
+           return _context.Set<T>().Where(condition).AsNoTracking();
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+             _context.SaveChanges();
         }
 
         public bool Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+            return _context.SaveChanges() > 0;
         }
     }
 }
