@@ -1,0 +1,12 @@
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\bin\Debug\net6.0\Constants.deps.json
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\bin\Debug\net6.0\Constants.dll
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\bin\Debug\net6.0\Constants.pdb
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\obj\Debug\net6.0\Constants.csproj.AssemblyReference.cache
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\obj\Debug\net6.0\Constants.GeneratedMSBuildEditorConfig.editorconfig
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\obj\Debug\net6.0\Constants.AssemblyInfoInputs.cache
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\obj\Debug\net6.0\Constants.AssemblyInfo.cs
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\obj\Debug\net6.0\Constants.csproj.CoreCompileInputs.cache
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\obj\Debug\net6.0\Constants.dll
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\obj\Debug\net6.0\refint\Constants.dll
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\obj\Debug\net6.0\Constants.pdb
+D:\DESKTOP\Workspace\APP\API\WebAPI\Constants\obj\Debug\net6.0\ref\Constants.dll
