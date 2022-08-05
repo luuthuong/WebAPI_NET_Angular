@@ -10,41 +10,8 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : RepositoryBase<UserModel, IdentityUserContext>, IUserRepository
     {
-        private readonly IdentityUserContext _context;
-        public UserRepository(IdentityUserContext context)
-        {
-            _context = context;
-        }
-        public bool Create(UserModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(UserModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<UserModel> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<UserModel> GetByCondition(Expression<Func<UserModel, bool>> condition)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(UserModel entity)
-        {
-            throw new NotImplementedException();
-        }
+        public UserRepository(IdentityUserContext context) : base(context){ }
     }
 }

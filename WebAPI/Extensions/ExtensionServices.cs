@@ -47,11 +47,16 @@ namespace WebAPI.Extensions
             {
                 options.UseSqlServer(config.GetConnectionString("connection"));
             });
+
+            services.AddDbContext<RepositoryContext>(option =>
+            {
+                option.UseSqlServer(config.GetConnectionString("connection"));
+            });
         }
 
         public static void ConfigureDependency(this IServiceCollection services)
         {
-
+            //services.RegisterAssemblyPublicNonGenericClasses
         }
 
         public static void ConfigureLogging(this IServiceCollection services)

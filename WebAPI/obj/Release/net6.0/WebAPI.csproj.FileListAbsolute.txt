@@ -67,3 +67,4 @@ D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\refint\WebAPI.dll
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\WebAPI.pdb
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\WebAPI.genruntimeconfig.cache
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\ref\WebAPI.dll
+D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\bin\Release\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

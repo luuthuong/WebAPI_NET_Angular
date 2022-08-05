@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Repositories
 {
-    public class RepositoryBase<T,BaseContext> : DbContext,IRepositoryBase<T> where T:class where BaseContext:DbContext
+    public abstract class RepositoryBase<T,BaseContext> : DbContext,IRepositoryBase<T> where T:class where BaseContext:DbContext
     {
         private readonly BaseContext _context;
         public RepositoryBase(BaseContext context)

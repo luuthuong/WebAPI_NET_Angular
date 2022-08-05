@@ -5,6 +5,7 @@ D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\WebAPI.
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\WebAPI.runtimeconfig.json
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\WebAPI.pdb
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.Google.dll
+D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
