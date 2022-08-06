@@ -11,7 +11,7 @@ namespace Entities
 {
     public class IdentityUserContext:IdentityDbContext<UserModel>
     {
-        public IdentityUserContext(DbContextOptions option) : base(option) { }
+        public IdentityUserContext(DbContextOptions<IdentityUserContext> option) : base(option) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -1,9 +1,9 @@
 ﻿namespace Dependencies
 {
-    public class DependencyRegistrar
+    public abstract class DependencyRegistrar
     {
-        public DependencyRegistrar(Type type)
-        {
-        }
+        //public DependencyRegistrar(Type type)
+        //{
+        //}
     }
 }

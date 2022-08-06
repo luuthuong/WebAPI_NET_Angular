@@ -48,5 +48,7 @@ D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\runtime
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\Entities.dll
+D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\Repositories.dll
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\Entities.pdb
+D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\Repositories.pdb
 D:\DESKTOP\Workspace\APP\API\WebAPI\WebAPI\obj\Release\net6.0\PubTmp\Out\WebAPI.deps.json

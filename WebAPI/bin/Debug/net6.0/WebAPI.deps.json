@@ -12,6 +12,8 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.5",
           "Microsoft.EntityFrameworkCore": "6.0.5",
           "Microsoft.EntityFrameworkCore.Design": "6.0.5",
+          "Repositories": "1.0.0",
+          "Services": "1.0.0",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
         "runtime": {
@@ -692,6 +694,11 @@
           }
         }
       },
+      "DTO/1.0.0": {
+        "runtime": {
+          "DTO.dll": {}
+        }
+      },
       "Entities/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.Google": "6.0.5",
@@ -702,6 +709,23 @@
         },
         "runtime": {
           "Entities.dll": {}
+        }
+      },
+      "Repositories/1.0.0": {
+        "dependencies": {
+          "Entities": "1.0.0"
+        },
+        "runtime": {
+          "Repositories.dll": {}
+        }
+      },
+      "Services/1.0.0": {
+        "dependencies": {
+          "DTO": "1.0.0",
+          "Repositories": "1.0.0"
+        },
+        "runtime": {
+          "Services.dll": {}
         }
       }
     }
@@ -1258,7 +1282,22 @@
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
     },
+    "DTO/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

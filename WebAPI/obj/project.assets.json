@@ -1090,6 +1090,16 @@
           }
         }
       },
+      "DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DTO.dll": {}
+        }
+      },
       "Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -1105,6 +1115,33 @@
         },
         "runtime": {
           "bin/placeholder/Entities.dll": {}
+        }
+      },
+      "Repositories/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Repositories.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Repositories.dll": {}
+        }
+      },
+      "Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "DTO": "1.0.0",
+          "Repositories": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Services.dll": {}
         }
       }
     }
@@ -2909,10 +2946,25 @@
         "version.txt"
       ]
     },
+    "DTO/1.0.0": {
+      "type": "project",
+      "path": "../DTO/DTO.csproj",
+      "msbuildProject": "../DTO/DTO.csproj"
+    },
     "Entities/1.0.0": {
       "type": "project",
       "path": "../Entities/Entities.csproj",
       "msbuildProject": "../Entities/Entities.csproj"
+    },
+    "Repositories/1.0.0": {
+      "type": "project",
+      "path": "../Repositories/Repositories.csproj",
+      "msbuildProject": "../Repositories/Repositories.csproj"
+    },
+    "Services/1.0.0": {
+      "type": "project",
+      "path": "../Services/Services.csproj",
+      "msbuildProject": "../Services/Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2921,6 +2973,8 @@
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.5",
       "Microsoft.EntityFrameworkCore >= 6.0.5",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.5",
+      "Repositories >= 1.0.0",
+      "Services >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
@@ -2953,6 +3007,12 @@
           "projectReferences": {
             "D:\\DESKTOP\\Workspace\\APP\\API\\WebAPI\\Entities\\Entities.csproj": {
               "projectPath": "D:\\DESKTOP\\Workspace\\APP\\API\\WebAPI\\Entities\\Entities.csproj"
+            },
+            "D:\\DESKTOP\\Workspace\\APP\\API\\WebAPI\\Repositories\\Repositories.csproj": {
+              "projectPath": "D:\\DESKTOP\\Workspace\\APP\\API\\WebAPI\\Repositories\\Repositories.csproj"
+            },
+            "D:\\DESKTOP\\Workspace\\APP\\API\\WebAPI\\Services\\Services.csproj": {
+              "projectPath": "D:\\DESKTOP\\Workspace\\APP\\API\\WebAPI\\Services\\Services.csproj"
             }
           }
         }

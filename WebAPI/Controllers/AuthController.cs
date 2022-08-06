@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DTO;
+using Microsoft.AspNetCore.Mvc;
+using Repositories.Interface;
+using Services.Interface;
 
 namespace WebAPI.Controllers
 {
@@ -6,10 +9,22 @@ namespace WebAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IUserServices _userServices;
+        public AuthController(IUserServices userServices)
         {
-            return new string[] { "value1", "value2","value3" };
+            _userServices = userServices;
+        }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            try
+            {
+                return Ok(_userServices.GetAllUsers());
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet("{id}")]
@@ -18,9 +33,16 @@ namespace WebAPI.Controllers
             return "value";
         }
 
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] UserRegisterDTO newUser)
         {
+            var result = await _userServices.RegisterUser(newUser);
+            if (!result.Succeeded)
+            {
+                var err = result.Errors;
+                return BadRequest(err);
+            }
+            return Ok(result.Succeeded);
         }
 
         [HttpPut("{id}")]

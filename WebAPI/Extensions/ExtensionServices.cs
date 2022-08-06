@@ -1,7 +1,14 @@
 ﻿using Entities;
 using Entities.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Repositories;
+using Repositories.Interface;
+using Services;
+using Services.Interface;
+using System.Text;
 
 namespace WebAPI.Extensions
 {
@@ -25,9 +32,24 @@ namespace WebAPI.Extensions
 
         }
 
-        public static void ConfigureAuthentication(this IServiceCollection services)
+        public static void ConfigureAuthentication(this IServiceCollection services,IConfiguration config)
         {
-
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "http://localhost:8081 , http://localhost:8082",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("Keys").GetSection("JWTTokenKey").Value))
+                };
+            });
         }
 
         public static void ConfigureIdentity(this IServiceCollection services)
@@ -57,6 +79,10 @@ namespace WebAPI.Extensions
         public static void ConfigureDependency(this IServiceCollection services)
         {
             //services.RegisterAssemblyPublicNonGenericClasses
+            services.AddSingleton<IAuthenticationServices, AuthenticationServices>();
+            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<ICategoryRepository,CategoryRepository>();
         }
 
         public static void ConfigureLogging(this IServiceCollection services)
