@@ -25,12 +25,10 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserDTO>? GetAllUsers()
+        public IEnumerable<UserDTO> GetAllUsers()
         {
             List<UserDTO> listUser = new List<UserDTO>();
             var result =  _repository.GetAll().AsEnumerable();
-            if (result == null)
-                return null;
             foreach (var item in result)
             {
                 var user = new UserDTO

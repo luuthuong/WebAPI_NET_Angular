@@ -13,7 +13,7 @@ namespace Services.Interface
         Task<IdentityResult> RegisterUser(UserRegisterDTO user);
         bool DeleteUser();
         bool UpdateUser();
-        IEnumerable<UserDTO>? GetAllUsers();
+        IEnumerable<UserDTO> GetAllUsers();
         UserDTO GetUserById(string id);
     }
 }
