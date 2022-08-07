@@ -1,9 +1,11 @@
 ﻿using DTO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Interface;
 using Services.Interface;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers
 {
@@ -33,14 +35,20 @@ namespace WebAPI.Controllers
                 new
                 {
                     status = "Dang nhap thanh cong",
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    exiration = $"{token.ValidFrom} - {token.ValidTo}"
+                    token = token
                 }
             );
         }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshToken(AuthenticatedResponseDTO token)
+        {
+            var result = await _authenticationServices.RefreshToken(token);
+            return Ok(result);
+        }
         
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
-        [Authorize]
         public IActionResult GetAll()
         {
             try

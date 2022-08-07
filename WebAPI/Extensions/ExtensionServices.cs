@@ -1,14 +1,19 @@
 ﻿using Entities;
 using Entities.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using Repositories;
 using Repositories.Interface;
 using Services;
 using Services.Interface;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using Token;
 using Token.Interface;
 
 namespace WebAPI.Extensions
@@ -38,20 +43,34 @@ namespace WebAPI.Extensions
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
+                    RequireExpirationTime = true,
                     ValidateIssuerSigningKey = true,
+                    ClockSkew= TimeSpan.Zero,
                     ValidIssuer = config["JWT:ValidIssuer"],
                     ValidAudience= config["JWT:ValidAudience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("JWT").GetSection("JWTTokenKey").Value))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:JWTTokenKey"])),
                 };
             });
+        }
+
+        public static void ConfigureAuthorization(this IServiceCollection service)
+        {
+            //service.AddAuthorization(options =>
+            //{
+            //    var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+            //    defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+            //});
+            service.AddAuthorization();
+            
         }
 
         public static void ConfigureIdentity(this IServiceCollection services)
@@ -84,9 +103,9 @@ namespace WebAPI.Extensions
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<ICategoryRepository,CategoryRepository>();
-            
+
             //Dependency Token service
-            services.AddScoped<ITokenService>
+            services.AddScoped<ITokenService, TokenServices>();
             
         }
 

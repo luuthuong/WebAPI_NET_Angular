@@ -10,4 +10,9 @@ namespace DTO
     {
         public string? Id { get; set; }
     }
+
+    public class ResponseBaseDTO
+    {
+        public string? Message { get; set; }
+    }
 }

@@ -11,6 +11,7 @@ namespace Services.Interface
 {
     public interface IAuthenticationServices
     {
-        Task<JwtSecurityToken?> Login(LoginDTO login);
+        Task<AuthenticatedResponseDTO?> Login(LoginDTO login);
+        Task<AuthenticatedResponseDTO?> RefreshToken(AuthenticatedResponseDTO token);
     }
 }

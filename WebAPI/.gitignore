@@ -42,15 +42,22 @@ testem.log
 Thumbs.db
 
 /.vs
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-publish
+/.vs/*
+/WebAPI/obj
+/WebAPI/bin
+/Services/obj
+/Services/bin
+/Repositories/bin
+/Repositories/obj
+/Entities/bin
+/Entities/obj
+/DTO/bin
+/DTO/obj
+/Dependencies/bin
+/Dependencies/obj
+/Constants/obj
+/Constants/bin
+/Common/obj
+/Common/bin
+/Token/obj
+/Token/bin

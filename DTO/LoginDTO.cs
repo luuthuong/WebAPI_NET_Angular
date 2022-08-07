@@ -8,7 +8,8 @@
         public bool IsRemember { get; set; }
     }
 
-    public class AuthenticatedResponse {
-        public string? Token { get; set; }
+    public class AuthenticatedResponseDTO {
+        public string? AcessToken { get; set; }
+        public string? RefreshToken { get; set; }
     }
 }
