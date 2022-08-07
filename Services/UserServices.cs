@@ -43,9 +43,19 @@ namespace Services
             return listUser;
         }
 
-        public UserDTO GetUserById(string id)
+        public UserDTO? GetUserById(string id)
         {
-            throw new NotImplementedException();
+            var result = _repository.GetByCondition(x => x.Id == id).FirstOrDefault();
+            if (result == null)
+                return null;
+            UserDTO user = new UserDTO
+            {
+                Email = result.Email,
+                Id = result.Id,
+                Name = result.UserName,
+                PhoneNumber = result.PhoneNumber
+            };
+            return user;
         }
 
         public async Task<IdentityResult> RegisterUser(UserRegisterDTO user)

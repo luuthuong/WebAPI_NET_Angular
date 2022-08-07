@@ -14,6 +14,6 @@ namespace Services.Interface
         bool DeleteUser();
         bool UpdateUser();
         IEnumerable<UserDTO> GetAllUsers();
-        UserDTO GetUserById(string id);
+        UserDTO? GetUserById(string id);
     }
 }

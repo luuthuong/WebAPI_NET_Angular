@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DTO;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +11,6 @@ namespace Services.Interface
 {
     public interface IAuthenticationServices
     {
-        void Login();
+        Task<JwtSecurityToken?> Login(LoginDTO login);
     }
 }

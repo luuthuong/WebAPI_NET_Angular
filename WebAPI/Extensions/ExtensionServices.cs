@@ -9,6 +9,7 @@ using Repositories.Interface;
 using Services;
 using Services.Interface;
 using System.Text;
+using Token.Interface;
 
 namespace WebAPI.Extensions
 {
@@ -46,8 +47,9 @@ namespace WebAPI.Extensions
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "http://localhost:8081 , http://localhost:8082",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("Keys").GetSection("JWTTokenKey").Value))
+                    ValidIssuer = config["JWT:ValidIssuer"],
+                    ValidAudience= config["JWT:ValidAudience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("JWT").GetSection("JWTTokenKey").Value))
                 };
             });
         }
@@ -78,11 +80,14 @@ namespace WebAPI.Extensions
 
         public static void ConfigureDependency(this IServiceCollection services)
         {
-            //services.RegisterAssemblyPublicNonGenericClasses
-            services.AddSingleton<IAuthenticationServices, AuthenticationServices>();
+            services.AddScoped<IAuthenticationServices, AuthenticationServices>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<ICategoryRepository,CategoryRepository>();
+            
+            //Dependency Token service
+            services.AddScoped<ITokenService>
+            
         }
 
         public static void ConfigureLogging(this IServiceCollection services)

@@ -1,7 +1,9 @@
 ﻿using DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Interface;
 using Services.Interface;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace WebAPI.Controllers
 {
@@ -10,12 +12,36 @@ namespace WebAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserServices _userServices;
-        public AuthController(IUserServices userServices)
+        private readonly IAuthenticationServices _authenticationServices;
+        public AuthController(
+            IUserServices userServices, 
+            IAuthenticationServices authenticationServices
+         )
         {
             _userServices = userServices;
+            _authenticationServices = authenticationServices;
         }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDTO login)
+        {
+          var token = await _authenticationServices.Login(login);
+            if (token == null)
+            {
+                return BadRequest("Login Fail");
+            }
+            return Ok(
+                new
+                {
+                    status = "Dang nhap thanh cong",
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    exiration = $"{token.ValidFrom} - {token.ValidTo}"
+                }
+            );
+        }
+        
         [HttpGet]
-        public IActionResult Get()
+        [Authorize]
+        public IActionResult GetAll()
         {
             try
             {
@@ -28,9 +54,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult GetUserById(string id)
         {
-            return "value";
+            var result = _userServices.GetUserById(id);
+            if (result == null)
+                return NotFound("Not Found");
+            return Ok(result);
         }
 
         [HttpPost("register")]
@@ -45,9 +74,10 @@ namespace WebAPI.Controllers
             return Ok(result.Succeeded);
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("update")]
+        public void UpdateUser(int id, [FromBody] string value)
         {
+            
         }
 
         [HttpDelete("{id}")]

@@ -29,6 +29,8 @@ yarn-error.log
 .history/*
 .vs/
 .vs/*
+/.vs
+/.vs/*
 
 
 # Miscellaneous
@@ -57,3 +59,22 @@ bld/
 [Oo]bj/
 [Ll]og/
 publish
+
+WebAPI/obj
+WebAPI/bin
+Services/obj
+Services/bin
+Repositories/bin
+Repositories/obj
+Entities/bin
+Entities/obj
+DTO/bin
+DTO/obj
+Dependencies/bin
+Dependencies/obj
+Constants/obj
+Constants/bin
+Common/obj
+Common/bin
+Token/obj
+Token/bin
