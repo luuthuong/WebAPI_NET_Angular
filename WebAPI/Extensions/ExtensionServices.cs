@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Repositories;
@@ -64,13 +65,7 @@ namespace WebAPI.Extensions
 
         public static void ConfigureAuthorization(this IServiceCollection service)
         {
-            //service.AddAuthorization(options =>
-            //{
-            //    var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
-            //    defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
-            //});
             service.AddAuthorization();
-            
         }
 
         public static void ConfigureIdentity(this IServiceCollection services)
@@ -78,6 +73,7 @@ namespace WebAPI.Extensions
             services.AddIdentity<UserModel,IdentityRole>()
                     .AddEntityFrameworkStores<IdentityUserContext>()
                     .AddDefaultTokenProviders();
+
             services.Configure<IdentityOptions>(config =>
             {
                 config.Password.RequireDigit = true;
@@ -99,10 +95,16 @@ namespace WebAPI.Extensions
 
         public static void ConfigureDependency(this IServiceCollection services)
         {
+            //Dependency Authentication
             services.AddScoped<IAuthenticationServices, AuthenticationServices>();
-            services.AddScoped<IUserServices, UserServices>();
+
+            //DependencyRepository
             services.AddScoped<IUserRepository,UserRepository>();
+
             services.AddScoped<ICategoryRepository,CategoryRepository>();
+
+            //Dependency Services DbContext
+            services.AddScoped<IUserServices, UserServices>();
 
             //Dependency Token service
             services.AddScoped<ITokenService, TokenServices>();
