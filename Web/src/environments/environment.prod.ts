@@ -1,3 +1,11 @@
 export const environment = {
-  production: true
+  production: false,
+  appSetting:{
+    apiURL:"",
+    authURL:"",
+    fileURL:"",
+    TOKEN_KEY:"",
+    TOKEN_USER:"",
+    TOKEN_REFRESH:""
+  }
 };
