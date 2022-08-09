@@ -1,5 +1,6 @@
 ﻿using DTO;
 using Entities.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -21,58 +22,64 @@ namespace Services
         private readonly UserManager<UserModel> _userManager;
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _config;
+        private readonly IClaimsTransformation _claimsInformation;
         public AuthenticationServices(
             SignInManager<UserModel> signInManager,
             UserManager<UserModel> userManager,
             ITokenService tokenService,
-            IConfiguration config
+            IConfiguration config,
+            IClaimsTransformation claimsTransformation
             )
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _tokenService = tokenService;
             _config = config;
+            _claimsInformation = claimsTransformation;
         }
         public async Task<AuthenticatedResponseDTO?> Login(LoginDTO login)
         {
-            var user = new UserModel();
+            UserModel user = new UserModel();
 
             if (login.UserName != null) {
                 user = await _userManager.FindByNameAsync(login.UserName);
             }
-            else if (login.Email != null && login.Email.Contains("@"))
-            {
+            else{
                 user = await _userManager.FindByEmailAsync(login.Email);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, login.Password,login.IsRemember,lockoutOnFailure:false);
-
-            if (result.Succeeded)
+            if(user != null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var authClaims = new List<Claim>()
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, login.Password, login.IsRemember, lockoutOnFailure: false);
+                if (result.Succeeded)
                 {
+
+                    var userRoles = await _userManager.GetRolesAsync(user);
+                    var authClaims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.Sid,user.Id),
                     new Claim(ClaimTypes.Name,user.UserName),
+                    new Claim(ClaimTypes.Email,user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
                 };
+                    
+                    foreach (var item in userRoles)
+                    {
+                        authClaims.Add(new Claim(ClaimTypes.Role, item));
+                    }
 
-                foreach (var item in userRoles)
-                {
-                    authClaims.Add(new Claim(ClaimTypes.Role, item));
+                    var token = _tokenService.GenerateAccessToken(authClaims);
+                    var refreshToken = _tokenService.GenerateRefreshToken();
+                    user.RefreshToken = refreshToken;
+                    user.RefreshTokenExpiredTime = DateTime.Now.AddMinutes(30);
+                    await _userManager.UpdateAsync(user);
+                    return new AuthenticatedResponseDTO
+                    {
+                        AcessToken = token,
+                        RefreshToken = refreshToken
+                    };
                 }
-
-                var token = _tokenService.GenerateAccessToken(authClaims);
-                var refreshToken = _tokenService.GenerateRefreshToken();
-                user.RefreshToken = refreshToken;
-                user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(30);
-                await _userManager.UpdateAsync(user);
-                return new AuthenticatedResponseDTO
-                {
-                    AcessToken = token,
-                    RefreshToken = refreshToken
-                };
             }
-            
             return null;
         }
 
@@ -84,14 +91,14 @@ namespace Services
             var userName = principle.Identity != null ? principle.Identity.Name : null;
             var user = await _userManager.FindByNameAsync(userName);
 
-            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiredTime <= DateTime.UtcNow)
                 throw new SecurityTokenException("Token invalid");
 
             var newAccessToken = _tokenService.GenerateAccessToken(principle.Claims);
             var newRefreshToken = _tokenService.GenerateRefreshToken();
 
             user.RefreshToken = newRefreshToken;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(30);
+            user.RefreshTokenExpiredTime = DateTime.Now.AddMinutes(30);
             await _userManager.UpdateAsync(user);
             return new AuthenticatedResponseDTO()
             {

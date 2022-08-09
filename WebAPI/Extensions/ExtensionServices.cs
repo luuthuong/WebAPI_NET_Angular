@@ -1,5 +1,7 @@
-﻿using Entities;
+﻿using Common;
+using Entities;
 using Entities.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -55,9 +57,9 @@ namespace WebAPI.Extensions
                     ValidateLifetime = true,
                     RequireExpirationTime = true,
                     ValidateIssuerSigningKey = true,
-                    ClockSkew= TimeSpan.Zero,
+                    ClockSkew = TimeSpan.Zero,
                     ValidIssuer = config["JWT:ValidIssuer"],
-                    ValidAudience= config["JWT:ValidAudience"],
+                    ValidAudience = config["JWT:ValidAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:JWTTokenKey"])),
                 };
             });
@@ -70,9 +72,18 @@ namespace WebAPI.Extensions
 
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<UserModel,IdentityRole>()
+            services.AddIdentity<UserModel,RoleModel>()
+                    .AddRoles<RoleModel>()
                     .AddEntityFrameworkStores<IdentityUserContext>()
                     .AddDefaultTokenProviders();
+
+            //services.AddIdentityServer(options =>
+            //{
+            //    options.Events.RaiseFailureEvents = true;
+            //    options.Events.RaiseSuccessEvents = true;
+            //    options.Events.RaiseInformationEvents = true;
+            //    options.Events.RaiseErrorEvents = true;
+            //}).AddInMemoryIdentityResources();
 
             services.Configure<IdentityOptions>(config =>
             {
@@ -108,7 +119,11 @@ namespace WebAPI.Extensions
 
             //Dependency Token service
             services.AddScoped<ITokenService, TokenServices>();
-            
+
+
+            //Dependency claimTransformationIdentity
+            services.AddTransient<IClaimsTransformation, ClaimTransformationIdentity>();
+
         }
 
         public static void ConfigureLogging(this IServiceCollection services)

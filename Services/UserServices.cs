@@ -1,4 +1,4 @@
-﻿using DTO;
+﻿using DTO.UserDTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Repositories.Interface;
@@ -6,6 +6,8 @@ using Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,17 +27,17 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserDTO> GetAllUsers()
+        public IEnumerable<UserDTOModel> GetAllUsers()
         {
-            List<UserDTO> listUser = new List<UserDTO>();
+            List<UserDTOModel> listUser = new List<UserDTOModel>();
             var result =  _repository.GetAll().AsEnumerable();
             foreach (var item in result)
             {
-                var user = new UserDTO
+                var user = new UserDTOModel
                 {
                     Email = item.Email,
                     Id = item.Id,
-                    Name = item.UserName,
+                    UserName = item.UserName,
                     PhoneNumber = item.PhoneNumber
                 };
                 listUser.Add(user);
@@ -43,22 +45,27 @@ namespace Services
             return listUser;
         }
 
-        public UserDTO? GetUserById(string id)
+        public UserDTOModel? GetUserById(string id)
         {
             var result = _repository.GetByCondition(x => x.Id == id).FirstOrDefault();
             if (result == null)
                 return null;
-            UserDTO user = new UserDTO
+            UserDTOModel user = new UserDTOModel
             {
                 Email = result.Email,
                 Id = result.Id,
-                Name = result.UserName,
+                UserName = result.UserName,
                 PhoneNumber = result.PhoneNumber
             };
             return user;
         }
 
-        public async Task<IdentityResult> RegisterUser(UserRegisterDTO user)
+        public IEnumerable<Claim>? GetUserClaim()
+        {
+           return ClaimsPrincipal.Current?.Identities.First().Claims;
+        }
+
+        public async Task<IdentityResult> RegisterUser(RegisterUserRequest user)
         {
             var newuser = new UserModel()
             {

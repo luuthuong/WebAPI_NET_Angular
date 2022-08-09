@@ -25,7 +25,7 @@ namespace Token
                 issuer: _config["JWT:ValidIssuer"],
                 audience: _config["JWT:ValidAudience"],
                 claims: claims,
-                expires: DateTime.Now.AddSeconds(20),
+                expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: signingCredentials
                 );
             var token = new JwtSecurityTokenHandler().CanWriteToken ? new JwtSecurityTokenHandler().WriteToken(tokenOptions) : null;
@@ -62,7 +62,6 @@ namespace Token
             var jwtSecurityToken = securityToken as JwtSecurityToken;
             if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
                 throw new SecurityTokenException("Invalid Token");
-
             return principal;
         }
     }
