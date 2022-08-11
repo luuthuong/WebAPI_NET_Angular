@@ -1,5 +1,6 @@
 ﻿using DTO.UserDTO;
 using Entities.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Repositories.Interface;
 using Services.Interface;
@@ -58,8 +59,8 @@ namespace Services
                 DisplayName = user.DisplayName,
                 CreatedDate = DateTime.Now
             };
-            await _userManager.AddToRoleAsync(newuser, "User");
-          return await  _userManager.CreateAsync(newuser, user.Password);
+            //await _userManager.AddToRoleAsync(newuser, "User");
+            return await  _userManager.CreateAsync(newuser, user.Password);
         }
 
         public async Task<bool> UpdateUser(string id, UpdateUserRequest request)

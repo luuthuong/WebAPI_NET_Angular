@@ -48,7 +48,7 @@ namespace Services
                 user = await _userManager.FindByEmailAsync(login.Email);
             }
 
-            if(user != null)
+            if (user != null)
             {
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, login.Password, login.IsRemember, lockoutOnFailure: false);
                 if (result.Succeeded)
@@ -56,13 +56,12 @@ namespace Services
 
                     var userRoles = await _userManager.GetRolesAsync(user);
                     var authClaims = new List<Claim>()
-                {
-                    new Claim(ClaimTypes.Sid,user.Id),
-                    new Claim(ClaimTypes.Name,user.UserName),
-                    new Claim(ClaimTypes.Email,user.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
-                };
-                    
+                        {
+                            new Claim(ClaimTypes.Sid,user.Id),
+                            new Claim(ClaimTypes.Name,user.UserName),
+                            new Claim(ClaimTypes.Email,user.Email),
+                            new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+                        };
                     foreach (var item in userRoles)
                     {
                         authClaims.Add(new Claim(ClaimTypes.Role, item));
