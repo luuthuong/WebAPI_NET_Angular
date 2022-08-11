@@ -22,42 +22,25 @@ namespace Services
             _repository = repository;
             _userManager = userManager;
         }
-        public bool DeleteUser()
-        {
-            throw new NotImplementedException();
-        }
+
 
         public IEnumerable<UserDTOModel> GetAllUsers()
         {
             List<UserDTOModel> listUser = new List<UserDTOModel>();
-            var result =  _repository.GetAll().AsEnumerable();
-            foreach (var item in result)
+            var results =  _repository.GetAll().AsEnumerable();
+            foreach (var item in results)
             {
-                var user = new UserDTOModel
-                {
-                    Email = item.Email,
-                    Id = item.Id,
-                    UserName = item.UserName,
-                    PhoneNumber = item.PhoneNumber
-                };
-                listUser.Add(user);
+                listUser.Add(new UserDTOModel(item));
             }
             return listUser;
         }
 
-        public UserDTOModel? GetUserById(string id)
+        public async Task<UserDTOModel?> GetUserById(string id)
         {
-            var result = _repository.GetByCondition(x => x.Id == id).FirstOrDefault();
+            var result =await _userManager.FindByIdAsync(id);
             if (result == null)
                 return null;
-            UserDTOModel user = new UserDTOModel
-            {
-                Email = result.Email,
-                Id = result.Id,
-                UserName = result.UserName,
-                PhoneNumber = result.PhoneNumber
-            };
-            return user;
+            return new UserDTOModel(result);
         }
 
         public IEnumerable<Claim>? GetUserClaim()
@@ -70,14 +53,37 @@ namespace Services
             var newuser = new UserModel()
             {
                 UserName = user.Name,
-                Email = user.Email
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                DisplayName = user.DisplayName,
+                CreatedDate = DateTime.Now
             };
+            await _userManager.AddToRoleAsync(newuser, "User");
           return await  _userManager.CreateAsync(newuser, user.Password);
         }
 
-        public bool UpdateUser()
+        public async Task<bool> UpdateUser(string id, UpdateUserRequest request)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+                return false;
+            user.DisplayName = request.DisplayName;
+            user.Adress = request.Adress;
+            user.Email = request.Email;
+            user.PhoneNumber = request.PhoneNumber;
+            user.DateofBirth = request.DateOfBirth;
+            user.UpdatedDate = DateTime.Now;
+            user.Sex = request.Sex;
+            var result = await _userManager.UpdateAsync(user);
+            return result.Succeeded;
+        }
+        public async Task<bool> DeleteUser(string Id)
+        {
+            var user =await _userManager.FindByIdAsync(Id);
+            if (user == null)
+                return false;
+            var result = await _userManager.DeleteAsync(user);
+            return result.Succeeded;
         }
     }
 }

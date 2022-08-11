@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
                 }
             );
         }
-
+        [Authorize]
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken(AuthenticatedResponseDTO token)
         {

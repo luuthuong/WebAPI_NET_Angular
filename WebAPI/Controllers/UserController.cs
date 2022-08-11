@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
             _userServices = userServices;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         [HttpGet("getAll")]
         public IActionResult GetAll()
         {
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         [HttpGet]
         public IActionResult GetUserById([FromQuery]string id)
         {
@@ -54,22 +54,36 @@ namespace WebAPI.Controllers
             return Ok(result.Succeeded);
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut("update")]
-        public void UpdateUser(string Id,[FromBody] UpdateUserRequest request)
-        {
-
-        }
-
+        [Authorize]
         [HttpGet("claim")]
         public IActionResult GetUserClaim()
         {
             return Ok(_userServices.GetUserClaim());
         }
 
-        [HttpDelete]
-        public void DeleteUser(DeleteUserRequest request)
+        [Authorize]
+        [HttpPut("updateUserById")]
+        public async Task<IActionResult> UpdateUser(string id , UpdateUserRequest request)
         {
+           var result = await _userServices.UpdateUser(id, request);
+           return Ok(result);
         }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var result = await _userServices.DeleteUser(id);
+            if (!result)
+            {
+                return BadRequest("Delete Fail");
+            }
+            return Ok(new
+            {
+                Status = "User was deleted",
+                Id = id
+            });
+        }
+
     }
 }

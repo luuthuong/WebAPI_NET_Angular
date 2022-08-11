@@ -18,6 +18,7 @@ namespace Token
 
         public string? GenerateAccessToken(IEnumerable<Claim> claims)
         {
+            var tokenHandler = new JwtSecurityTokenHandler();
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:JWTTokenKey"]));
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
@@ -28,7 +29,7 @@ namespace Token
                 expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: signingCredentials
                 );
-            var token = new JwtSecurityTokenHandler().CanWriteToken ? new JwtSecurityTokenHandler().WriteToken(tokenOptions) : null;
+            var token = tokenHandler.CanWriteToken ? tokenHandler.WriteToken(tokenOptions) : null;
             return token;
         }
 

@@ -36,9 +36,13 @@ namespace WebAPI.Extensions
             });
         }
 
-        public static void ConfigureIISItergration(this IServiceCollection services)
+        public static void ConfigureIISItergration(this IServiceCollection services, IConfiguration config)
         {
-
+            services.Configure<IISOptions>(iis =>
+            {
+                iis.AuthenticationDisplayName = config["IIS:DisplayName"];
+                iis.AutomaticAuthentication = false;
+            });
         }
 
         public static void ConfigureAuthentication(this IServiceCollection services,IConfiguration config)
@@ -67,7 +71,12 @@ namespace WebAPI.Extensions
 
         public static void ConfigureAuthorization(this IServiceCollection service)
         {
-            service.AddAuthorization();
+            service.AddAuthorization(options =>
+            {
+                var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+                defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+                options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+            });
         }
 
         public static void ConfigureIdentity(this IServiceCollection services)
@@ -87,7 +96,14 @@ namespace WebAPI.Extensions
 
             services.Configure<IdentityOptions>(config =>
             {
-                config.Password.RequireDigit = true;
+                config.Password.RequireDigit = false;
+                config.Password.RequireUppercase = false;
+                config.Password.RequireLowercase = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequiredUniqueChars = 0;
+                config.Password.RequireUppercase = false;
+                config.Password.RequiredUniqueChars = 0;
+                config.Password.RequiredLength = 1;
             });
         }
 
@@ -111,15 +127,16 @@ namespace WebAPI.Extensions
 
             //DependencyRepository
             services.AddScoped<IUserRepository,UserRepository>();
-
             services.AddScoped<ICategoryRepository,CategoryRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IRepositoryWrapper,RepositoryWrapper>();
 
             //Dependency Services DbContext
             services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IRoleServices,RoleServices>();
 
             //Dependency Token service
             services.AddScoped<ITokenService, TokenServices>();
-
 
             //Dependency claimTransformationIdentity
             services.AddTransient<IClaimsTransformation, ClaimTransformationIdentity>();

@@ -67,7 +67,6 @@ namespace Services
                     {
                         authClaims.Add(new Claim(ClaimTypes.Role, item));
                     }
-
                     var token = _tokenService.GenerateAccessToken(authClaims);
                     var refreshToken = _tokenService.GenerateRefreshToken();
                     user.RefreshToken = refreshToken;

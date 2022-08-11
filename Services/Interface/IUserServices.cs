@@ -13,10 +13,10 @@ namespace Services.Interface
     public interface IUserServices
     {
         Task<IdentityResult> RegisterUser(RegisterUserRequest user);
-        bool DeleteUser();
-        bool UpdateUser();
+        Task<bool> DeleteUser(string Id);
+        Task<bool> UpdateUser(string id, UpdateUserRequest request);
         IEnumerable<UserDTOModel> GetAllUsers();
-        UserDTOModel? GetUserById(string id);
+        Task<UserDTOModel?> GetUserById(string id);
         IEnumerable<Claim>? GetUserClaim();
     }
 }
