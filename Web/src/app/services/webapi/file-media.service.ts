@@ -12,7 +12,7 @@ export class FileMediaService extends HttpBaseService {
   public GetAllFileMedia():Observable<any>{
     return this.get(this.PATH);
   }
-  public uploadFileMedia(request:UploadFileModelRequest):Observable<any>{
+  public uploadFileMedia(request:FormData):Observable<any>{
     return this.post(this.PATH,request);
   }
 }

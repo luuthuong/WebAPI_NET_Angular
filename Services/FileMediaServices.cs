@@ -29,12 +29,11 @@ namespace Services
                 {
                     item.File.CopyToAsync(ms);
                     var fileByte = ms.ToArray();
-
                     var file = new FileModel
                     {
                         Id = Guid.NewGuid().ToString(),
                         Type = item.Type,
-                        Name = item.FileName != null ? item.FileName : item.File.FileName,
+                        Name = item.File.FileName,
                         Image = fileByte,
                         ImageURL = item.FileUrl,
                         CreatedDate = DateTime.Today
@@ -47,6 +46,7 @@ namespace Services
 
         public bool AddFileMedia(CreateFileRequest file)
         {
+            
             using (var ms = new MemoryStream())
             {
                 if (file.File == null) return false;
@@ -57,7 +57,7 @@ namespace Services
                 {
                     Id = Guid.NewGuid().ToString(),
                     Type = file.Type,
-                    Name = file.FileName != null ? file.FileName : file.File.FileName,
+                    Name = file.File.FileName,
                     CreatedDate = DateTime.Now,
                     Image = fileByte,
                     ImageURL = file.FileUrl
