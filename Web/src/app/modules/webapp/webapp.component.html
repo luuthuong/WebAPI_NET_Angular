@@ -1,1 +1,7 @@
-<p>webapp works!</p>
+<div>
+  <input (change)="getFile($event)" type="file">
+  <button (click)="uploadFile()" class="mat-button bg-slate-400 w-20 rounded-md mt-10"> ADD </button>
+</div>
+<div class="container" >
+  <img *ngFor="let item of  arr" src="https://images.pexels.com/photos/10402422/pexels-photo-10402422.jpeg?cs=srgb&dl=pexels-wendel-moretti-10402422.jpg&fm=jpg" alt="">
+</div>

@@ -24,9 +24,9 @@ namespace Entities.Models
 
         public virtual ICollection<MediaCategoryModel>? Categories { get; set; }
 
-        public FileModel()
-        {
-            Categories = new HashSet<MediaCategoryModel>();
-        }
+        //public FileModel()
+        //{
+        //    Categories = new HashSet<MediaCategoryModel>();
+        //}
     }
 }

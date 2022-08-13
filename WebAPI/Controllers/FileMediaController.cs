@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DTO;
+using DTO.FileDTO;
+using Entities.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Repositories.Interface;
 using Services.Interface;
 
 namespace WebAPI.Controllers
@@ -16,27 +21,36 @@ namespace WebAPI.Controllers
 
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(new ResponseBaseDTO<IEnumerable<FileDTOModel>>
+            {
+                Status = StatusCodes.Status200OK,
+                Message = "Success",
+                Response = _services.GetAllFile()
+            });
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok();
         }
 
         [HttpPost]
-        public IActionResult Post( [FromForm] IFormFile request)
+        public IActionResult Post([FromForm]CreateFileRequest request)
         {
-            using (var ms = new MemoryStream())
+            bool result = _services.AddFileMedia(request);
+            if (!result) return (BadRequest(new ResponseBaseDTO
             {
-                request.CopyToAsync(ms);
-                var fileBytes = ms.ToArray();
-                string strConvert = Convert.ToBase64String(fileBytes);
-                return Ok(fileBytes);
-            }
+                Status = StatusCodes.Status400BadRequest,
+                Message = "Upload file Fail"
+            }));
+            return Ok(new ResponseBaseDTO
+            {
+                Status = StatusCodes.Status200OK,
+                Message = "Upload file success",
+            });
         }
 
         [HttpPut("{id}")]

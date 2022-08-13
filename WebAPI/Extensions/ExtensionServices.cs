@@ -27,7 +27,7 @@ namespace WebAPI.Extensions
         {
             service.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", policy =>
+                options.AddPolicy("EnableCORS", policy =>
                 {
                     policy.AllowAnyHeader()
                           .AllowAnyOrigin()

@@ -18,6 +18,11 @@ namespace Repositories
            _context.Set<T>().Add(entity);
            return _context.SaveChanges() > 0;
         }
+        public bool CreateRange(IEnumerable<T> entities)
+        {
+            _context.Set<T>().AddRangeAsync(entities);
+            return _context.SaveChanges() > 0;
+        }
 
         public bool Delete(T entity)
         {
