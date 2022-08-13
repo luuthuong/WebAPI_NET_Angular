@@ -130,13 +130,17 @@ namespace WebAPI.Extensions
             services.AddScoped<ICategoryRepository,CategoryRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IRepositoryWrapper,RepositoryWrapper>();
+            services.AddScoped<IFileMediaRepository, FileMediaRepository>();
+            services.AddScoped<IMediaCategoryRepository, MediaCategoryRepository>();
 
             //Dependency Services DbContext
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IRoleServices,RoleServices>();
+            services.AddScoped<IFileMediaServices, FileMediaServices>();
+            services.AddScoped<IMediaCategoryServices,MediaCategoryServices>();
 
             //Dependency Token service
-            services.AddScoped<ITokenService, TokenServices>();
+            services.AddTransient<ITokenService, TokenServices>();
 
             //Dependency claimTransformationIdentity
             services.AddTransient<IClaimsTransformation, ClaimTransformationIdentity>();

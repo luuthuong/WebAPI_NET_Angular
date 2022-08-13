@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace DTO.FileDTO
 {
-    public class FileDTOModel
+    public class CreateFileRequest
     {
-        public string? Id { get; set; }
         public string? FileName { get; set; }
-        public IFormFile? File { get; set; }
+        public IFormFile? File { get; set; }   
         public string? FileCategoryId { get; set; }
     }
 }

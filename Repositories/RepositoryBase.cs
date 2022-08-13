@@ -21,6 +21,11 @@ namespace Repositories
 
         public bool Delete(T entity)
         {
+            if(_context.Entry(entity).State == EntityState.Detached)
+            {
+                _context.Set<T>().Attach(entity);
+            }
+
             _context.Remove(entity);
             return _context.SaveChanges() > 0;
         }
@@ -28,6 +33,29 @@ namespace Repositories
         public IQueryable<T> GetAll()
         {
            return _context.Set<T>().AsQueryable().AsNoTracking();
+        }
+        public IEnumerable<T> GetAllWithInclude( Expression<Func<T, bool>> ?filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> ?orderBy = null, string includeProperties = "")
+        {
+            IQueryable<T> query = _context.Set<T>();
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
         }
 
         public IQueryable<T> GetByCondition(Expression<Func<T, bool>> condition)

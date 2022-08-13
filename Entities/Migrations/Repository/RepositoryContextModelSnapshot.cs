@@ -22,23 +22,86 @@ namespace Entities.Migrations.Repository
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Entities.Models.CategoryModel", b =>
+            modelBuilder.Entity("Entities.Models.FileModel", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("tbl_Category");
+                    b.ToTable("FileMedia");
+                });
+
+            modelBuilder.Entity("Entities.Models.MediaCategoryModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CategoryMedia");
+                });
+
+            modelBuilder.Entity("FileCategory", b =>
+                {
+                    b.Property<string>("CategoriesId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FilesMediaId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CategoriesId", "FilesMediaId");
+
+                    b.HasIndex("FilesMediaId");
+
+                    b.ToTable("FileCategory");
+                });
+
+            modelBuilder.Entity("FileCategory", b =>
+                {
+                    b.HasOne("Entities.Models.MediaCategoryModel", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.FileModel", null)
+                        .WithMany()
+                        .HasForeignKey("FilesMediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

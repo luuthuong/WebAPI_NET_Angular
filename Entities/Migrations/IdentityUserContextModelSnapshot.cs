@@ -55,6 +55,20 @@ namespace Entities.Migrations
                     b.ToTable("Roles", (string)null);
                 });
 
+            modelBuilder.Entity("Entities.Models.UserMediaModel", b =>
+                {
+                    b.Property<string>("MediaId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FileMedia");
+                });
+
             modelBuilder.Entity("Entities.Models.UserModel", b =>
                 {
                     b.Property<string>("Id")
@@ -251,6 +265,15 @@ namespace Entities.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("UserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Models.UserMediaModel", b =>
+                {
+                    b.HasOne("Entities.Models.UserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

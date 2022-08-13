@@ -10,8 +10,18 @@ namespace Entities
 {
     public class RepositoryContext:DbContext
     {
-        public RepositoryContext(DbContextOptions<RepositoryContext> options):base(options){ }
+        public DbSet<FileModel>? Files { get; set; }
+        public DbSet<MediaCategoryModel>? MediaCategories { get; set; }
+        public RepositoryContext(DbContextOptions<RepositoryContext> options):base(options){
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        public DbSet<CategoryModel>? categories { get; set; }
+            modelBuilder.Entity<FileModel>()
+                .HasMany(f => f.Categories)
+                .WithMany(c => c.FilesMedia)
+                .UsingEntity("FileCategory");
+        }
     }
 }
