@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using Common.Helper;
+using DTO;
 using DTO.FileDTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
@@ -21,21 +22,21 @@ namespace WebAPI.Controllers
 
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery]int page)
         {
+            var pagination = PaginationList<FileDTOModel>.Create(_services.GetAllFile().ToList(), page, 10);
+            var result = page > 0 ? pagination : _services.GetAllFile();
+
             return Ok(new ResponseBaseDTO<IEnumerable<FileDTOModel>>
             {
                 Status = StatusCodes.Status200OK,
                 Message = "Success",
-                Response = _services.GetAllFile()
-            });
+                Total = pagination.TotalPage,
+                Page = pagination.PageIndex,
+                Response = result
+            }); 
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            return Ok();
-        }
 
         [HttpPost]
         public IActionResult Post([FromForm]CreateFileRequest request)
@@ -50,6 +51,24 @@ namespace WebAPI.Controllers
             {
                 Status = StatusCodes.Status200OK,
                 Message = "Upload file success",
+            });
+        }
+
+        [HttpPost("PostMultileFile")]
+        public async Task<IActionResult> PostMultiFile(IEnumerable<IFormFile> files)
+        {
+            bool result = await _services.AddMultiFile(files);
+            if (!result) return BadRequest(new ResponseBaseDTO
+            {
+                Status = StatusCodes.Status502BadGateway,
+                Message = "Upload file Fail"
+            });
+            return Ok(new ResponseBaseDTO<IEnumerable<IFormFile>>
+            {
+                Status = StatusCodes.Status200OK,
+                Message = "Upload file success",
+                Total =files.Count(),
+                Response = files
             });
         }
 

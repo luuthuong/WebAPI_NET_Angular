@@ -14,6 +14,7 @@ export class WebappComponent extends BaseComponent implements OnInit {
 
   public arr = new Array(100).fill(0);
   public file!:File;
+  private files!:File[];
   public fileNames = new FormControl([]);
   constructor(
     private _fileService: FileMediaService
@@ -39,7 +40,22 @@ export class WebappComponent extends BaseComponent implements OnInit {
       console.log("🚀 - this._fileService.uploadFileMedia - res", res)
       })
   }
+
+  public uploadMultiFile(){
+    if(!this.files) return;
+    const formData = new FormData();
+    Array.from(this.files).forEach((item:File)=>{
+      formData.append("files", item);
+    })
+    this._fileService.uploadMultiFile(formData)
+    .pipe(takeUntil(this.ngUnSubcribe))
+    .subscribe(res=>{
+    console.log("🚀 - uploadMultiFile - res", res)
+    })
+  }
   getFile($event:any){
     this.file = $event.target.files[0] as File;
+    this.files = $event.target.files as File[];
+    console.log(this.files)
   }
 }

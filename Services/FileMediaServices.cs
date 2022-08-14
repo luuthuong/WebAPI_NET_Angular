@@ -1,5 +1,7 @@
-﻿using DTO.FileDTO;
+﻿using Common.Helper;
+using DTO.FileDTO;
 using Entities.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interface;
 using Services.Interface;
@@ -19,24 +21,23 @@ namespace Services
             _repository = repository;
         }
 
-        public bool AddFileMedia(IEnumerable<CreateFileRequest> files)
+        public async Task<bool> AddMultiFile(IEnumerable<IFormFile> files)
         {
             var newFiles = new List<FileModel>();
             foreach (var item in files)
             {
-                if (item.File == null) return false;
-                using(var ms = new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
-                    item.File.CopyToAsync(ms);
+                    if (item == null) return false;
+                    await item.CopyToAsync(ms);
                     var fileByte = ms.ToArray();
                     var file = new FileModel
                     {
                         Id = Guid.NewGuid().ToString(),
-                        Type = item.Type,
-                        Name = item.File.FileName,
-                        Image = fileByte,
-                        ImageURL = item.FileUrl,
-                        CreatedDate = DateTime.Today
+                        Type = item.Headers.ContentType,
+                        Name = item.FileName,
+                        SrcFile = fileByte,
+                        CreatedDate = DateTime.Now
                     };
                     newFiles.Add(file);
                 }
@@ -56,11 +57,11 @@ namespace Services
                 var newFile = new FileModel
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Type = file.Type,
+                    Type =file.File.Headers.ContentType,
                     Name = file.File.FileName,
                     CreatedDate = DateTime.Now,
-                    Image = fileByte,
-                    ImageURL = file.FileUrl
+                    SrcFile = fileByte,
+                    FileURL = file.FileUrl
                 };
                 return _repository.Create(newFile);
             }
@@ -80,8 +81,13 @@ namespace Services
                 var fileDTO = new FileDTOModel
                 {
                     Id = item.Id,
-                    FileName = item.Name
+                    Type = item.Type,
+                    FileName = item.Name,
                 };
+                if (item.SrcFile != null)
+                {
+                    fileDTO.Size = item.SrcFile.Length;
+                }
                 fileDTOs.Add(fileDTO);
             }
             return fileDTOs;

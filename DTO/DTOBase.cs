@@ -16,6 +16,8 @@ namespace DTO
     {
         public int? Status { get; set; }
         public string? Message { get; set; }
+        public int? Total { get; set; }
+        public int? Page { get; set; }
         public T? Response { get; set; }
     }
     public class ResponseBaseDTO

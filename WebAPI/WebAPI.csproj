@@ -7,6 +7,7 @@
 	<!--<DeployOnBuild>true</DeployOnBuild>
 	<PublishProfile>IISProfile</PublishProfile>-->
 	 <EnableMSDeployAppOffline>true</EnableMSDeployAppOffline>
+	 <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

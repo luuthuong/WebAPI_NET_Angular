@@ -15,4 +15,7 @@ export class FileMediaService extends HttpBaseService {
   public uploadFileMedia(request:FormData):Observable<any>{
     return this.post(this.PATH,request);
   }
+  public uploadMultiFile(request:FormData):Observable<any>{
+    return this.post(this.PATH+'/PostMultileFile',request);
+  }
 }

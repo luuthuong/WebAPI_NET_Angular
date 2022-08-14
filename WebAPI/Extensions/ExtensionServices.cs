@@ -48,17 +48,22 @@ namespace WebAPI.Extensions
 
             services.Configure<IISServerOptions>(options =>
             {
-                options.MaxRequestBodySize = int.MaxValue;
+                options.MaxRequestBodySize = long.MaxValue;
+                options.MaxRequestBodyBufferSize = int.MaxValue;
+                
             });
             services.Configure<KestrelServerOptions>(options =>
             {
-                options.Limits.MaxRequestBodySize = int.MaxValue; // if don't set default value is: 30 MB
+                options.Limits.MaxRequestBodySize = long.MaxValue; // if don't set default value is: 30 MB
+                options.Limits.MaxRequestBufferSize = long.MaxValue;
             });
 
             services.Configure<FormOptions>(x =>
             {
+                x.ValueCountLimit =int.MaxValue;
+                x.BufferBodyLengthLimit = long.MaxValue;
                 x.ValueLengthLimit = int.MaxValue;
-                x.MultipartBodyLengthLimit = int.MaxValue; // if don't set default value is: 128 MB
+                x.MultipartBodyLengthLimit = long.MaxValue; // if don't set default value is: 128 MB
                 x.MultipartHeadersLengthLimit = int.MaxValue;
             });
 

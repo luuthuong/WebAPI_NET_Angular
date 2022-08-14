@@ -19,6 +19,7 @@ builder.Services.ConfigureCorsPolicy();
 
 builder.Services.ConfigureDependency();
 
+builder.Services.ConfigureIISItergration(builder.Configuration);
 
 builder.Services.ConfigureLogging();
 

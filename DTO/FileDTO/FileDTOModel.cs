@@ -10,8 +10,10 @@ namespace DTO.FileDTO
     public class FileDTOModel
     {
         public string? Id { get; set; }
+        public string? Type { get; set; }
         public string? FileName { get; set; }
         public IFormFile? File { get; set; }
+        public long? Size { get; set; }
         public string? FileCategoryId { get; set; }
     }
 }

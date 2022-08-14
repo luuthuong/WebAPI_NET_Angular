@@ -14,19 +14,19 @@ namespace Entities.Models
         [Key]
         public string? Id { get; set; }
         [Required]
-        public ushort? Type { get; set; }
+        public string? Type { get; set; }
 
         [Required]
         public string? Name { get; set; }
-        public byte[]? Image { get; set; }
-        public string? ImageURL { get; set; }
+        public byte[]? SrcFile { get; set; }
+        public string? FileURL { get; set; }
         public DateTime? CreatedDate { get; set; }
 
         public virtual ICollection<MediaCategoryModel>? Categories { get; set; }
 
-        //public FileModel()
-        //{
-        //    Categories = new HashSet<MediaCategoryModel>();
-        //}
+        public FileModel()
+        {
+            Categories = new HashSet<MediaCategoryModel>();
+        }
     }
 }
