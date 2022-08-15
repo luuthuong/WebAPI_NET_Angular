@@ -16,15 +16,20 @@ namespace Services
     public class FileMediaServices : IFileMediaServices
     {
 
-        private readonly IFileMediaRepository _repository;
-        public FileMediaServices(IFileMediaRepository repository){
-            _repository = repository;
+        private readonly IFileMediaRepository _fileRepository;
+        private readonly IFileCategoryRepository _categoryRepository;
+        public FileMediaServices(IFileMediaRepository repository, IFileCategoryRepository categoryRepository)
+        {
+            _fileRepository = repository;
+            _categoryRepository = categoryRepository;
         }
 
-        public async Task<bool> AddMultiFile(IEnumerable<IFormFile> files)
+        public async Task<bool> AddMultiFile(CreateFileRequest  files)
         {
             var newFiles = new List<FileModel>();
-            foreach (var item in files)
+            var newFileCategories = new List<FileCategoryModel>();
+            if (files.File == null) return false;
+            foreach (var item in files.File)
             {
                 using (var ms = new MemoryStream())
                 {
@@ -39,32 +44,43 @@ namespace Services
                         SrcFile = fileByte,
                         CreatedDate = DateTime.Now
                     };
+
+                    if (!String.IsNullOrEmpty(files.FileCategoryId))
+                    {
+                        newFileCategories.Add(new FileCategoryModel
+                        {
+                            CategoryId = files.FileCategoryId,
+                            FileId = file.Id
+                        });
+                    }
                     newFiles.Add(file);
                 }
             }
-            return _repository.CreateRange(newFiles);
+            bool result = _fileRepository.CreateRange(newFiles);
+            return newFileCategories.Count > 0 && result ? _categoryRepository.CreateRange(newFileCategories) : result;
         }
 
         public bool AddFileMedia(CreateFileRequest file)
         {
-            
-            using (var ms = new MemoryStream())
-            {
-                if (file.File == null) return false;
-                file.File.CopyToAsync(ms);
-                var fileByte = ms.ToArray();
 
-                var newFile = new FileModel
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Type =file.File.Headers.ContentType,
-                    Name = file.File.FileName,
-                    CreatedDate = DateTime.Now,
-                    SrcFile = fileByte,
-                    FileURL = file.FileUrl
-                };
-                return _repository.Create(newFile);
-            }
+            //using (var ms = new MemoryStream())
+            //{
+            //    if (file.File == null) return false;
+            //    file.File.CopyToAsync(ms);
+            //    var fileByte = ms.ToArray();
+
+            //    var newFile = new FileModel
+            //    {
+            //        Id = Guid.NewGuid().ToString(),
+            //        Type =file.File.Headers.ContentType,
+            //        Name = file.File.FileName,
+            //        CreatedDate = DateTime.Now,
+            //        SrcFile = fileByte,
+            //        FileURL = file.FileUrl
+            //    };
+            //    return _repository.Create(newFile);
+            //}
+            return false;
         }
 
         public bool DeleteFileMedia(DeleteFileRequest requests)
@@ -74,7 +90,7 @@ namespace Services
 
         public IEnumerable<FileDTOModel> GetAllFile()
         {
-            var files = _repository.GetAll().ToList();
+            var files = _fileRepository.GetAll().ToList();
             var fileDTOs = new List<FileDTOModel>();
             foreach (var item in files)
             {
@@ -82,7 +98,8 @@ namespace Services
                 {
                     Id = item.Id,
                     Type = item.Type,
-                    FileName = item.Name,
+                    CreatedDate = item.CreatedDate,
+                    FileName = item.Name
                 };
                 if (item.SrcFile != null)
                 {
@@ -90,7 +107,7 @@ namespace Services
                 }
                 fileDTOs.Add(fileDTO);
             }
-            return fileDTOs;
+            return fileDTOs.OrderByDescending(x=>x.CreatedDate);
         }
 
         public FileDTOModel GetFileById(string Id)

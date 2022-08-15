@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DTO.MediaCategoryDTO;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace DTO.FileDTO
         public string? Type { get; set; }
         public string? FileName { get; set; }
         public IFormFile? File { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public long? Size { get; set; }
-        public string? FileCategoryId { get; set; }
+        public IEnumerable<string>? FileCategoryIds { get; set; }
     }
 }

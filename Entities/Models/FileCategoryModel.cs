@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace Entities.Models
 {
     [Table("FileCategory")]
-    public class FileCategory
+    public class FileCategoryModel
     {
-        public string? FileMediaId { get; set; }
-        public FileModel? FileModel { get; set; }
+        public string? FileId { get; set; }
+        public virtual FileModel? File { get; set; }
 
         public string? CategoryId { get; set; }
-        public MediaCategoryModel? MediaCategoryModel { get; set; }
+        public virtual MediaCategoryModel? MediaCategory { get; set; }
     }
 }

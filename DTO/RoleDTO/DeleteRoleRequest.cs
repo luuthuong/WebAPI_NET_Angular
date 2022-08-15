@@ -8,6 +8,6 @@ namespace DTO.RoleDTO
 {
     public class DeleteRoleRequest
     {
-        public string RoleId { get; set; }
+        public string? RoleId { get; set; }
     }
 }

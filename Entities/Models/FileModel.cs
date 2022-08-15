@@ -21,12 +21,5 @@ namespace Entities.Models
         public byte[]? SrcFile { get; set; }
         public string? FileURL { get; set; }
         public DateTime? CreatedDate { get; set; }
-
-        public virtual ICollection<MediaCategoryModel>? Categories { get; set; }
-
-        public FileModel()
-        {
-            Categories = new HashSet<MediaCategoryModel>();
-        }
     }
 }

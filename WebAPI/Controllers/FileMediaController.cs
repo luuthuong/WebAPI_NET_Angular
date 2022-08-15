@@ -55,7 +55,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("PostMultileFile")]
-        public async Task<IActionResult> PostMultiFile(IEnumerable<IFormFile> files)
+        public async Task<IActionResult> PostMultiFile([FromForm] CreateFileRequest files)
         {
             bool result = await _services.AddMultiFile(files);
             if (!result) return BadRequest(new ResponseBaseDTO
@@ -63,11 +63,11 @@ namespace WebAPI.Controllers
                 Status = StatusCodes.Status502BadGateway,
                 Message = "Upload file Fail"
             });
-            return Ok(new ResponseBaseDTO<IEnumerable<IFormFile>>
+            return Ok(new ResponseBaseDTO<CreateFileRequest>
             {
                 Status = StatusCodes.Status200OK,
                 Message = "Upload file success",
-                Total =files.Count(),
+                Total =files.File?.Count(),
                 Response = files
             });
         }

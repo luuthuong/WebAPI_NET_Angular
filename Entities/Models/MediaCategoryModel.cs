@@ -22,12 +22,5 @@ namespace Entities.Models
         public string? CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public virtual ICollection<FileModel>? FilesMedia { get; set; }
-
-        public MediaCategoryModel()
-        {
-            FilesMedia = new HashSet<FileModel>();
-        }
-
     }
 }

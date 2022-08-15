@@ -12,7 +12,7 @@ namespace Services.Interface
     {
         IEnumerable<FileDTOModel> GetAllFile();
         FileDTOModel GetFileById(string Id );
-        Task<bool> AddMultiFile(IEnumerable<IFormFile> files);
+        Task<bool> AddMultiFile(CreateFileRequest files);
         bool AddFileMedia(CreateFileRequest file);
         bool DeleteFileMedia(DeleteFileRequest request);
 

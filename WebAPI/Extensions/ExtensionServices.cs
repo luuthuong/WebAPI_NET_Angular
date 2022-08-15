@@ -140,7 +140,7 @@ namespace WebAPI.Extensions
 
             services.AddDbContext<RepositoryContext>(option =>
             {
-                option.UseSqlServer(config.GetConnectionString("connection"));
+                option.UseLazyLoadingProxies().UseSqlServer(config.GetConnectionString("connection"));
             });
         }
 
@@ -156,6 +156,7 @@ namespace WebAPI.Extensions
             services.AddScoped<IRepositoryWrapper,RepositoryWrapper>();
             services.AddScoped<IFileMediaRepository, FileMediaRepository>();
             services.AddScoped<IMediaCategoryRepository, MediaCategoryRepository>();
+            services.AddScoped<IFileCategoryRepository, FileCategoryRepository>();
 
             //Dependency Services DbContext
             services.AddScoped<IUserServices, UserServices>();
