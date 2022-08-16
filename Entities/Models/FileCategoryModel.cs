@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    [Table("FileCategory")]
+    [Table("FileCategoryMedia")]
     public class FileCategoryModel
     {
         public string? FileId { get; set; }

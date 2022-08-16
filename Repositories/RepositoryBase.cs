@@ -18,10 +18,10 @@ namespace Repositories
            _context.Set<T>().Add(entity);
            return _context.SaveChanges() > 0;
         }
-        public bool CreateRange(IEnumerable<T> entities)
+        public async Task<bool> CreateRange(IEnumerable<T> entities)
         {
-            _context.Set<T>().AddRangeAsync(entities);
-            return _context.SaveChanges() > 0;
+            await _context.Set<T>().AddRangeAsync(entities);
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public bool Delete(T entity)
@@ -33,6 +33,16 @@ namespace Repositories
 
             _context.Remove(entity);
             return _context.SaveChanges() > 0;
+        }
+
+        public async Task<bool> DeleteRange(IEnumerable<T> entities)
+        {
+            if (entities.Any())
+            {
+                _context.RemoveRange(entities);
+                return await _context.SaveChangesAsync() > 0;
+            }
+            return false;
         }
 
         public IQueryable<T> GetAll()

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DTO.FileDTO
 {
-    public class DeleteFileRequest
+    public class UpdateFileRequest
     {
-        public IEnumerable<string>? IdFile { get; set; }
+        public string? FileId { get; set; }
+        public IEnumerable<string>? CategoryIds { get; set; }
     }
 }

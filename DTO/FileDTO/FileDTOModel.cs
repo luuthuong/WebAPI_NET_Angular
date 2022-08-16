@@ -15,7 +15,8 @@ namespace DTO.FileDTO
         public string? FileName { get; set; }
         public IFormFile? File { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
         public long? Size { get; set; }
-        public IEnumerable<string>? FileCategoryIds { get; set; }
+        public IEnumerable<string?>? FileCategoryIds { get; set; }
     }
 }

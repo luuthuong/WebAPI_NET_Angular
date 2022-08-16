@@ -8,8 +8,8 @@ namespace Common.Helper
 {
     public class PaginationList<T>:List<T>
     {
-        public int PageIndex { get; set; }
-        public int TotalPage { get; set; }
+        public int? PageIndex { get; set; }
+        public int? TotalPage { get; set; }
         
         public static PaginationList<T> Create(List<T> source, int pageIndex, int pageSize)
         {

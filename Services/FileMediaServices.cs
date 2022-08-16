@@ -17,14 +17,14 @@ namespace Services
     {
 
         private readonly IFileMediaRepository _fileRepository;
-        private readonly IFileCategoryRepository _categoryRepository;
-        public FileMediaServices(IFileMediaRepository repository, IFileCategoryRepository categoryRepository)
+        private readonly IFileCategoryRepository _fileCategoryRepository;
+        public FileMediaServices(IFileMediaRepository repository, IFileCategoryRepository fileCategoryRepository)
         {
             _fileRepository = repository;
-            _categoryRepository = categoryRepository;
+            _fileCategoryRepository = fileCategoryRepository;
         }
 
-        public async Task<bool> AddMultiFile(CreateFileRequest  files)
+        public async Task<bool> AddFilesMedia(CreateFileRequest files)
         {
             var newFiles = new List<FileModel>();
             var newFileCategories = new List<FileCategoryModel>();
@@ -56,36 +56,25 @@ namespace Services
                     newFiles.Add(file);
                 }
             }
-            bool result = _fileRepository.CreateRange(newFiles);
-            return newFileCategories.Count > 0 && result ? _categoryRepository.CreateRange(newFileCategories) : result;
+            bool result = await _fileRepository.CreateRange(newFiles);
+            return newFileCategories.Count > 0 && result ? await _fileCategoryRepository.CreateRange(newFileCategories) : result;
         }
 
-        public bool AddFileMedia(CreateFileRequest file)
+        public async Task<bool> DeleteFileMedia(DeleteFileRequest requests)
         {
-
-            //using (var ms = new MemoryStream())
-            //{
-            //    if (file.File == null) return false;
-            //    file.File.CopyToAsync(ms);
-            //    var fileByte = ms.ToArray();
-
-            //    var newFile = new FileModel
-            //    {
-            //        Id = Guid.NewGuid().ToString(),
-            //        Type =file.File.Headers.ContentType,
-            //        Name = file.File.FileName,
-            //        CreatedDate = DateTime.Now,
-            //        SrcFile = fileByte,
-            //        FileURL = file.FileUrl
-            //    };
-            //    return _repository.Create(newFile);
-            //}
+            var filesDelete = new List<FileModel>();
+            if (requests.IdFile == null) return false;
+            foreach (var item in requests.IdFile)
+            {
+                var result = _fileRepository.GetByCondition(e => e.Id == item).FirstOrDefault();
+                if (result != null)
+                {
+                    filesDelete.Add(result);
+                }
+                throw new Exception("File Not Found");
+            }
+            if (filesDelete.Any()) return await _fileRepository.DeleteRange(filesDelete);
             return false;
-        }
-
-        public bool DeleteFileMedia(DeleteFileRequest requests)
-        {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<FileDTOModel> GetAllFile()
@@ -99,7 +88,8 @@ namespace Services
                     Id = item.Id,
                     Type = item.Type,
                     CreatedDate = item.CreatedDate,
-                    FileName = item.Name
+                    FileName = item.Name,
+                    FileCategoryIds = _fileCategoryRepository.GetAll().Where(x => x.FileId == item.Id).Select(x => x.FileId)
                 };
                 if (item.SrcFile != null)
                 {
@@ -107,12 +97,53 @@ namespace Services
                 }
                 fileDTOs.Add(fileDTO);
             }
-            return fileDTOs.OrderByDescending(x=>x.CreatedDate);
+            return fileDTOs.OrderByDescending(x => x.CreatedDate);
         }
 
-        public FileDTOModel GetFileById(string Id)
+        public FileDTOModel? GetFileById(string Id)
         {
-            throw new NotImplementedException();
+            var result = _fileRepository.GetByCondition(x => x.Id == Id).FirstOrDefault();
+            if (result == null) return null;
+            var file = new FileDTOModel
+            {
+                Id = result.Id,
+                Type = result.Type,
+                FileName = result.Name,
+                Size = result.SrcFile?.Length,
+                CreatedDate = result.CreatedDate,
+                FileCategoryIds = _fileCategoryRepository.GetAll().Where(x => x.FileId == result.Id).Select(x => x.FileId)
+            };
+            return file;
+        }
+
+        public IEnumerable<FileDTOModel> SearchFile(SearchFileRequest request)
+        {
+            if (request == null) return this.GetAllFile();
+            return this.GetAllFile().Where(x => (x.FileName == null || x.FileName.Contains(request.Name ?? "")) 
+                                            && (
+                                                  (request.CreatedDate == null && request.UpdatedDate == null)
+                                               || ((request.CreatedDate == null && request.UpdatedDate != null) && x.UpdatedDate < request.UpdatedDate)
+                                               || ((request.CreatedDate != null && request.UpdatedDate == null) && x.CreatedDate > request.CreatedDate)
+                                               || ((x.CreatedDate > request.CreatedDate && x.UpdatedDate < request.UpdatedDate)))
+                                            && ( request.CategoryIds == null || (x.FileCategoryIds!= null && x.FileCategoryIds.Select(x=>request.CategoryIds.Contains(x)).Any())));
+        }
+
+        public async Task<bool> UpdateFileMedia(UpdateFileRequest request)
+        {
+            if (request.CategoryIds != null)
+            {
+                var fileCategory = new List<FileCategoryModel>();
+                foreach (var categoryId in request.CategoryIds)
+                {
+                    fileCategory.Add(new FileCategoryModel
+                    {
+                        CategoryId = categoryId,
+                        FileId = request.FileId
+                    });
+                }
+                return await _fileCategoryRepository.CreateRange(fileCategory) ;
+            }
+            return false;
         }
     }
 }

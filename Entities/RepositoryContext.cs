@@ -23,10 +23,6 @@ namespace Entities
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<FileModel>()
-            //    .HasMany(f => f.Categories)
-            //    .WithMany(c => c.FilesMedia)
-            //    .UsingEntity<FileCategoryModel>();
             modelBuilder.Entity<FileCategoryModel>(f =>
             {
                 f.HasKey(e => new { e.CategoryId, e.FileId });
@@ -37,6 +33,11 @@ namespace Entities
             modelBuilder.Entity<FileModel>(f =>
             {
                 f.HasIndex("Name").IsUnique();
+            });
+
+            modelBuilder.Entity<MediaCategoryModel>(c =>
+            {
+                c.HasIndex("Name").IsUnique();
             });
         }
     }

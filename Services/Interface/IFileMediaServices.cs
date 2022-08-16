@@ -11,10 +11,13 @@ namespace Services.Interface
     public interface IFileMediaServices
     {
         IEnumerable<FileDTOModel> GetAllFile();
-        FileDTOModel GetFileById(string Id );
-        Task<bool> AddMultiFile(CreateFileRequest files);
-        bool AddFileMedia(CreateFileRequest file);
-        bool DeleteFileMedia(DeleteFileRequest request);
+        FileDTOModel? GetFileById(string Id );
+        Task<bool> AddFilesMedia(CreateFileRequest files);
+        Task<bool> DeleteFileMedia(DeleteFileRequest request);
+
+        Task<bool> UpdateFileMedia(UpdateFileRequest request);
+
+        IEnumerable<FileDTOModel>? SearchFile(SearchFileRequest request);
 
     }
 }
