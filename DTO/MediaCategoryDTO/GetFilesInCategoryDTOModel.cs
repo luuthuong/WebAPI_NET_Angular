@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTO.FileDTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace DTO.MediaCategoryDTO
 {
-    public class UpdateMediaCategoryRequest
+    public class GetFilesInCategoryDTOModel
     {
         public string? Id { get; set; }
-        public string? ParentId { get; set; }
         public string? Name { get; set; }
-        public string? Description { get; set; }
-
-        public IEnumerable<string>? Files { get; set; }
+        public IEnumerable<FileDTOModel>? Files { get; set; }
     }
 }

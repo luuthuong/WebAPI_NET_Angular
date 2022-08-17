@@ -38,6 +38,7 @@ namespace Entities
             modelBuilder.Entity<MediaCategoryModel>(c =>
             {
                 c.HasIndex("Name").IsUnique();
+                c.HasOne(e => e.Parent).WithMany().HasForeignKey(x => x.ParentId);
             });
         }
     }

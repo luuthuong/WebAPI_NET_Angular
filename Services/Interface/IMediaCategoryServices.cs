@@ -13,8 +13,9 @@ namespace Services.Interface
         MediaCategoryDTOModel GetById(string Id);
 
         bool Create(CreateMediaCategoryRequest request);
-        bool Update(string id, UpdateMediaCategoryRequest request);
-
-        bool Delete(string Id);
+        Task<bool> Update(UpdateMediaCategoryRequest request);
+        IEnumerable<MediaCategoryDTOModel> GetChildren(string Id);
+        Task<bool> Delete(string Id);
+        GetFilesInCategoryDTOModel GetFilesInCategory(GetFilesInCategoryRequest request);
     }
 }

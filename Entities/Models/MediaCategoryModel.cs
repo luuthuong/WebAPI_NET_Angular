@@ -14,6 +14,9 @@ namespace Entities.Models
         [Key]
         public string? Id { get; set; }
 
+        public string? ParentId { get; set; }
+        public virtual MediaCategoryModel? Parent { get; set; }
+
         [Required]
         public string? Name { get; set; }
 
