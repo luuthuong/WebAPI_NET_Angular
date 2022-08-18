@@ -124,7 +124,7 @@ namespace Services
                                                   (request.CreatedDate == null && request.UpdatedDate == null)
                                                || ((request.CreatedDate == null && request.UpdatedDate != null) && x.UpdatedDate < request.UpdatedDate)
                                                || ((request.CreatedDate != null && request.UpdatedDate == null) && x.CreatedDate > request.CreatedDate)
-                                               || ((x.CreatedDate > request.CreatedDate && x.UpdatedDate < request.UpdatedDate)))
+                                               || ((request.CreatedDate != null && request.UpdatedDate == null) && (x.CreatedDate > request.CreatedDate || x.UpdatedDate < request.UpdatedDate)))
                                             && ( request.CategoryIds == null || (x.FileCategoryIds!= null && x.FileCategoryIds.Select(x=>request.CategoryIds.Contains(x)).Any())));
         }
 

@@ -155,5 +155,17 @@ namespace Services
             }
             return result;
         }
+
+        public IEnumerable<MediaCategoryDTOModel> SearchCategory(SearchCategoryRequest request)
+        {
+            var result = this.GetAll().Where(x=> (x.Name == null || x.Name.Contains(request.Name??""))
+                                               &&(request.ParentId == null || request.ParentId == x.ParentId)
+                                               &&(
+                                                    (request.CreatedDate == null && request.UpdatedDate == null)
+                                                  ||((request.CreatedDate != null && request.UpdatedDate == null) && (x.CreatedDate>request.CreatedDate))
+                                                  ||((request.CreatedDate == null && request.UpdatedDate != null) && (x.UpdatedDate<request.UpdatedDate))
+                                                  ||((request.CreatedDate == null && request.UpdatedDate != null) && (x.CreatedDate>request.CreatedDate || x.UpdatedDate<request.UpdatedDate))));
+            return result??Enumerable.Empty<MediaCategoryDTOModel>();
+        }
     }
 }

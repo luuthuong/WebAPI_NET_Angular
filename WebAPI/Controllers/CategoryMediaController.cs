@@ -116,5 +116,18 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpGet("SearchCategory")]
+        public IActionResult SearchCategory([FromQuery] SearchCategoryRequest request)
+        {
+            try
+            {
+                var result = _services.SearchCategory(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

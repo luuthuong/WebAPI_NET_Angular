@@ -17,5 +17,7 @@ namespace Services.Interface
         IEnumerable<MediaCategoryDTOModel> GetChildren(string Id);
         Task<bool> Delete(string Id);
         GetFilesInCategoryDTOModel GetFilesInCategory(GetFilesInCategoryRequest request);
+
+        IEnumerable<MediaCategoryDTOModel> SearchCategory(SearchCategoryRequest request);
     }
 }
