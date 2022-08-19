@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UploadFileModelRequest } from 'src/app/shared/model/FileModel';
 import { HttpBaseService } from '../http-base.service';
 
 @Injectable({

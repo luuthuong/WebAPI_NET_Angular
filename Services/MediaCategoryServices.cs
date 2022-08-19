@@ -142,7 +142,7 @@ namespace Services
             result.Name = category?.Name;
             if (!string.IsNullOrEmpty(result.Id))
             {
-                var fileCategory = _fileCategoryRepository.GetByCondition(x => x.CategoryId == result.Id).Select(x=>x.FileId);
+                var fileCategory = _fileCategoryRepository.GetByCondition(x => x.CategoryId == result.Id).Select(x => x.FileId);
                 var files = _fileRepository.GetByCondition(x => fileCategory.Contains(x.Id)).Select(x=>new FileDTOModel
                 {
                     Id = x.Id,
@@ -158,7 +158,7 @@ namespace Services
 
         public IEnumerable<MediaCategoryDTOModel> SearchCategory(SearchCategoryRequest request)
         {
-            var result = this.GetAll().Where(x=> (x.Name == null || x.Name.Contains(request.Name??""))
+            var result = this.GetAll().Where(x=> (x.Name == null || x.Name.Contains(request.Name ?? ""))
                                                &&(request.ParentId == null || request.ParentId == x.ParentId)
                                                &&(
                                                     (request.CreatedDate == null && request.UpdatedDate == null)

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { takeUntil, throwIfEmpty } from 'rxjs';
-import { FileMediaService } from 'src/app/services/webapi/file-media.service';
-import { UploadFileModelRequest } from 'src/app/shared/model/FileModel';
+import { FileMediaService } from '@app/services/webapi/file-media.service';
+import { takeUntil } from 'rxjs';
 import { BaseComponent } from './../../shared/components/BaseComponent';
 
 @Component({
