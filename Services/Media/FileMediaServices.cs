@@ -3,15 +3,16 @@ using DTO.FileDTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Repositories.Interface;
+using Repositories.Interface.Media;
 using Services.Interface;
+using Services.Interface.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services
+namespace Services.Media
 {
     public class FileMediaServices : IFileMediaServices
     {
@@ -45,7 +46,7 @@ namespace Services
                         CreatedDate = DateTime.Now
                     };
 
-                    if (!String.IsNullOrEmpty(files.FileCategoryId))
+                    if (!string.IsNullOrEmpty(files.FileCategoryId))
                     {
                         newFileCategories.Add(new FileCategoryModel
                         {
@@ -118,14 +119,14 @@ namespace Services
 
         public IEnumerable<FileDTOModel> SearchFile(SearchFileRequest request)
         {
-            if (request == null) return this.GetAllFile();
-            return this.GetAllFile().Where(x => (x.FileName == null || x.FileName.Contains(request.Name ?? "")) 
+            if (request == null) return GetAllFile();
+            return GetAllFile().Where(x => (x.FileName == null || x.FileName.Contains(request.Name ?? ""))
                                             && (
-                                                  (request.CreatedDate == null && request.UpdatedDate == null)
-                                               || ((request.CreatedDate == null && request.UpdatedDate != null) && x.UpdatedDate < request.UpdatedDate)
-                                               || ((request.CreatedDate != null && request.UpdatedDate == null) && x.CreatedDate > request.CreatedDate)
-                                               || ((request.CreatedDate != null && request.UpdatedDate == null) && (x.CreatedDate > request.CreatedDate || x.UpdatedDate < request.UpdatedDate)))
-                                            && ( request.CategoryIds == null || (x.FileCategoryIds!= null && x.FileCategoryIds.Select(x=>request.CategoryIds.Contains(x)).Any())));
+                                                  request.CreatedDate == null && request.UpdatedDate == null
+                                               || request.CreatedDate == null && request.UpdatedDate != null && x.UpdatedDate < request.UpdatedDate
+                                               || request.CreatedDate != null && request.UpdatedDate == null && x.CreatedDate > request.CreatedDate
+                                               || request.CreatedDate != null && request.UpdatedDate == null && (x.CreatedDate > request.CreatedDate || x.UpdatedDate < request.UpdatedDate))
+                                            && (request.CategoryIds == null || x.FileCategoryIds != null && x.FileCategoryIds.Select(x => request.CategoryIds.Contains(x)).Any()));
         }
 
         public async Task<bool> UpdateFileMedia(UpdateFileRequest request)
@@ -141,7 +142,7 @@ namespace Services
                         FileId = request.FileId
                     });
                 }
-                return await _fileCategoryRepository.CreateRange(fileCategory) ;
+                return await _fileCategoryRepository.CreateRange(fileCategory);
             }
             return false;
         }

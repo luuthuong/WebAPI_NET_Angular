@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    [Table("tbl_Category")]
+    [Table("Category")]
     public class CategoryModel
     {
         [Key]
         public Guid Id { get; set; }
+
+        [Required]
+        public string? UserId { get; set; }
+        public UserModel? User { get; set; }
 
         [Required]
         public string? Name { get; set; }

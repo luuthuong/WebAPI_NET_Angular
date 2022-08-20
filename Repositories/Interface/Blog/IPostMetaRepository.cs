@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories.Interface
+namespace Repositories.Interface.Blog
 {
-    public interface IMediaCategoryRepository:IRepositoryBase<MediaCategoryModel>
+    public interface IPostMetaRepository:IRepositoryBase<PostMetaModel>
     {
     }
 }

@@ -36,6 +36,18 @@ namespace WebAPI.Controllers
                 }
             );
         }
+
+        [HttpPost("LogOut")]
+        public IActionResult LogOut()
+        {
+            var result =_authenticationServices.LogOut();
+            if (result.IsCompleted)
+            {
+                return Ok("Dang xuat thanh cong");
+            }
+            return BadRequest("Dang xuat that bai");
+        }
+
         [Authorize]
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken(AuthenticatedResponseDTO token)

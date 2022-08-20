@@ -19,7 +19,7 @@ namespace Common
         {
             ClaimsIdentity claimsIdentity = new ClaimsIdentity();
 
-            if (_claims !=null)
+            if (_claims != null)
             {
                 foreach (Claim claim in _claims)
                 {

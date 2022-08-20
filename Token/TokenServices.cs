@@ -58,8 +58,7 @@ namespace Token
             };
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            SecurityToken securityToken;
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameter, out securityToken);
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameter, out SecurityToken securityToken);
             var jwtSecurityToken = securityToken as JwtSecurityToken;
             if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
                 throw new SecurityTokenException("Invalid Token");

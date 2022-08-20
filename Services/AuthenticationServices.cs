@@ -1,6 +1,7 @@
 ﻿using DTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -39,8 +40,8 @@ namespace Services
         }
         public async Task<AuthenticatedResponseDTO?> Login(LoginDTO login)
         {
+            await _signInManager.SignOutAsync();
             UserModel user = new UserModel();
-
             if (login.UserName != null) {
                 user = await _userManager.FindByNameAsync(login.UserName);
             }
@@ -57,7 +58,7 @@ namespace Services
                     var userRoles = await _userManager.GetRolesAsync(user);
                     var authClaims = new List<Claim>()
                         {
-                            new Claim(ClaimTypes.Sid,user.Id),
+                            new Claim(ClaimTypes.UserData,user.Id),
                             new Claim(ClaimTypes.Name,user.UserName),
                             new Claim(ClaimTypes.Email,user.Email),
                             new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
@@ -81,12 +82,17 @@ namespace Services
             return null;
         }
 
+        public async Task LogOut()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
         public async Task<AuthenticatedResponseDTO?> RefreshToken(AuthenticatedResponseDTO token)
         {
             if (token.AcessToken == null)
                 return null;
             var principle = _tokenService.GetPrincipalFromExpiredToken(token.AcessToken);
-            var userName = principle.Identity != null ? principle.Identity.Name : null;
+            var userName = principle.Identity?.Name ?? String.Empty;
             var user = await _userManager.FindByNameAsync(userName);
 
             if (user == null || user.RefreshToken != token.RefreshToken || user.RefreshTokenExpiredTime <= DateTime.UtcNow)

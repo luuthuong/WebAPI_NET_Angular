@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories.Interface
+namespace Repositories.Interface.Media
 {
-    public interface IFileMediaRepository:IRepositoryBase<FileModel>
+    public interface IFileCategoryRepository : IRepositoryBase<FileCategoryModel>
     {
+
     }
 }

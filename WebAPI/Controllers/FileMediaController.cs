@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interface;
-using Services.Interface;
+using Services.Interface.Media;
 
 namespace WebAPI.Controllers
 {

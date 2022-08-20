@@ -10,18 +10,15 @@ namespace Repositories
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private UserRepository _repository;
+        private IUserRepository? _repository;
         private readonly IdentityUserContext _userContext;
-        private readonly RepositoryContext _repositoryContext;
         public RepositoryWrapper(
-            IdentityUserContext userContext,
-            RepositoryContext repositoryContext
+            IdentityUserContext userContext
             )
         {
             _userContext = userContext;
-            _repositoryContext = repositoryContext;
         }
-        public UserRepository UserRepository
+        public IUserRepository UserRepository
         {
             get
             {

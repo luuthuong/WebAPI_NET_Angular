@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories.Interface
+namespace Repositories.Interface.Blog
 {
-    public interface IFileCategoryRepository:IRepositoryBase<FileCategoryModel>
+    public interface IPostCategoryRepository:IRepositoryBase<PostCategoryModel>
     {
-        
     }
 }

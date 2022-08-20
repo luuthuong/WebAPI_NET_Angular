@@ -8,6 +8,6 @@ namespace Repositories.Interface
 {
     public interface IRepositoryWrapper
     {
-       UserRepository UserRepository { get; }
+        IUserRepository UserRepository { get; }
     }
 }

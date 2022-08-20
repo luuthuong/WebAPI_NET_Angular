@@ -13,10 +13,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Repositories;
+using Repositories.Blog;
 using Repositories.Interface;
+using Repositories.Interface.Blog;
+using Repositories.Interface.Media;
+using Repositories.Media;
 using Services;
+using Services.Blog;
 using Services.Interface;
+using Services.Interface.Blog;
+using Services.Interface.Media;
+using Services.Media;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Text;
 using Token;
 using Token.Interface;
@@ -90,7 +99,9 @@ namespace WebAPI.Extensions
                     ValidAudience = config["JWT:ValidAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:JWTTokenKey"])),
                 };
+                options.SaveToken = true;
             });
+            
         }
 
         public static void ConfigureAuthorization(this IServiceCollection service)
@@ -137,11 +148,6 @@ namespace WebAPI.Extensions
             {
                 options.UseSqlServer(config.GetConnectionString("connection"));
             });
-
-            services.AddDbContext<RepositoryContext>(option =>
-            {
-                option.UseLazyLoadingProxies().UseSqlServer(config.GetConnectionString("connection"));
-            });
         }
 
         public static void ConfigureDependency(this IServiceCollection services)
@@ -157,6 +163,15 @@ namespace WebAPI.Extensions
             services.AddScoped<IFileMediaRepository, FileMediaRepository>();
             services.AddScoped<IMediaCategoryRepository, MediaCategoryRepository>();
             services.AddScoped<IFileCategoryRepository, FileCategoryRepository>();
+            //Blog
+            services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
+            services.AddScoped<IPostCategoryRepository, PostCategoryRepository>();
+            services.AddScoped<IPostCommentRepository, PostCommentRepository>();
+            services.AddScoped<IPostMetaRepository, PostMetaRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IPostTagRepository, PostTagRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
+
 
             //Dependency Services DbContext
             services.AddScoped<IUserServices, UserServices>();
@@ -164,11 +179,13 @@ namespace WebAPI.Extensions
             services.AddScoped<IFileMediaServices, FileMediaServices>();
             services.AddScoped<IMediaCategoryServices,MediaCategoryServices>();
 
+            services.AddScoped<IPostService, PostService>();
             //Dependency Token service
             services.AddTransient<ITokenService, TokenServices>();
 
             //Dependency claimTransformationIdentity
             services.AddTransient<IClaimsTransformation, ClaimTransformationIdentity>();
+
 
         }
 

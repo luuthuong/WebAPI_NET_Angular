@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    [Table("Category",Schema ="Blog")]
+    [Table("Category",Schema = Schema.Blog)]
     public class BlogCategoryModel
     {
         [Key]

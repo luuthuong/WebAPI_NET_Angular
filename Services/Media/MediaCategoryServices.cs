@@ -1,15 +1,16 @@
 ﻿using DTO.FileDTO;
 using DTO.MediaCategoryDTO;
 using Entities.Models;
-using Repositories.Interface;
-using Services.Interface;
+using Repositories.Interface.Media;
+using Services.Interface.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services
+namespace Services.Media
 {
     public class MediaCategoryServices : IMediaCategoryServices
     {
@@ -17,7 +18,7 @@ namespace Services
         private readonly IMediaCategoryRepository _repostiory;
         private readonly IFileMediaRepository _fileRepository;
         private readonly IFileCategoryRepository _fileCategoryRepository;
-        public MediaCategoryServices(IMediaCategoryRepository repostiory, 
+        public MediaCategoryServices(IMediaCategoryRepository repostiory,
                                      IFileMediaRepository fileRepository,
                                      IFileCategoryRepository fileCategoryRepository)
         {
@@ -33,7 +34,8 @@ namespace Services
                 CreatedDate = DateTime.Now,
                 Description = request.Description,
                 Id = Guid.NewGuid().ToString(),
-                Name = request.Name
+                Name = request.Name,
+                UserId = request.UserId
             };
             if (!string.IsNullOrEmpty(request.ParentId))
             {
@@ -46,20 +48,21 @@ namespace Services
 
         public async Task<bool> Delete(string Id)
         {
-           var category = _repostiory.GetByCondition(item => item.Id == Id).ToList().FirstOrDefault();
-           if (category == null) return false;
+            var category = _repostiory.GetByCondition(item => item.Id == Id).ToList().FirstOrDefault();
+            if (category == null) return false;
 
-           var childrens = _repostiory.GetByCondition(x=>x.ParentId == category.Id);
-           if (childrens.Any())
+            var childrens = _repostiory.GetByCondition(x => x.ParentId == category.Id);
+            if (childrens.Any())
             {
                 await _repostiory.DeleteRange(childrens);
             }
-           var result = _repostiory.Delete(category);
-           return result;
+            var result = _repostiory.Delete(category);
+            return result;
         }
 
         public IEnumerable<MediaCategoryDTOModel> GetAll()
         {
+            var allProvider = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.Namespace != null && x.IsClass);
             var categories = _repostiory.GetAll();
             var categoryModels = new List<MediaCategoryDTOModel>();
             foreach (var item in categories)
@@ -81,8 +84,8 @@ namespace Services
 
         public MediaCategoryDTOModel GetById(string Id)
         {
-           var category =  _repostiory.GetByCondition(item => item.Id == Id).FirstOrDefault();
-           if (category == null) return new MediaCategoryDTOModel();
+            var category = _repostiory.GetByCondition(item => item.Id == Id).FirstOrDefault();
+            if (category == null) return new MediaCategoryDTOModel();
 
             var categoryModel = new MediaCategoryDTOModel
             {
@@ -107,7 +110,7 @@ namespace Services
                 Name = item.Name,
                 Description = item.Description,
                 CreatedBy = item.CreatedBy,
-                CreatedDate =item.CreatedDate,
+                CreatedDate = item.CreatedDate,
                 UpdatedDate = item.UpdatedDate
             });
             return childrens;
@@ -116,14 +119,14 @@ namespace Services
         public async Task<bool> Update(UpdateMediaCategoryRequest request)
         {
             var category = _repostiory.GetByCondition(item => item.Id == request.Id).FirstOrDefault();
-            if(category == null) return false;
+            if (category == null) return false;
             category.UpdatedDate = DateTime.Now;
             category.Description = request.Description;
             category.Name = request.Name;
             category.ParentId = request.ParentId;
             if (request.Files != null)
             {
-                var filesCategory = request.Files.Select(x=> new FileCategoryModel
+                var filesCategory = request.Files.Select(x => new FileCategoryModel
                 {
                     CategoryId = category.Id,
                     FileId = x
@@ -143,7 +146,7 @@ namespace Services
             if (!string.IsNullOrEmpty(result.Id))
             {
                 var fileCategory = _fileCategoryRepository.GetByCondition(x => x.CategoryId == result.Id).Select(x => x.FileId);
-                var files = _fileRepository.GetByCondition(x => fileCategory.Contains(x.Id)).Select(x=>new FileDTOModel
+                var files = _fileRepository.GetByCondition(x => fileCategory.Contains(x.Id)).Select(x => new FileDTOModel
                 {
                     Id = x.Id,
                     Type = x.Type,
@@ -158,14 +161,14 @@ namespace Services
 
         public IEnumerable<MediaCategoryDTOModel> SearchCategory(SearchCategoryRequest request)
         {
-            var result = this.GetAll().Where(x=> (x.Name == null || x.Name.Contains(request.Name ?? ""))
-                                               &&(request.ParentId == null || request.ParentId == x.ParentId)
-                                               &&(
-                                                    (request.CreatedDate == null && request.UpdatedDate == null)
-                                                  ||((request.CreatedDate != null && request.UpdatedDate == null) && (x.CreatedDate>request.CreatedDate))
-                                                  ||((request.CreatedDate == null && request.UpdatedDate != null) && (x.UpdatedDate<request.UpdatedDate))
-                                                  ||((request.CreatedDate == null && request.UpdatedDate != null) && (x.CreatedDate>request.CreatedDate || x.UpdatedDate<request.UpdatedDate))));
-            return result??Enumerable.Empty<MediaCategoryDTOModel>();
+            var result = GetAll().Where(x => (x.Name == null || x.Name.Contains(request.Name ?? ""))
+                                               && (request.ParentId == null || request.ParentId == x.ParentId)
+                                               && (
+                                                    request.CreatedDate == null && request.UpdatedDate == null
+                                                  || request.CreatedDate != null && request.UpdatedDate == null && x.CreatedDate > request.CreatedDate
+                                                  || request.CreatedDate == null && request.UpdatedDate != null && x.UpdatedDate < request.UpdatedDate
+                                                  || request.CreatedDate == null && request.UpdatedDate != null && (x.CreatedDate > request.CreatedDate || x.UpdatedDate < request.UpdatedDate)));
+            return result ?? Enumerable.Empty<MediaCategoryDTOModel>();
         }
     }
 }

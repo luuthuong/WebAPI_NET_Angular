@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    [Table("PostComment",Schema ="Blog")]
+    [Table("PostComment",Schema = Schema.Blog)]
     public class PostCommentModel
     {
         [Key]
@@ -23,5 +24,10 @@ namespace Entities.Models
         public string? Title { get; set; }
         public bool? Published { get; set; }
         public string? Content { get; set; }
+        [Required]
+        public DateTime? TimeStamp { get; set; }
+        [Required]
+        public int CommentCount { get; set; }
+        public int VoteCount { get; set; }
     }
 }

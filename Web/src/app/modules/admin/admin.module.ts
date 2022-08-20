@@ -13,8 +13,6 @@ import { UsersComponent } from './views/users/users.component';
 import { LayoutComponent } from './layout/layout.component';
 import { MaterialModule } from '@app/material/material.module';
 
-
-
 @NgModule({
   declarations: [
     AdminComponent,

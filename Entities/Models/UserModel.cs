@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Constants;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    [Table("User",Schema ="App")]
+    [Table("User",Schema = Schema.App)]
     public class UserModel:IdentityUser
     {
         public string? DisplayName { get; set; }

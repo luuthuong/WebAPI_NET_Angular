@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Interface
+namespace Services.Interface.Media
 {
     public interface IMediaCategoryServices
     {

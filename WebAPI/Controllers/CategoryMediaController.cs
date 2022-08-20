@@ -1,7 +1,8 @@
 ﻿using DTO;
 using DTO.MediaCategoryDTO;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Services.Interface;
+using Services.Interface.Media;
 
 namespace WebAPI.Controllers
 {
@@ -9,17 +10,25 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CategoryMediaController : ControllerBase
     {
+        private readonly IHttpContextAccessor _httpContext;
         private readonly IMediaCategoryServices _services;
-        public CategoryMediaController(IMediaCategoryServices services)
+        public CategoryMediaController(
+            IMediaCategoryServices services, IHttpContextAccessor httpContext)
         {
             _services = services;
+            _httpContext = httpContext;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
+            var header =_httpContext?.HttpContext.Request.Headers;
             var result = _services.GetAll();
-            return Ok(result);
+            return Ok(new
+            {
+                results = result,
+                request = header
+            });
         }
 
         [HttpGet("GetById")]

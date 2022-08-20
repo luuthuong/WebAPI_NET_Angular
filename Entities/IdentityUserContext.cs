@@ -23,7 +23,12 @@ namespace Entities
 
         public DbSet<TagModel>? Tag { get; set; }
         public DbSet<PostTagModel>? PostTag { get; set; }
-        
+
+        public DbSet<FileModel>? Files { get; set; }
+        public DbSet<MediaCategoryModel>? MediaCategories { get; set; }
+
+        public DbSet<FileCategoryModel>? FileCategory { get; set; }
+
         public IdentityUserContext(DbContextOptions<IdentityUserContext> option) : base(option) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -37,6 +42,8 @@ namespace Entities
                     item.SetTableName(tableName.Substring(6));
                 }
             }
+
+            builder.HasDefaultSchema("App");
 
             builder.Entity<PostModel>(p =>
             {
@@ -77,6 +84,25 @@ namespace Entities
             builder.Entity<TagModel>(tag =>
             {
                 tag.HasIndex("Name").IsUnique();
+            });
+
+            builder.Entity<FileCategoryModel>(f =>
+            {
+                f.HasKey(e => new { e.CategoryId, e.FileId });
+                f.HasOne(e => e.MediaCategory).WithMany().HasForeignKey(e => e.CategoryId);
+                f.HasOne(e => e.File).WithMany().HasForeignKey(e => e.FileId);
+            });
+
+            builder.Entity<FileModel>(f =>
+            {
+                f.HasIndex("Name").IsUnique();
+            });
+
+            builder.Entity<MediaCategoryModel>(c =>
+            {
+                c.HasIndex("Name").IsUnique();
+                c.HasOne(e => e.Parent).WithMany().HasForeignKey(x => x.ParentId);
+                c.HasOne(e => e.User).WithMany().HasForeignKey(x => x.UserId);
             });
         }
     }

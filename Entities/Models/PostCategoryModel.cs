@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    [Table("PostCategory",Schema ="Blog")]
+    [Table("PostCategory",Schema = Schema.Blog)]
     public class PostCategoryModel
     {
         public string? PostId { get; set; }

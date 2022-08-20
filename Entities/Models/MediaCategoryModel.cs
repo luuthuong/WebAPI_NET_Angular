@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    [Table("CategoryMedia")]
+    [Table("Category",Schema =Schema.Media)]
     public class MediaCategoryModel
     {
         [Key]
@@ -16,6 +17,10 @@ namespace Entities.Models
 
         public string? ParentId { get; set; }
         public virtual MediaCategoryModel? Parent { get; set; }
+
+        [Required]
+        public string? UserId { get; set; }
+        public virtual UserModel? User { get; set; }
 
         [Required]
         public string? Name { get; set; }
