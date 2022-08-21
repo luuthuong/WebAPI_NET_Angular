@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using Constants;
+using DTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -17,26 +18,24 @@ using Token.Interface;
 
 namespace Services
 {
+    
     public class AuthenticationServices : IAuthenticationServices
     {
         private readonly SignInManager<UserModel> _signInManager;
         private readonly UserManager<UserModel> _userManager;
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _config;
-        private readonly IClaimsTransformation _claimsInformation;
         public AuthenticationServices(
             SignInManager<UserModel> signInManager,
             UserManager<UserModel> userManager,
             ITokenService tokenService,
-            IConfiguration config,
-            IClaimsTransformation claimsTransformation
+            IConfiguration config
             )
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _tokenService = tokenService;
             _config = config;
-            _claimsInformation = claimsTransformation;
         }
         public async Task<AuthenticatedResponseDTO?> Login(LoginDTO login)
         {
@@ -58,10 +57,10 @@ namespace Services
                     var userRoles = await _userManager.GetRolesAsync(user);
                     var authClaims = new List<Claim>()
                         {
-                            new Claim(ClaimTypes.UserData,user.Id),
-                            new Claim(ClaimTypes.Name,user.UserName),
-                            new Claim(ClaimTypes.Email,user.Email),
-                            new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+                            new Claim(JwtClaimTypes.UserId, user.Id),
+                            new Claim(ClaimTypes.Name, user.UserName),
+                            new Claim(ClaimTypes.Email, user.Email),
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
                     foreach (var item in userRoles)
                     {
@@ -79,7 +78,7 @@ namespace Services
                     };
                 }
             }
-            return null;
+            return default;
         }
 
         public async Task LogOut()
@@ -91,7 +90,7 @@ namespace Services
         {
             if (token.AcessToken == null)
                 return null;
-            var principle = _tokenService.GetPrincipalFromExpiredToken(token.AcessToken);
+            var principle = _tokenService.GetPrincipalFromToken(token.AcessToken);
             var userName = principle.Identity?.Name ?? String.Empty;
             var user = await _userManager.FindByNameAsync(userName);
 

@@ -89,8 +89,8 @@ namespace WebAPI.Extensions
             {
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
                     ValidateLifetime = true,
                     RequireExpirationTime = true,
                     ValidateIssuerSigningKey = true,
@@ -99,7 +99,6 @@ namespace WebAPI.Extensions
                     ValidAudience = config["JWT:ValidAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:JWTTokenKey"])),
                 };
-                options.SaveToken = true;
             });
             
         }
@@ -154,6 +153,8 @@ namespace WebAPI.Extensions
         {
             //Dependency Authentication
             services.AddScoped<IAuthenticationServices, AuthenticationServices>();
+            //Dependency Token service
+            services.AddScoped<ITokenService, TokenServices>();
 
             //DependencyRepository
             services.AddScoped<IUserRepository,UserRepository>();
@@ -180,8 +181,7 @@ namespace WebAPI.Extensions
             services.AddScoped<IMediaCategoryServices,MediaCategoryServices>();
 
             services.AddScoped<IPostService, PostService>();
-            //Dependency Token service
-            services.AddTransient<ITokenService, TokenServices>();
+            
 
             //Dependency claimTransformationIdentity
             services.AddTransient<IClaimsTransformation, ClaimTransformationIdentity>();

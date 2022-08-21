@@ -1,5 +1,9 @@
 ﻿namespace Constants
 {
+    public class JwtClaimTypes
+    {
+        public const string UserId = "auth/userId";
+    }
     public class Constants
     {
 

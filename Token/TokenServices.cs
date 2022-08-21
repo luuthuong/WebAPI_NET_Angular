@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Constants;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,12 +11,19 @@ using Token.Interface;
 
 namespace Token
 {
+
     public class TokenServices : ITokenService
     {
         private readonly IConfiguration _config;
-        public TokenServices(IConfiguration config)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public TokenServices(
+             IConfiguration config,
+             IHttpContextAccessor httpContextAccessor
+             )
         {
             _config = config;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public string? GenerateAccessToken(IEnumerable<Claim> claims)
@@ -43,7 +53,13 @@ namespace Token
             }
         }
 
-        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        public string GetCurrentToken()
+        {
+            var authorizationHeader = _httpContextAccessor.HttpContext.Request.Headers["authorization"];
+            return (string)authorizationHeader ==  string.Empty ? string.Empty : authorizationHeader.Single().Split(" ").Last();
+        }
+
+        public ClaimsPrincipal GetPrincipalFromToken(string token, bool checkExpiredTime = false)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:JWTTokenKey"]));
             var tokenValidationParameter = new TokenValidationParameters
@@ -64,5 +80,64 @@ namespace Token
                 throw new SecurityTokenException("Invalid Token");
             return principal;
         }
+
+        public bool ResolveCredentialViaToken()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ResolveUserEmail()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ResolveUserId()
+        {
+            string token = GetCurrentToken();
+            ClaimsPrincipal principal = GetPrincipalFromToken(token, true);
+            if (principal == null)
+                throw new SecurityTokenException("Token invalid");
+            var userId = principal.Claims.Where(claim => claim.Type == JwtClaimTypes.UserId).Select(x=>x.Value).FirstOrDefault();
+            var userName = principal.Claims.Where(claim => claim.Type == ClaimTypes.Name).Select(x => x.Value).FirstOrDefault();
+            return "";
+        }
+
+        public string ResolveUserName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ValidateAndResolveUserId(string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ValidateAndResolveUserName(string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public ClaimsPrincipal ValidateJwtToken(string token)
+        //{
+        //    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:JWTTokenKey"]));
+        //    var tokenValidatorParameter = new TokenValidationParameters()
+        //    {
+        //        ValidateAudience = true,
+        //        ValidateActor = true,
+        //        ValidateIssuer = true,
+        //        ValidateLifetime = true,
+        //        RequireExpirationTime = true,
+        //        RequireSignedTokens = true,
+        //        ValidIssuer = _config["JWT:ValidIssuer"],
+        //        ValidAudience = _config["JWT:ValidAudience"],
+        //        IssuerSigningKey = secretKey,
+        //    };
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var principle = tokenHandler.ValidateToken(token, tokenValidatorParameter, out SecurityToken securityToken) ;
+        //    var jwtSecurityToken = securityToken as JwtSecurityToken;
+        //    if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+        //        throw new SecurityTokenException("Token invalid");
+        //    return principle;
+        //}
     }
 }
