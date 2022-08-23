@@ -1,4 +1,7 @@
 ﻿using Entities.Models;
+using Entities.Models.Blog;
+using Entities.Models.Media;
+using Entities.Models.Shop;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +31,20 @@ namespace Entities
         public DbSet<MediaCategoryModel>? MediaCategories { get; set; }
 
         public DbSet<FileCategoryModel>? FileCategory { get; set; }
+
+
+        public DbSet<ProductModel>? Product { get; set; }
+        public DbSet<ProductOrderItemModel>? ProductOrderItem { get; set; }
+        public DbSet<ProductCartItemModel>? ProductCartItem { get; set; }
+        public DbSet<ProductReviewModel>? ProductReview { get; set; }
+        public DbSet<ProductMetaModel>? ProductMeta { get; set; }
+        public DbSet<ProductCategoryModel>? ProductCategory { get; set; }
+        public DbSet<ProductTagModel>? ProductTag { get; set; }
+        public DbSet<ShopCartModel>? ShopCart { get; set; }
+        public DbSet<ShopCategoryModel>? ShopCategory { get; set; }
+        public DbSet<ShopTagModel>? ShopTag { get; set; }
+        public DbSet<ShopOrderModel>? ShopOrder { get; set; }
+        public DbSet<ShopTransactionModel>? ShopTransaction { get; set; }
 
         public IdentityUserContext(DbContextOptions<IdentityUserContext> option) : base(option) { }
 
@@ -103,6 +120,63 @@ namespace Entities
                 c.HasIndex("Name").IsUnique();
                 c.HasOne(e => e.Parent).WithMany().HasForeignKey(x => x.ParentId);
                 c.HasOne(e => e.User).WithMany().HasForeignKey(x => x.UserId);
+            });
+
+            //Shop
+            builder.Entity<ProductModel>(item =>
+            {
+                item.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.ClientNoAction);
+            });
+            builder.Entity<ShopCartModel>(x =>
+            {
+                x.HasOne(e => e.User).WithMany().HasForeignKey(e => e.UserId);
+            });
+            builder.Entity<ProductCartItemModel>(item =>
+            {
+                item.HasOne(x => x.Cart).WithMany().HasForeignKey(x => x.CartId);
+                item.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId);
+            });
+            builder.Entity<ProductReviewModel>(item =>
+            {
+                item.HasOne(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId);
+                item.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId);
+            });
+            builder.Entity<ProductCategoryModel>(item =>
+            {
+                item.HasKey(x => new { x.ProductId, x.CategoryId });
+                item.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId);
+                item.HasOne(x=>x.Category).WithMany().HasForeignKey(x => x.CategoryId);
+            });
+
+            builder.Entity<ShopCategoryModel>(item =>
+            {
+                item.HasIndex(x => x.Name).IsUnique();
+                item.HasOne(x => x.Parent).WithMany().HasForeignKey(x => x.ParentId);
+            });
+
+            builder.Entity<ProductMetaModel>(item =>
+            {
+                item.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.ClientCascade);
+            });
+            builder.Entity<ProductTagModel>(item =>
+            {
+                item.HasKey(x => new { x.ProductId, x.TagId });
+                item.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId);
+                item.HasOne(x => x.Tag).WithMany().HasForeignKey(x => x.TagId);
+            });
+            builder.Entity<ProductOrderItemModel>(item =>
+            {
+                item.HasOne(x => x.Order).WithMany().HasForeignKey(x => x.OrderId);
+                item.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId);
+            });
+            builder.Entity<ShopOrderModel>(item =>
+            {
+                item.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.ClientCascade);
+            });
+            builder.Entity<ShopTransactionModel>(item =>
+            {
+                item.HasOne(x => x.User).WithMany().HasForeignKey(item => item.UserId).OnDelete(DeleteBehavior.ClientCascade);
+                item.HasOne(x => x.Order).WithMany().HasForeignKey(item => item.OrderId).OnDelete(DeleteBehavior.ClientCascade);
             });
         }
     }

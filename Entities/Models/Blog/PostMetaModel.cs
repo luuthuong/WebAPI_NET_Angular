@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models.Blog
 {
-    [Table("PostMeta",Schema = Schema.Blog)]
+    [Table("PostMeta", Schema = Schema.Blog)]
     public class PostMetaModel
     {
         [Key]

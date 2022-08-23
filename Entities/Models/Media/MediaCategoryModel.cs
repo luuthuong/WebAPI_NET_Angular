@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models.Media
 {
-    [Table("Category",Schema =Schema.Media)]
+    [Table("Category", Schema = Schema.Media)]
     public class MediaCategoryModel
     {
         [Key]

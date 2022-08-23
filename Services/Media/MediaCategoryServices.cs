@@ -1,6 +1,7 @@
 ﻿using DTO.FileDTO;
 using DTO.MediaCategoryDTO;
 using Entities.Models;
+using Entities.Models.Media;
 using Repositories.Interface.Media;
 using Services.Interface.Media;
 using System;

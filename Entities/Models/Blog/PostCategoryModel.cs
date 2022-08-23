@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models.Blog
 {
-    [Table("PostCategory",Schema = Schema.Blog)]
+    [Table("PostCategory", Schema = Schema.Blog)]
     public class PostCategoryModel
     {
         public string? PostId { get; set; }

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models.Blog
 {
-    [Table("PostComment",Schema = Schema.Blog)]
+    [Table("PostComment", Schema = Schema.Blog)]
     public class PostCommentModel
     {
         [Key]
@@ -20,7 +20,7 @@ namespace Entities.Models
         public string? ParentId { get; set; }
         public virtual PostCommentModel? ParentComment { get; set; }
 
-        [MaxLength(100),Required]
+        [MaxLength(100), Required]
         public string? Title { get; set; }
         public bool? Published { get; set; }
         public string? Content { get; set; }

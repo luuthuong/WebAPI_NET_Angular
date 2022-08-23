@@ -14,5 +14,6 @@
         public const string Media = "Media";
         public const string App = "App";
         public const string Blog = "Blog";
+        public const string Shop = "Shop";
     }
 }

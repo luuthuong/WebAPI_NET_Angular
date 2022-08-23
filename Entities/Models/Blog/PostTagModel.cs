@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models.Blog
 {
-    [Table("PostTag",Schema = Schema.Blog)]
+    [Table("PostTag", Schema = Schema.Blog)]
     public class PostTagModel
     {
         public string? PostId { get; set; }

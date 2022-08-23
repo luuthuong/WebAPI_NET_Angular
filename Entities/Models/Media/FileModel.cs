@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models.Media
 {
-    [Table("File",Schema = Schema.Media)]
+    [Table("File", Schema = Schema.Media)]
     public class FileModel
     {
         [Key]

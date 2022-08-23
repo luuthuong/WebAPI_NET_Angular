@@ -7,18 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models.Blog
 {
-    [Table("Tag",Schema = Schema.Blog)]
-    public class TagModel
+    [Table("Category", Schema = Schema.Blog)]
+    public class BlogCategoryModel
     {
         [Key]
         public string? Id { get; set; }
+        public string? ParentId { get; set; }
+        public virtual BlogCategoryModel? Parent { get; set; }
 
-        [Required,MaxLength(75)]
+        [Required, MaxLength(150)]
         public string? Name { get; set; }
+
+        [MaxLength(200)]
         public string? MetaTitle { get; set; }
+
+        [MaxLength(200)]
         public string? Slug { get; set; }
-        public string? Content { get; set; }
     }
 }

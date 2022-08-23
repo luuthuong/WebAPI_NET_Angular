@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Entities.Models;
+using Entities.Models.Media;
 using Repositories.Interface;
 using Repositories.Interface.Media;
 using System;

@@ -1,6 +1,6 @@
 ﻿using Common.Helper;
 using DTO.FileDTO;
-using Entities.Models;
+using Entities.Models.Media;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interface.Media;

@@ -7,31 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models.Shop
 {
-    [Table("Post",Schema = Schema.Blog)]
-    public class PostModel
+    [Table("Product", Schema = Schema.Shop)]
+    public class ProductModel
     {
         [Key]
         public string? Id { get; set; }
-
         [Required]
-        public string? AuthorId { get; set; }
+        public string? UserId { get; set; }
         public virtual UserModel? User { get; set; }
-
-        public string? ParentId { get; set; }
-        public virtual PostModel? PostParent { get; set; }
-
-        public string? Title { get; set; }
+        [Required,MaxLength(250)]
+        public string? Name { get; set; }
         public string? MetaTitle { get; set; }
-        [Required]
+        [Required,MaxLength(100)]
         public string? Slug { get; set; }
-        public string? Summary { get; set; }
-        public bool? Published { get; set; }
+        public uint? Type { get; set; }
+        [MaxLength(100)]
+        public string? Sku { get; set; }
         [Required]
+        public float? Price { get; set; }
+        public float? Discount { get; set; }
+        public int? Quantity { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? PublishedDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string? Content { get; set; }
     }
 }

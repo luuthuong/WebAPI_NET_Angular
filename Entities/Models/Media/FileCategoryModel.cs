@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.Models.Media
 {
-    [Table("FileCategory",Schema =Schema.Media)]
+    [Table("FileCategory", Schema = Schema.Media)]
     public class FileCategoryModel
     {
         public string? FileId { get; set; }

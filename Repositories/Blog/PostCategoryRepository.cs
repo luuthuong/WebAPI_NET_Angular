@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Entities.Models;
+using Entities.Models.Blog;
 using Repositories.Interface.Blog;
 using System;
 using System.Collections.Generic;
