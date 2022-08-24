@@ -22,8 +22,8 @@ namespace Token
              IHttpContextAccessor httpContextAccessor
              )
         {
-            _config = config;
-            _httpContextAccessor = httpContextAccessor;
+            _config = config ?? throw new ArgumentNullException(nameof(_config));
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(_httpContextAccessor));
         }
 
         public string? GenerateAccessToken(IEnumerable<Claim> claims)
