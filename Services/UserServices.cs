@@ -18,10 +18,16 @@ namespace Services
     {
         private readonly IUserRepository _repository;
         private readonly UserManager<UserModel> _userManager;
-        public UserServices(IUserRepository repository, UserManager<UserModel> userManager)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public UserServices(
+            IUserRepository repository, 
+            UserManager<UserModel> userManager, 
+            IHttpContextAccessor contextAccessor
+            )
         {
             _repository = repository;
             _userManager = userManager;
+            _contextAccessor = contextAccessor;
         }
 
 

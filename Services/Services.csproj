@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <Folder Include="Dependency\" />
+    <Folder Include="Interface\Shop\" />
+    <Folder Include="Shop\" />
   </ItemGroup>
 
 </Project>

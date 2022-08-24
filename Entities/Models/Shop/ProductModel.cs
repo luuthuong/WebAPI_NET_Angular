@@ -22,7 +22,6 @@ namespace Entities.Models.Shop
         public string? MetaTitle { get; set; }
         [Required,MaxLength(100)]
         public string? Slug { get; set; }
-        public uint? Type { get; set; }
         [MaxLength(100)]
         public string? Sku { get; set; }
         [Required]

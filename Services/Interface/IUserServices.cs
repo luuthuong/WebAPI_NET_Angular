@@ -18,5 +18,6 @@ namespace Services.Interface
         IEnumerable<UserDTOModel> GetAllUsers();
         Task<UserDTOModel?> GetUserById(string id);
         IEnumerable<Claim>? GetUserClaim();
+
     }
 }

@@ -6,6 +6,7 @@ using Repositories.Interface;
 using Services.Interface;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Token.Interface;
 
 namespace WebAPI.Controllers
 {
@@ -14,11 +15,14 @@ namespace WebAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthenticationServices _authenticationServices;
+        private readonly ITokenService _tokenService;
         public AuthController(
-            IAuthenticationServices authenticationServices
+            IAuthenticationServices authenticationServices,
+            ITokenService tokenService
          )
         {
             _authenticationServices = authenticationServices;
+            _tokenService = tokenService;
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO login)
@@ -40,15 +44,20 @@ namespace WebAPI.Controllers
         [HttpPost("LogOut")]
         public IActionResult LogOut()
         {
-            var result =_authenticationServices.LogOut();
-            if (result.IsCompleted)
+            //var result =_authenticationServices.LogOut();
+            //if (result.IsCompleted)
+            //{
+            //    return Ok("Dang xuat thanh cong");
+            //}
+            //return BadRequest("Dang xuat that bai");
+            return Ok(new
             {
-                return Ok("Dang xuat thanh cong");
-            }
-            return BadRequest("Dang xuat that bai");
+                Id = _tokenService.ResolveUserId(),
+                Email = _tokenService.ResolveUserEmail(),
+                Name = _tokenService.ResolveUserName()
+            }) ;
         }
 
-        [Authorize]
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken(AuthenticatedResponseDTO token)
         {

@@ -36,7 +36,7 @@ namespace Token
                 issuer: _config["JWT:ValidIssuer"],
                 audience: _config["JWT:ValidAudience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(10),
+                expires: DateTime.Now.AddSeconds(30),
                 signingCredentials: signingCredentials
                 );
             var token = tokenHandler.CanWriteToken ? tokenHandler.WriteToken(tokenOptions) : null;
@@ -69,8 +69,9 @@ namespace Token
                 ValidIssuer = _config["JWT:ValidIssuer"],
                 ValidAudience = _config["JWT:ValidAudience"],
                 ValidateIssuerSigningKey = true,
+                RequireExpirationTime = true,
                 IssuerSigningKey = secretKey,
-                ValidateLifetime = false
+                ValidateLifetime = checkExpiredTime,
             };
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
@@ -88,7 +89,12 @@ namespace Token
 
         public string ResolveUserEmail()
         {
-            throw new NotImplementedException();
+            string token = GetCurrentToken();
+            ClaimsPrincipal principal = GetPrincipalFromToken(token, true);
+            if (principal == null)
+                throw new SecurityTokenException("Token invalid");
+            var userEmail = principal.Claims.Where(claim => claim.Type == ClaimTypes.Email).Select(x => x.Value).FirstOrDefault();
+            return userEmail ?? string.Empty;
         }
 
         public string ResolveUserId()
@@ -98,13 +104,17 @@ namespace Token
             if (principal == null)
                 throw new SecurityTokenException("Token invalid");
             var userId = principal.Claims.Where(claim => claim.Type == JwtClaimTypes.UserId).Select(x=>x.Value).FirstOrDefault();
-            var userName = principal.Claims.Where(claim => claim.Type == ClaimTypes.Name).Select(x => x.Value).FirstOrDefault();
-            return "";
+            return userId ?? string.Empty;
         }
 
         public string ResolveUserName()
         {
-            throw new NotImplementedException();
+            string token = GetCurrentToken();
+            ClaimsPrincipal principal = GetPrincipalFromToken(token, true);
+            if (principal == null)
+                throw new SecurityTokenException("Token Invalid");
+            string? userName = principal.Claims.Where(claim => claim.Type == ClaimTypes.Name).Select(x => x.Value).FirstOrDefault();
+            return userName ?? String.Empty;
         }
 
         public string ValidateAndResolveUserId(string token)
