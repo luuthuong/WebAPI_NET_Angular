@@ -71,6 +71,7 @@ namespace Token
                 ValidateIssuerSigningKey = true,
                 RequireExpirationTime = true,
                 IssuerSigningKey = secretKey,
+                ClockSkew = TimeSpan.Zero,
                 ValidateLifetime = checkExpiredTime,
             };
 
@@ -126,28 +127,5 @@ namespace Token
         {
             throw new NotImplementedException();
         }
-
-        //public ClaimsPrincipal ValidateJwtToken(string token)
-        //{
-        //    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:JWTTokenKey"]));
-        //    var tokenValidatorParameter = new TokenValidationParameters()
-        //    {
-        //        ValidateAudience = true,
-        //        ValidateActor = true,
-        //        ValidateIssuer = true,
-        //        ValidateLifetime = true,
-        //        RequireExpirationTime = true,
-        //        RequireSignedTokens = true,
-        //        ValidIssuer = _config["JWT:ValidIssuer"],
-        //        ValidAudience = _config["JWT:ValidAudience"],
-        //        IssuerSigningKey = secretKey,
-        //    };
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var principle = tokenHandler.ValidateToken(token, tokenValidatorParameter, out SecurityToken securityToken) ;
-        //    var jwtSecurityToken = securityToken as JwtSecurityToken;
-        //    if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-        //        throw new SecurityTokenException("Token invalid");
-        //    return principle;
-        //}
     }
 }
