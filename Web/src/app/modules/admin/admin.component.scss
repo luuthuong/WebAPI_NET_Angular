@@ -1,0 +1,44 @@
+.admin-page {
+	.mat-drawer {
+        @apply bg-blue-woodDark text-white;
+	}
+    .mat-tree{
+        @apply bg-transparent text-white;
+
+    }
+
+	.sidebar {
+
+		.sidebar-router-element {
+			height: calc(100% - 60px);
+		}
+        .mat-tree-node{
+            @apply text-base font-semibold cursor-pointer pl-3 text-white;
+
+            .btn-expand-tree{
+                @apply flex items-center;
+            }
+        }
+		.expandNode {
+			overflow: hidden;
+            transition: all .3s linear;
+            height: fit-content;
+
+			&.invisible-children-node {
+				height: 0;
+			}
+
+			&[role="group"] > .mat-tree-node {
+				padding-left: 20px;
+			}
+		}
+	}
+    .admin-body{
+        .admin-main{
+            height: calc( 100% - 64px - 50px);
+        }
+        .admin-footer{
+            max-height: 50px;
+        }
+    }
+}
