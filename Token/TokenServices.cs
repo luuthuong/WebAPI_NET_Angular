@@ -69,7 +69,7 @@ namespace Token
                 ValidIssuer = _config["JWT:ValidIssuer"],
                 ValidAudience = _config["JWT:ValidAudience"],
                 ValidateIssuerSigningKey = true,
-                RequireExpirationTime = true,
+                RequireExpirationTime = checkExpiredTime,
                 IssuerSigningKey = secretKey,
                 ClockSkew = TimeSpan.Zero,
                 ValidateLifetime = checkExpiredTime,

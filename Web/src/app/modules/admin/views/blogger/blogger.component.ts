@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { EditorCondig } from '../../admin-shared/editorConfig';
 
 @Component({
   selector: 'app-blogger',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BloggerComponent implements OnInit {
 
-  constructor() { }
+  public htmlContent = "";
+  public editorConfig: AngularEditorConfig = EditorCondig.EDITOR_CONFIG;
+  constructor(
+  ) { 
+  }
 
   ngOnInit(): void {
   }

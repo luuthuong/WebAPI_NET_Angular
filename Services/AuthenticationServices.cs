@@ -90,7 +90,7 @@ namespace Services
         {
             if (token.AcessToken == null)
                 return null;
-            var principle = _tokenService.GetPrincipalFromToken(token.AcessToken,true);
+            var principle = _tokenService.GetPrincipalFromToken(token.AcessToken);
             var userName = principle.Identity?.Name ?? String.Empty;
             var user = await _userManager.FindByNameAsync(userName);
 
