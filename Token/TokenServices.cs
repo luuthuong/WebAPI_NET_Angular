@@ -36,7 +36,7 @@ namespace Token
                 issuer: _config["JWT:ValidIssuer"],
                 audience: _config["JWT:ValidAudience"],
                 claims: claims,
-                expires: DateTime.Now.AddSeconds(30),
+                expires: DateTime.Now.AddHours(24),
                 signingCredentials: signingCredentials
                 );
             var token = tokenHandler.CanWriteToken ? tokenHandler.WriteToken(tokenOptions) : null;

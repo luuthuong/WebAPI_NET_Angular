@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Models.Blog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +27,23 @@ namespace DTO.PostDTO
 
         }
 
-        public PostDTOModel ToDomain()
+        public PostDTOModel ToDomain(PostModel post)
         {
-            return new PostDTOModel();
+            return new PostDTOModel
+            {
+                Id = post.Id,
+                ParentId = post.ParentId,
+                AuthorId = post.AuthorId,
+                Title = post.Title,
+                MetaTitle = post.MetaTitle,
+                Slug = post.Slug,
+                Content = post.Content,
+                Summary = post.Summary,
+                CreatedDate = post.CreatedDate,
+                Published = post.Published ,
+                PublishedDate = post.PublishedDate,
+                UpdatedDate = post.UpdatedDate
+            };
         }
     }
 }

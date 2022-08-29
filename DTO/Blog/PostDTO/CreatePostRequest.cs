@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 namespace DTO.PostDTO
 {
-    public class UpdatePostRequest
+    public class CreatePostRequest
     {
-        public string? Id { get; set; }
-        public string? AuthorId { get; set; }
         public string? ParentId { get; set; }
         public string? Title { get; set; }
+        public IEnumerable<string>? CategoryId { get; set; }
         public string? MetaTitle { get; set; }
         public string? Slug { get; set; }
         public string? Summary { get; set; }
-        public bool? Published { get; set; }
+        public bool Published { get; set; } = false;
         public string? Content { get; set; }
-
-        
     }
 }

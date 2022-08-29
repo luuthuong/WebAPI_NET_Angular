@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DTO.PostDTO
 {
-    public class CreatePostRequest
+    public class UpdatePostRequest
     {
-        public string? AuthorId { get; set; }
         public string? ParentId { get; set; }
         public string? Title { get; set; }
         public string? MetaTitle { get; set; }

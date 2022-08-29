@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Repositories.Interface;
 using System.Linq.Expressions;
 
@@ -83,10 +84,26 @@ namespace Repositories
              _context.SaveChanges();
         }
 
+        public IDbContextTransaction Transaction()
+        {
+            return _context.Database.BeginTransaction();
+        }
+
+        public Task<IDbContextTransaction> TransactionAsync()
+        {
+            return _context.Database.BeginTransactionAsync();
+        }
+
         public bool Update(T entity)
         {
             _context.Set<T>().Update(entity);
             return _context.SaveChanges() > 0;
+        }
+
+        public async Task<bool> UpdateRange(IEnumerable<T> entities)
+        {
+           _context.Set<T>().UpdateRange(entities);
+            return await _context.SaveChangesAsync() > 0; 
         }
     }
 }

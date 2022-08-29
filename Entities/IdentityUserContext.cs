@@ -23,6 +23,7 @@ namespace Entities
         public DbSet<PostCategoryModel>? PostCategory { get; set; }
         public DbSet<BlogCategoryModel>? BlogCategoryModel { get; set; }
         public DbSet<PostMetaModel>? PostMeta { get; set; }
+        public DbSet<PostMediaModel>? PostMedia { get; set; }
 
         public DbSet<TagModel>? Tag { get; set; }
         public DbSet<PostTagModel>? PostTag { get; set; }
@@ -100,6 +101,11 @@ namespace Entities
                 postTag.HasKey(x => new { x.TagId, x.PostId });
                 postTag.HasOne(x => x.Tag).WithMany().HasForeignKey(x => x.TagId);
                 postTag.HasOne(x=>x.Post).WithMany().HasForeignKey(x => x.PostId);
+            });
+
+            builder.Entity<PostMediaModel>(postMedia =>
+            {
+                postMedia.HasOne(x => x.Post).WithMany().HasForeignKey(x => x.PostId).OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<TagModel>(tag =>
