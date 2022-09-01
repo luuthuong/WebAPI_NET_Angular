@@ -34,6 +34,7 @@ namespace Services.Blog
             using (var transaction = _repository.Transaction())
             {
                 var userId = _tokenService.ResolveUserId();
+
                 if (userId == null) throw new ArgumentNullException(userId);
                 PostModel post = new PostModel()
                 {
@@ -48,7 +49,10 @@ namespace Services.Blog
                     Summary = request.Summary,
                     CreatedDate = DateTime.Now,
                 };
-                if (request.Published) post.PublishedDate = DateTime.Now;
+
+                if (request.Published) 
+                    post.PublishedDate = DateTime.Now;
+
                 if (request.CategoryId?.Count() > 0)
                 {
                     var postCategories = request.CategoryId.Select(item =>
@@ -62,6 +66,7 @@ namespace Services.Blog
                     });
                     _categoryRepository.CreateRange(postCategories);
                 }
+
                 transaction.Commit();
                 return _repository.Create(post);
             }

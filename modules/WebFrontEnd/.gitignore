@@ -1,0 +1,82 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/Web/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+.vs/
+.vs/*
+/.vs
+/.vs/*
+
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
+
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+publish
+
+/WebAPI/obj
+/WebAPI/bin
+/Services/obj
+/Services/bin
+/Repositories/bin
+/Repositories/obj
+/Entities/bin
+/Entities/obj
+/Entities/Migrations
+Entities/Migrations/*
+/DTO/bin
+/DTO/obj
+/Dependencies/bin
+/Dependencies/obj
+/Constants/obj
+/Constants/bin
+/Common/obj
+/Common/bin
+/Token/obj
+/Token/bin
