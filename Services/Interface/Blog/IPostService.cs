@@ -19,6 +19,8 @@ namespace Services.Interface.Blog
 
         PostDTOModel? GetPostById(string id);
 
+        IEnumerable<PostDTOModel> GetPostChildren(string parentId);
+
         bool CreateNewPost(CreatePostRequest request);
 
         bool UpdatePost(string Id,UpdatePostRequest request);

@@ -5,8 +5,12 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class Basecomponent implements OnDestroy{
+  
   public ngUnsubcribe = new Subject<void>();
-  constructor() { }
+
+  constructor() { 
+    
+  }
 
   ngOnDestroy(): void {
       this.ngUnsubcribe.next();

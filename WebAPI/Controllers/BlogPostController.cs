@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interface.Blog;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers
 {
@@ -39,10 +40,24 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("GetChildren")]
+        public IActionResult GetPostChildren(string parentId)
+        {
+            try
+            {
+                var result = _service.GetPostChildren(parentId);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("GetPostOfUser")]
         public IActionResult GetPostOfUser(string userId)
         {
-            var user = User;
+            var user = User.Claims;
             var result = _service.GetPostOfAuthor(userId);
             return Ok(result);
         }

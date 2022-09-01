@@ -13,6 +13,9 @@ module.exports = {
         'blue':{
           'woodDark':'#303956'
         }
+      },
+      gridTemplateColumns:{
+        'autoColumnCustom':'repeat(auto-fit, minmax(100px,1fr))'
       }
     },
   },

@@ -18,7 +18,11 @@ export class HOME_ROUTE{
 }
 
 export class BLOG_ROUTE{
-
+    public static readonly OVERVIEW = 'overview';
+    public static readonly DETAIL = ':id';
+    public static readonly SEARCH = 'search';
+    public static readonly EDIT = 'edit/:id';
+    public static readonly CREATE = 'create';
 }
 
 export class FILEMEDIA_ROUTE{

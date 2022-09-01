@@ -6,6 +6,7 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogSearchResultComponent } from './blog-search-result/blog-search-result.component';
 import { BlogRoutingModule } from './blog-routing.module';
 import { MaterialModule } from '@app/material/material.module';
+import { NgxEditorModule } from 'ngx-editor';
 
 
 
@@ -19,7 +20,8 @@ import { MaterialModule } from '@app/material/material.module';
   imports: [
     CommonModule,
     BlogRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NgxEditorModule
   ]
 })
 

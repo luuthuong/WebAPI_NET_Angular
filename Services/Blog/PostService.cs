@@ -157,6 +157,13 @@ namespace Services.Blog
             return post;
         }
 
+        public IEnumerable<PostDTOModel> GetPostChildren(string parentId)
+        {
+            var result = _repository.GetByCondition(x => x.ParentId == parentId).Select(x=> new PostDTOModel().ToDomain(x));
+            return result.AsEnumerable() ?? Enumerable.Empty<PostDTOModel>();
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<PostDTOModel> GetPostOfAuthor(string authorId)
         {
             var findPostResult = _repository.GetByCondition(x => x.AuthorId == authorId);
