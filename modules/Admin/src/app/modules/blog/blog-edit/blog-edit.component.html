@@ -1,1 +1,15 @@
-<p>blog-edit works!</p>
+<div class="blog-edit">
+    <div [formGroup]="formEditor" class="editor-wrapper">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" ></ngx-editor-menu>
+        <ngx-editor 
+            [editor]="editor" 
+            formControlName="editorContent"
+            placeholder="Type something..."
+            ></ngx-editor>
+    </div>
+</div>
+<button mat-button class="" (click)="exportHtml()">Export</button>
+
+{{html}}
+
+<div *ngIf="html" [innerHtml]="html|safehtml"></div>

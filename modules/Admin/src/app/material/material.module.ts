@@ -10,6 +10,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -26,7 +29,10 @@ import {MatButtonModule} from '@angular/material/button';
     MatSidenavModule,
     MatToolbarModule,
     MatTreeModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule,
+    ScrollingModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

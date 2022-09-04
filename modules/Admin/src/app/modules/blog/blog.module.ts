@@ -7,21 +7,31 @@ import { BlogSearchResultComponent } from './blog-search-result/blog-search-resu
 import { BlogRoutingModule } from './blog-routing.module';
 import { MaterialModule } from '@app/material/material.module';
 import { NgxEditorModule } from 'ngx-editor';
-
-
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { PipeModule } from '@app/shared/pipe/pipe.module';
 
 @NgModule({
   declarations: [
     BlogOverviewComponent,
     BlogEditComponent,
     BlogDetailComponent,
-    BlogSearchResultComponent
+    BlogSearchResultComponent,
   ],
   imports: [
     CommonModule,
     BlogRoutingModule,
     MaterialModule,
-    NgxEditorModule
+    NgxEditorModule.forChild({
+      locals:{
+        bold:'Bold',
+        italic:'Italic',
+        code:'Code',
+        underline:'Underline'
+      }
+    }),
+    FormsModule,
+    ReactiveFormsModule,
+    PipeModule
   ]
 })
 
