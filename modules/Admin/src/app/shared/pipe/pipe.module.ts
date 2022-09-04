@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AppDatePipe } from './appdate.pipe';
 import { SafehtmlPipe } from './safehtml.pipe';
 
 @NgModule({
   declarations: [
-    SafehtmlPipe
+    SafehtmlPipe,
+    AppDatePipe
   ],
   exports:[
-    SafehtmlPipe
+    SafehtmlPipe,
+    AppDatePipe
   ]
 })
 export class PipeModule { }
