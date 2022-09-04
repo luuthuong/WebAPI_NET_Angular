@@ -12,4 +12,12 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Quicksand', sans-serif;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar{
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #2D4263;
+  }
 }

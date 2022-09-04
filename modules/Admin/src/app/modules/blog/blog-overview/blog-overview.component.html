@@ -20,10 +20,10 @@
 	>
 		<div
 			*ngFor="let item of blogs"
-			class="blog-item w-full min-h-[350px] relative overflow-hidden justify-self-center self-center"
+			class="blog-item w-full min-h-[350px] relative  justify-self-center self-center"
 		>
 			<div
-				class="absolute top-0 left-0 right-0 bottom-0 bg-card-light rounded-lg overflow-hidden shadow-baseShadow"
+				class="absolute top-0 left-0 right-0 bottom-0 bg-card-light rounded-lg overflow-hidden shadow-baseShadow bg-blend-exclusion "
 			>
 				<mat-checkbox
 					class="absolute top-1 right-1 z-10"
@@ -48,9 +48,9 @@
 					</div>
 
 					<div
-						class="date-infor font-medium flex justify-around items-center"
+						class="date-infor font-medium flex justify-around items-center "
 					>
-						<div>
+						<div class="font-medium">
 							<i>Create: </i>
 							<span class="text-baseColor font-bold">{{
 								data.createdDate | appdate
@@ -65,7 +65,7 @@
 					</div>
 
 					<div
-						class="blog-author mt-1 px-2 text-md text-black flex justify-between items-center"
+						class="blog-author mt-1 px-2 text-md text-black flex font-medium justify-between items-center"
 					>
 						<div>
 							<i>Author: </i>
@@ -81,7 +81,7 @@
 						</div>
 					</div>
 
-					<div class="category px-2">
+					<div class="category px-2 font-medium">
 						<i>Category: </i>
 						<b>{{ data.category }}</b>
 					</div>

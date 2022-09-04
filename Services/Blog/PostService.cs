@@ -1,6 +1,8 @@
 ﻿using DTO.PostDTO;
 using Entities.Models.Blog;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using Repositories.Interface;
 using Repositories.Interface.Blog;
 using Services.Interface.Blog;
 using System;
@@ -15,18 +17,24 @@ namespace Services.Blog
     public class PostService : IPostService
     {
         private readonly IPostRepository _repository;
-        private readonly IPostCategoryRepository _categoryRepository;
+        private readonly IPostCategoryRepository _categoryPostRepository;
+        private readonly IBlogCategoryRepository _blogCategoryRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
 
         public PostService(
             IPostRepository repository,
             ITokenService tokenService,
-            IPostCategoryRepository categoryRepository
+            IPostCategoryRepository categoryRepository,
+            IBlogCategoryRepository blogCategoryRepository,
+            IUserRepository userRepository
             )
         {
             _repository = repository;
             _tokenService = tokenService;
-            _categoryRepository = categoryRepository;
+            _categoryPostRepository = categoryRepository;
+            _userRepository = userRepository;
+            _blogCategoryRepository = blogCategoryRepository;
         }
 
         public bool CreateNewPost(CreatePostRequest request)
@@ -64,7 +72,7 @@ namespace Services.Blog
                         };
                         return postCategory;
                     });
-                    _categoryRepository.CreateRange(postCategories);
+                    _categoryPostRepository.CreateRange(postCategories);
                 }
 
                 transaction.Commit();
@@ -120,7 +128,7 @@ namespace Services.Blog
 
         public async Task<bool> DeletePostOfCategory(string categoryId, bool includeChilren = false)
         {
-            var postCategory = _categoryRepository.GetByCondition(x => x.CategoryId == categoryId).Select(x => x.PostId).ToList();
+            var postCategory = _categoryPostRepository.GetByCondition(x => x.CategoryId == categoryId).Select(x => x.PostId).ToList();
             var findPostResult = _repository.GetByCondition(x => postCategory.Contains(x.Id));
             foreach (var post in findPostResult)
             {
@@ -145,8 +153,20 @@ namespace Services.Blog
         public IEnumerable<PostDTOModel> GetAllPost()
         {
             var result = _repository.GetAll().ToList();
-            var listPost = result.Select(x => new PostDTOModel().ToDomain(x));
-            return listPost;
+            var listPost = result.Select(x =>
+            {
+                var postDTO = new PostDTOModel().ToDomain(x);
+                var userName = _userRepository.GetByCondition(usr => usr.Id == x.AuthorId).Select(usr=>usr.DisplayName).FirstOrDefault();
+                var categoryPost = _categoryPostRepository.GetByCondition(item => item.PostId == x.Id).Include(item=>item.Category).Select(item=>item.Category).AsEnumerable();
+                if(categoryPost != null)
+                {
+                    postDTO.CategoryIds = categoryPost.Select(item => item?.Id) ?? Enumerable.Empty<string>();
+                    postDTO.CategoryNames = categoryPost.Select(item => item?.Name) ?? Enumerable.Empty<string>();
+                }
+                postDTO.AuthorName = userName ;
+                return postDTO;
+            });
+            return listPost.OrderByDescending(x=>x.CreatedDate) ?? Enumerable.Empty<PostDTOModel>();
         }
 
         public PostDTOModel? GetPostById(string id)
@@ -172,7 +192,7 @@ namespace Services.Blog
 
         public IEnumerable<PostDTOModel> GetPostOfCategory(string categoryId)
         {
-            var postCategory = _categoryRepository.GetByCondition(x => x.CategoryId == categoryId).Select(x => x.PostId).ToList();
+            var postCategory = _categoryPostRepository.GetByCondition(x => x.CategoryId == categoryId).Select(x => x.PostId).ToList();
             var result = _repository.GetByCondition(x => postCategory.Contains(x.Id)).Select(x => new PostDTOModel().ToDomain(x));
             return result;
         }

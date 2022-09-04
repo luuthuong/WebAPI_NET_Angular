@@ -11,12 +11,16 @@ namespace DTO.PostDTO
     {
         public string? Id { get; set; }
         public string? AuthorId { get; set; }
+        public string? AuthorName { get; set; }
         public string? ParentId { get; set; }
         public string? Title { get; set; }
         public string? MetaTitle { get; set; }
         public string? Slug { get; set; }
         public string? Summary { get; set; }
         public bool? Published { get; set; }
+
+        public IEnumerable<string?>? CategoryNames { get; set; }
+        public IEnumerable<string?>? CategoryIds { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? PublishedDate { get; set; }

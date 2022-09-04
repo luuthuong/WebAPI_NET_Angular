@@ -22,10 +22,10 @@ module.exports = {
         }
 			},
 			gridTemplateColumns: {
-				autoColumnCustom: "repeat(auto-fill, minmax(270px, 1fr))",
+				autoColumnCustom: "repeat(auto-fill, minmax(275px, 1fr))",
 			},
       boxShadow:{
-        baseShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px"
+        baseShadow: "0px 3px 3px rgba(0, 0, 0, 0.30) "
       }
 		},
 	},
