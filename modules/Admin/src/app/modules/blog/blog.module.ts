@@ -9,6 +9,7 @@ import { MaterialModule } from '@app/material/material.module';
 import { NgxEditorModule } from 'ngx-editor';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PipeModule } from '@app/shared/pipe/pipe.module';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 @NgModule({
   declarations: [
@@ -16,23 +17,16 @@ import { PipeModule } from '@app/shared/pipe/pipe.module';
     BlogEditComponent,
     BlogDetailComponent,
     BlogSearchResultComponent,
-  ],
+],
   imports: [
     CommonModule,
     BlogRoutingModule,
     MaterialModule,
-    NgxEditorModule.forChild({
-      locals:{
-        bold:'Bold',
-        italic:'Italic',
-        code:'Code',
-        underline:'Underline'
-      }
-    }),
     FormsModule,
     ReactiveFormsModule,
-    PipeModule
-  ]
+    PipeModule,
+	CKEditorModule
+]
 })
 
 export class BlogModule { }

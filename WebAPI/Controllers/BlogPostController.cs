@@ -1,4 +1,6 @@
-﻿using DTO;
+﻿using Common;
+using Common.Interface;
+using DTO;
 using DTO.PostDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +15,14 @@ namespace WebAPI.Controllers
     public class BlogPostController : ControllerBase
     {
         private readonly IPostService _service;
-        public BlogPostController(IPostService service)
+        private readonly ILoggerManager _logger;
+        public BlogPostController(
+            IPostService service,
+            ILoggerManager logger
+            )
         {
             _service = service;
+            _logger = logger;
         }
 
         //[Authorize]
@@ -23,6 +30,8 @@ namespace WebAPI.Controllers
         public IActionResult GetAllPost()
         {
             var result = _service.GetAllPost();
+            string message = JSONManager.ConvertToJson(result);
+            _logger.LogInfo(message);
             return Ok(result);
         }
 

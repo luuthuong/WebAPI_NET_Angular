@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Interface;
 using Entities;
 using Entities.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using NLog;
 using Repositories;
 using Repositories.Blog;
 using Repositories.Interface;
@@ -191,7 +193,8 @@ namespace WebAPI.Extensions
 
         public static void ConfigureLogging(this IServiceCollection services)
         {
-
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "./nlog.config"));
+            services.AddSingleton<ILoggerManager,LoggerManager>();
         }
 
         public static void ConfigureCookie(this IServiceCollection services)

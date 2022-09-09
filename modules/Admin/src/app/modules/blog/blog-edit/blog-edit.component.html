@@ -1,15 +1,75 @@
-<div class="blog-edit">
-    <div [formGroup]="formEditor" class="editor-wrapper">
-        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" ></ngx-editor-menu>
-        <ngx-editor 
-            [editor]="editor" 
-            formControlName="editorContent"
-            placeholder="Type something..."
-            ></ngx-editor>
-    </div>
+<div class="blog-edit px-5 h-full">
+	<div
+		class="blog-edit-header font-bold leading-5 text-gray-800 my-2 text-xl"
+	>
+		{{ !!blogId ? "Edit Blog" : "Create new blog" }}
+	</div>
+	<form [formGroup]="editorFormControl">
+		<div class="grid grid-rows-1">
+			<mat-form-field appearance="fill">
+				<mat-label>Title</mat-label>
+				<input
+					formControlName="title"
+					matInput
+					class="resize-none"
+					placeholder="Fill title..."
+					[errorStateMatcher]="matcherInput"
+				/>
+			</mat-form-field>
+
+			<mat-form-field appearance="fill">
+				<mat-label>Meta Title</mat-label>
+				<input
+					formControlName="metaTitle"
+					matInput
+					placeholder="Meta title ..."
+				/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Slug</mat-label>
+				<input formControlName="slug" matInput placeholder="Slug..." />
+			</mat-form-field>
+
+			<mat-form-field class="w-52" appearance="fill">
+				<mat-label>Toppings</mat-label>
+				<mat-select formControlName="category" multiple>
+					<mat-select-trigger> </mat-select-trigger>
+					<mat-option>2</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div>
+			<ckeditor
+				formControlName="ckeditorContent"
+				[readonly]="!!blogId"
+				debounce="500"
+			>
+				<ckbutton
+					[name]="'saveButton'"
+					[command]="'saveCmd'"
+					(click)="fileinput?.click()"
+					[icon]="
+						'https://cdn-icons-png.flaticon.com/512/5175/5175601.png'
+					"
+					[label]="'Save Document'"
+					[toolbar]="'clipboard,1'"
+				>
+				</ckbutton>
+			</ckeditor>
+			<input style="display: none" #fileinput type="file" />
+		</div>
+		<div class="grid grid-rows-1 mt-4">
+			<mat-form-field appearance="fill">
+				<mat-label>Summary</mat-label>
+				<textarea
+					formControlName="summary"
+					matInput
+					class="resize-none"
+					placeholder="Summary.."
+					[errorStateMatcher]="matcherInput"
+				></textarea>
+			</mat-form-field>
+		</div>
+		<button mat-stroked-button class="float-right my-5">Create</button>
+	</form>
 </div>
-<button mat-button class="" (click)="exportHtml()">Export</button>
-
-{{html}}
-
-<div *ngIf="html" [innerHtml]="html|safehtml"></div>
