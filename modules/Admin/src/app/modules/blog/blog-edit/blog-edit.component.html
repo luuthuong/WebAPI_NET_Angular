@@ -70,6 +70,6 @@
 				></textarea>
 			</mat-form-field>
 		</div>
-		<button mat-stroked-button class="float-right my-5">Create</button>
+		<button (click)="createPost()" [disabled]="editorFormControl.invalid" mat-stroked-button class="float-right my-5">Create</button>
 	</form>
 </div>

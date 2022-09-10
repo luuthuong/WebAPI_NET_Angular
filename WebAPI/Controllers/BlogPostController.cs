@@ -25,7 +25,7 @@ namespace WebAPI.Controllers
             _logger = logger;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("GetAllPost")]
         public IActionResult GetAllPost()
         {
@@ -71,7 +71,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("Create")]
         public IActionResult CreatePost(CreatePostRequest request)
         {

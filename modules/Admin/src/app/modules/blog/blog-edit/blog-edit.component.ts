@@ -1,3 +1,4 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
 	Component,
 	OnInit,
@@ -7,14 +8,19 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BlogService } from '@app/service/blog/blog.service';
+import { TokenStorageService } from '@app/service/token-storage.service';
+import { TokenService } from '@app/service/token.service';
 import { Basecomponent } from '@app/shared/component/basecomponent';
 import { CheckErrorStateMatcher } from '@app/shared/helper/state-input.helper';
+import { CreateNewPostRequest } from '@app/shared/model/blog/createNewPost.model';
+import { environment } from '@enviroment/environment';
 import { takeUntil } from 'rxjs';
 @Component({
 	selector: 'app-blog-edit',
 	templateUrl: './blog-edit.component.html',
 	styleUrls: ['./blog-edit.component.scss'],
-	encapsulation: ViewEncapsulation.None,
+	encapsulation: ViewEncapsulation.None
 })
 export class BlogEditComponent extends Basecomponent implements OnInit {
 	public blogId?: string | number;
@@ -32,7 +38,9 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 	constructor(
 		private sanitize: DomSanitizer,
 		private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private blogService: BlogService,
+		private tokenStorageService : TokenStorageService
 	) {
 		super();
 		this.route.params
@@ -47,6 +55,7 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 			.subscribe((res) => {
 				console.log(res);
 			});
+		console.log(this.tokenStorageService.getToken())
 	}
 
 	ngOnInit(): void {}
@@ -57,5 +66,26 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 
 	onChanged($event: any) {
 		console.log('on change', $event);
+	}
+
+	public createPost(){
+		if(this.editorFormControl.invalid)
+			return;
+		const rawValue = this.editorFormControl.getRawValue();
+		const request: CreateNewPostRequest = {
+			title: rawValue.title || '',
+			metaTitle: rawValue.metaTitle || '',
+			slug: rawValue.slug || '',
+			content:  '342234',
+			summary: rawValue.summary || ''
+		}
+		this.blogService.createNewPost(request)
+			.pipe(takeUntil(this.ngUnsubcribe))
+			.subscribe({
+				next:(result)=>{
+					console.log(result)
+				}
+			})
+
 	}
 }

@@ -4,34 +4,34 @@ import { environment } from '@enviroment/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
-	providedIn: 'root',
+	providedIn: 'root'
 })
 export class HttpBaseService {
-	private _headers = new HttpHeaders();
-	constructor(private _http: HttpClient) {}
+	headers = new HttpHeaders();
+	constructor(private http: HttpClient) {}
 
-	public get<T>(url: string, params: any = {}): Observable<T> {
-		return this._http.get(environment.appSetting?.apiURL + url, {
-			headers: this._headers,
-			params: params,
-		}) as Observable<T>;
+	protected get(url: string, params: any = {}): Observable<any> {
+		return this.http.get(environment.baseURL + url, {
+			headers: this.headers,
+			params,
+		});
 	}
 
-	public post<T>(url: string, payload: any): Observable<T> {
-		return this._http.post(environment.appSetting?.apiURL + url, payload, {
-			headers: this._headers,
-		}) as Observable<T>;
+	protected post(url: string, data: any): Observable<any> {
+		return this.http.post(environment.baseURL + url, data, {
+			headers: this.headers,
+		});
 	}
 
-	public put<T>(url: string, payload: any): Observable<T> {
-		return this._http.put(environment.appSetting?.apiURL + url, payload, {
-			headers: this._headers,
-		}) as Observable<T>;
+	protected put(url: string, data: any): Observable<any> {
+		return this.http.put(environment.baseURL + url, data, {
+			headers: this.headers,
+		});
 	}
 
-	public delete(url: string, params: any = {}): Observable<any> {
-		return this._http.delete(environment.appSetting?.apiURL + url, {
-			headers: this._headers,
+	protected delete(url: string, params: any = {}): Observable<any> {
+		return this.http.delete(environment.baseURL + url, {
+			headers: this.headers,
 			params,
 		});
 	}

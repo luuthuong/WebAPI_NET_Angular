@@ -73,7 +73,7 @@ namespace Services
                     await _userManager.UpdateAsync(user);
                     return new AuthenticatedResponseDTO
                     {
-                        AcessToken = token,
+                        AccessToken = token,
                         RefreshToken = refreshToken
                     };
                 }
@@ -88,9 +88,9 @@ namespace Services
 
         public async Task<AuthenticatedResponseDTO?> RefreshToken(AuthenticatedResponseDTO token)
         {
-            if (token.AcessToken == null)
+            if (token.AccessToken == null)
                 return null;
-            var principle = _tokenService.GetPrincipalFromToken(token.AcessToken);
+            var principle = _tokenService.GetPrincipalFromToken(token.AccessToken);
             var userName = principle.Identity?.Name ?? String.Empty;
             var user = await _userManager.FindByNameAsync(userName);
 
@@ -105,7 +105,7 @@ namespace Services
             await _userManager.UpdateAsync(user);
             return new AuthenticatedResponseDTO()
             {
-                AcessToken = newAccessToken,
+                AccessToken = newAccessToken,
                 RefreshToken = newRefreshToken
             };
         }

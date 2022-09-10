@@ -107,12 +107,12 @@ namespace WebAPI.Extensions
 
         public static void ConfigureAuthorization(this IServiceCollection service)
         {
-            service.AddAuthorization(options =>
-            {
-                var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
-                defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
-                options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
-            });
+            //service.AddAuthorization(options =>
+            //{
+            //    var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+            //    defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+            //    options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+            //});
         }
 
         public static void ConfigureIdentity(this IServiceCollection services)
@@ -128,7 +128,7 @@ namespace WebAPI.Extensions
             //    options.Events.RaiseSuccessEvents = true;
             //    options.Events.RaiseInformationEvents = true;
             //    options.Events.RaiseErrorEvents = true;
-            //}).AddInMemoryIdentityResources();
+            //}).AddInMemoryIdentityResources(); 
 
             services.Configure<IdentityOptions>(config =>
             {

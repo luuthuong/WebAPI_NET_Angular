@@ -3,7 +3,10 @@ export interface IEnvironment{
     appSetting?: IAppSetting;
     baseURL: string;
     assetsPath: string;
-    server?: IModuleConfig
+    server?: IModuleConfig;
+	TOKEN_KEY: string;
+	TOKEN_REFRESH: string;
+	TOKEN_USER: string;
 }
 
 interface IAppSetting{
