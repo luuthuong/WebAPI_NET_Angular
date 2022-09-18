@@ -1,4 +1,5 @@
-﻿using DTO.PostDTO;
+﻿using DTO.Blog.PostDTO;
+using DTO.PostDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Services.Interface.Blog
 
         IEnumerable<PostDTOModel> SearchPost(SearchPostRequest request);
 
-        PostDTOModel? GetPostById(string id);
+        PostDetailDTOModel? GetPostById(string id);
 
         IEnumerable<PostDTOModel> GetPostChildren(string parentId);
 

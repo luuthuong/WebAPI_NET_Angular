@@ -41,8 +41,11 @@
 		<div>
 			<ckeditor
 				formControlName="ckeditorContent"
-				[readonly]="!!blogId"
 				debounce="500"
+				[config]="{
+					height : 600,
+					image2_alignClasses : [ 'align-left', 'align-center', 'align-right' ]
+				}"
 			>
 				<ckbutton
 					[name]="'saveButton'"
@@ -70,6 +73,6 @@
 				></textarea>
 			</mat-form-field>
 		</div>
-		<button (click)="createPost()" [disabled]="editorFormControl.invalid" mat-stroked-button class="float-right my-5">Create</button>
+		<button (click)="updatePost()" [disabled]="editorFormControl.invalid" mat-stroked-button class="float-right my-5">{{blogId ? 'Update':'Create'}}</button>
 	</form>
 </div>

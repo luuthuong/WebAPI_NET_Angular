@@ -17,6 +17,7 @@ export interface BlogModel {
 	metaTitle: string;
 	authorId: string;
 	authorName: string;
+	content: string;
 	slug: string;
 	summary: string;
 	srcImage: string;
@@ -26,4 +27,5 @@ export interface BlogModel {
 	publishedDate: Date;
 	createdDate: Date;
 	updatedDate: Date;
+	isSelected: boolean;
 }

@@ -5,6 +5,7 @@ using Entities.Models.Shop;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,9 @@ namespace Entities
         public DbSet<ShopFileMedia>? ShopFileMedia { get; set; }
 
         public IdentityUserContext(DbContextOptions<IdentityUserContext> option) : base(option) { }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder option){
+            option.UseSqlServer("Server = localhost; Database = WEBAPI; User Id=sa; Password=@Nlt231162289; Trusted_Connection=True;");
+        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

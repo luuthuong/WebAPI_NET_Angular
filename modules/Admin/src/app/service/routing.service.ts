@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class RoutingService {
-	constructor(private route: Router) {}
+	constructor(
+		private router: Router,
+		private activatedRoute: ActivatedRoute
+		) {}
 
 	public navigateTo(path: string[], extras?: NavigationExtras) {
-		this.route.navigate(path, extras);
+		this.router.navigate(path, extras);
+	}
+
+	public getCurrentParams():Observable<Params>{
+		return this.activatedRoute.params;
 	}
 }

@@ -8,36 +8,36 @@ import { BlogEditComponent } from './blog-edit/blog-edit.component';
 import { BlogSearchResultComponent } from './blog-search-result/blog-search-result.component';
 
 const routes: Routes = [
-  {
-    path: BLOG_ROUTE.OVERVIEW,
-    component: BlogOverviewComponent,
-  },
-  {
-    path: BLOG_ROUTE.EDIT,
-    component: BlogEditComponent,
-  },
-  {
-    path: BLOG_ROUTE.CREATE,
-    component: BlogEditComponent,
-  },
-  {
-    path: BLOG_ROUTE.DETAIL,
-    component: BlogDetailComponent,
-  },
-  {
-    path: BLOG_ROUTE.SEARCH,
-    component: BlogSearchResultComponent,
-  },
-  {
-    path: '',
-    redirectTo: BLOG_ROUTE.OVERVIEW,
-    pathMatch: 'full',
-  },
+	{
+		path: BLOG_ROUTE.OVERVIEW,
+		component: BlogOverviewComponent,
+	},
+	{
+		path: BLOG_ROUTE.EDIT,
+		component: BlogEditComponent,
+	},
+	{
+		path: BLOG_ROUTE.CREATE,
+		component: BlogEditComponent,
+	},
+	{
+		path: BLOG_ROUTE.DETAIL,
+		component: BlogDetailComponent,
+	},
+	{
+		path: BLOG_ROUTE.SEARCH,
+		component: BlogSearchResultComponent,
+	},
+	{
+		path: '',
+		redirectTo: BLOG_ROUTE.OVERVIEW,
+		pathMatch: 'full',
+	},
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+	declarations: [],
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule],
 })
 export class BlogRoutingModule {}

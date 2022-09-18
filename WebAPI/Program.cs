@@ -31,7 +31,7 @@ builder.Services.ConfigureIdentity();
 
 builder.Services.ConfigureCookie();
 
-
+builder.Logging.AddJsonConsole();
 var app = builder.Build();
 
 

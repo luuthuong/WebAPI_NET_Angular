@@ -1,4 +1,5 @@
-﻿using DTO.PostDTO;
+﻿using DTO.Blog.PostDTO;
+using DTO.PostDTO;
 using Entities.Models.Blog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -169,11 +170,11 @@ namespace Services.Blog
             return listPost.OrderByDescending(x=>x.CreatedDate) ?? Enumerable.Empty<PostDTOModel>();
         }
 
-        public PostDTOModel? GetPostById(string id)
+        public PostDetailDTOModel? GetPostById(string id)
         {
             var result = _repository.GetByCondition(x => x.Id == id).FirstOrDefault();
-            if (result == null) return new PostDTOModel();
-            var post = new PostDTOModel().ToDomain(result);
+            if (result == null) return new PostDetailDTOModel();
+            var post = new PostDetailDTOModel().ToDomain(result);
             return post;
         }
 

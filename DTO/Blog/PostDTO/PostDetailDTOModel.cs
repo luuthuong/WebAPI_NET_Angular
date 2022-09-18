@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTO.PostDTO
+namespace DTO.Blog.PostDTO
 {
-    public class PostDTOModel
+    public class PostDetailDTOModel
     {
         public string? Id { get; set; }
         public string? AuthorId { get; set; }
@@ -27,24 +27,20 @@ namespace DTO.PostDTO
         public DateTime? PublishedDate { get; set; }
         public string? Content { get; set; }
 
-        public PostDTOModel()
+        public PostDetailDTOModel ToDomain(PostModel post)
         {
-
-        }
-
-        public PostDTOModel ToDomain(PostModel post)
-        {
-            return new PostDTOModel
+            return new PostDetailDTOModel
             {
                 Id = post.Id,
                 ParentId = post.ParentId,
                 AuthorId = post.AuthorId,
                 Title = post.Title,
                 MetaTitle = post.MetaTitle,
+                Content = post.Content,
                 Slug = post.Slug,
                 Summary = post.Summary,
                 CreatedDate = post.CreatedDate,
-                Published = post.Published ,
+                Published = post.Published,
                 PublishedDate = post.PublishedDate,
                 UpdatedDate = post.UpdatedDate
             };

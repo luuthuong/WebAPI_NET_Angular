@@ -62,9 +62,12 @@ namespace Services
                             new Claim(ClaimTypes.Email, user.Email),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
-                    foreach (var item in userRoles)
+                    if (userRoles.Any())
                     {
-                        authClaims.Add(new Claim(ClaimTypes.Role, item));
+                        foreach (var item in userRoles)
+                        {
+                            authClaims.Add(new Claim(ClaimTypes.Role, item));
+                        }
                     }
                     var token = _tokenService.GenerateAccessToken(authClaims);
                     var refreshToken = _tokenService.GenerateRefreshToken();

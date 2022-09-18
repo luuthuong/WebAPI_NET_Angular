@@ -45,6 +45,8 @@ Thumbs.db
 /.vs/*
 /WebAPI/obj
 /WebAPI/bin
+/WebAPI/Project
+/WebAPI/Project/*
 /Services/obj
 /Services/bin
 /Repositories/bin

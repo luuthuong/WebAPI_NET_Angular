@@ -19,7 +19,6 @@ export class TokenStorageService {
 	}
 
 	public getToken(): string {
-		console.log(this._localStorageService.get(environment.TOKEN_KEY))
 		return this._localStorageService.get(environment.TOKEN_KEY);
 	}
 

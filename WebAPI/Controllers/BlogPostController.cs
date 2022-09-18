@@ -30,8 +30,6 @@ namespace WebAPI.Controllers
         public IActionResult GetAllPost()
         {
             var result = _service.GetAllPost();
-            string message = JSONManager.ConvertToJson(result);
-            _logger.LogInfo(message);
             return Ok(result);
         }
 
@@ -71,7 +69,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost("Create")]
         public IActionResult CreatePost(CreatePostRequest request)
         {

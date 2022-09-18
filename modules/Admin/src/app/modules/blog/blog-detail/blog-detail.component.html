@@ -1,1 +1,4 @@
-<p>blog-detail works!</p>
+<div *ngIf="blogDetail" class="blog-detail">
+	<div [innerHtml]="blogDetail.content">
+	</div>
+</div>

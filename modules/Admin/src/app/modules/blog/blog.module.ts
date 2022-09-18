@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@app/material/material.module';
 import { TokenService } from '@app/service/token.service';
 import { PipeModule } from '@app/shared/pipe/pipe.module';
+import { SharedModule } from '@app/shared/shared.module';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogEditComponent } from './blog-edit/blog-edit.component';
@@ -13,29 +14,29 @@ import { BlogRoutingModule } from './blog-routing.module';
 import { BlogSearchResultComponent } from './blog-search-result/blog-search-result.component';
 
 @NgModule({
-  declarations: [
-    BlogOverviewComponent,
-    BlogEditComponent,
-    BlogDetailComponent,
-    BlogSearchResultComponent,
-],
-  imports: [
-    CommonModule,
-	HttpClientModule,
-    BlogRoutingModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    PipeModule,
-	CKEditorModule
-],
-providers:[
-	{
-		provide: HTTP_INTERCEPTORS,
-		useClass: TokenService,
-		multi: true
-	}
-]
+	declarations: [
+		BlogOverviewComponent,
+		BlogEditComponent,
+		BlogDetailComponent,
+		BlogSearchResultComponent,
+	],
+	imports: [
+		CommonModule,
+		HttpClientModule,
+		BlogRoutingModule,
+		MaterialModule,
+		FormsModule,
+		ReactiveFormsModule,
+		PipeModule,
+		CKEditorModule,
+		SharedModule,
+	],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: TokenService,
+			multi: true,
+		},
+	],
 })
-
-export class BlogModule { }
+export class BlogModule {}
