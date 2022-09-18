@@ -31,7 +31,7 @@ builder.Services.ConfigureIdentity();
 
 builder.Services.ConfigureCookie();
 
-
+builder.Logging.AddJsonConsole();
 var app = builder.Build();
 
 
@@ -48,6 +48,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapPost("/auth/login", () =>
+{
+    return "Login";
+});
 
 app.UseCors("EnableCORS");
 

@@ -71,7 +71,7 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost("Create")]
         public IActionResult CreatePost(CreatePostRequest request)
         {

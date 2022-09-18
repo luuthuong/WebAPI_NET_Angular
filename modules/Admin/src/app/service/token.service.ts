@@ -15,7 +15,7 @@ export class TokenService  implements HttpInterceptor{
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		req = req.clone({
 			setHeaders: {
-				Authorization: `Bearer ${localStorage.getItem(environment.TOKEN_KEY)?.replace(`"`,'')}`
+				'Authorization': `Bearer ${this.tokenStorageService.getToken()}`
 			}
 		})
 		return next.handle(req);

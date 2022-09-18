@@ -1,4 +1,3 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
 	Component,
 	OnInit,
@@ -6,21 +5,21 @@ import {
 	ViewEncapsulation,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlogService } from '@app/service/blog/blog.service';
-import { TokenStorageService } from '@app/service/token-storage.service';
-import { TokenService } from '@app/service/token.service';
 import { Basecomponent } from '@app/shared/component/basecomponent';
 import { CheckErrorStateMatcher } from '@app/shared/helper/state-input.helper';
 import { CreateNewPostRequest } from '@app/shared/model/blog/createNewPost.model';
-import { environment } from '@enviroment/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { takeUntil } from 'rxjs';
 @Component({
 	selector: 'app-blog-edit',
 	templateUrl: './blog-edit.component.html',
 	styleUrls: ['./blog-edit.component.scss'],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	providers: [],
 })
 export class BlogEditComponent extends Basecomponent implements OnInit {
 	public blogId?: string | number;
@@ -40,7 +39,8 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private blogService: BlogService,
-		private tokenStorageService : TokenStorageService
+		private spinner: NgxSpinnerService,
+		private snackBar: MatSnackBar
 	) {
 		super();
 		this.route.params
@@ -48,14 +48,6 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 			.subscribe((param) => {
 				this.blogId = param['id'];
 			});
-
-		this.editorFormControl
-			.get('ckeditorContent')
-			?.valueChanges.pipe(takeUntil(this.ngUnsubcribe))
-			.subscribe((res) => {
-				console.log(res);
-			});
-		console.log(this.tokenStorageService.getToken())
 	}
 
 	ngOnInit(): void {}
@@ -64,28 +56,29 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 		return this.sanitize.sanitize(SecurityContext.HTML, htmlString);
 	}
 
-	onChanged($event: any) {
-		console.log('on change', $event);
-	}
-
-	public createPost(){
-		if(this.editorFormControl.invalid)
-			return;
+	public createPost() {
+		if (this.editorFormControl.invalid) return;
 		const rawValue = this.editorFormControl.getRawValue();
 		const request: CreateNewPostRequest = {
 			title: rawValue.title || '',
 			metaTitle: rawValue.metaTitle || '',
 			slug: rawValue.slug || '',
-			content:  '342234',
-			summary: rawValue.summary || ''
-		}
-		this.blogService.createNewPost(request)
+			content: rawValue.ckeditorContent|| '',
+			summary: rawValue.summary || '',
+		};
+		this.spinner.show();
+		this.blogService
+			.createNewPost(request)
 			.pipe(takeUntil(this.ngUnsubcribe))
 			.subscribe({
-				next:(result)=>{
-					console.log(result)
-				}
-			})
-
+				next: (result) => {
+					this.spinner.hide();
+					this.snackBar.open('Success', 'Cancel');
+				},
+				error: (err) => {
+					this.spinner.hide();
+					this.snackBar.open('Error', 'Cancel');
+				},
+			});
 	}
 }
