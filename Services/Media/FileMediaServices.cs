@@ -1,4 +1,5 @@
-﻿using Common.Helper;
+﻿using Common;
+using Common.Helper;
 using DTO.FileDTO;
 using Entities.Models.Media;
 using Microsoft.AspNetCore.Http;
@@ -32,17 +33,12 @@ namespace Services.Media
             if (files.File == null) return false;
             foreach (var item in files.File)
             {
-                using (var ms = new MemoryStream())
-                {
-                    if (item == null) return false;
-                    await item.CopyToAsync(ms);
-                    var fileByte = ms.ToArray();
                     var file = new FileModel
                     {
                         Id = Guid.NewGuid().ToString(),
                         Type = item.Headers.ContentType,
                         Name = item.FileName,
-                        SrcFile = fileByte,
+                        SrcFile = await FileTransfer.ConvertFileToByte(item),
                         CreatedDate = DateTime.Now
                     };
 
@@ -55,7 +51,6 @@ namespace Services.Media
                         });
                     }
                     newFiles.Add(file);
-                }
             }
             bool result = await _fileRepository.CreateRange(newFiles);
             return newFileCategories.Count > 0 && result ? await _fileCategoryRepository.CreateRange(newFileCategories) : result;

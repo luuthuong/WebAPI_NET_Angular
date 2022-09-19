@@ -30,6 +30,11 @@
 				<input formControlName="slug" matInput placeholder="Slug..." />
 			</mat-form-field>
 
+			<div class="flex gap-3 my-3">
+				<span>Publish: </span>
+				<mat-checkbox color="primary" formControlName="published"></mat-checkbox>
+			</div>
+
 			<mat-form-field class="w-52" appearance="fill">
 				<mat-label>Toppings</mat-label>
 				<mat-select formControlName="category" multiple>
@@ -73,6 +78,9 @@
 				></textarea>
 			</mat-form-field>
 		</div>
-		<button (click)="updatePost()" [disabled]="editorFormControl.invalid" mat-stroked-button class="float-right my-5">{{blogId ? 'Update':'Create'}}</button>
+		<div class="btn-group flex my-5 justify-end gap-3 items-center">
+			<button mat-stroked-button color="primary" (click)="navigateToBlogHome()">Go back</button>
+			<button (click)="updatePost()" [disabled]="editorFormControl.invalid" mat-stroked-button>{{blogId ? 'Update':'Create'}}</button>
+		</div>
 	</form>
 </div>

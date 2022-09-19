@@ -5,11 +5,14 @@ import {
 	ViewEncapsulation,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '@app/service/blog/blog.service';
+import { RoutingService } from '@app/service/routing.service';
 import { Basecomponent } from '@app/shared/component/basecomponent';
+import { APP_ROUTE, BLOG_ROUTE } from '@app/shared/constant/routing.constant';
 import { CheckErrorStateMatcher } from '@app/shared/helper/state-input.helper';
 import { CreateNewPostRequest } from '@app/shared/model/blog/createNewPost.model';
 import { IUpdatePostModelRequest } from '@app/shared/model/blog/updatePostRequest.model';
@@ -32,6 +35,7 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 		parentId: new FormControl(''),
 		ckeditorContent: new FormControl('', [Validators.required]),
 		summary: new FormControl(''),
+		published: new FormControl(false)
 	});
 	public matcherInput = new CheckErrorStateMatcher();
 
@@ -40,7 +44,9 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 		private route: ActivatedRoute,
 		private blogService: BlogService,
 		private spinner: NgxSpinnerService,
-		private snackBar: MatSnackBar
+		private snackBar: MatSnackBar,
+		private routingService: RoutingService,
+		private dialog: MatDialog
 	) {
 		super();
 		this.route.params
@@ -67,6 +73,9 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 							this.editorFormControl
 								.get('summary')
 								?.patchValue(result.summary);
+							this.editorFormControl
+								.get('published')
+								?.patchValue(result.published);
 						});
 				}
 			});
@@ -120,7 +129,7 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 			slug: rawValue.slug || '',
 			content: rawValue.ckeditorContent || '',
 			summary: rawValue.summary || '',
-			published: false,
+			published: rawValue.published ||false,
 		};
 		this.spinner.show();
 		this.blogService
@@ -128,6 +137,14 @@ export class BlogEditComponent extends Basecomponent implements OnInit {
 			.pipe(takeUntil(this.ngUnsubcribe))
 			.subscribe((result) => {
 				this.spinner.hide();
+				this.snackBar.open('Success', 'Cancel');
+			},()=>{
+				this.spinner.hide();
+				this.snackBar.open('Error', 'Cancel');
 			});
+	}
+
+	navigateToBlogHome(){
+		this.routingService.navigateTo([APP_ROUTE.BLOG,BLOG_ROUTE.OVERVIEW])
 	}
 }

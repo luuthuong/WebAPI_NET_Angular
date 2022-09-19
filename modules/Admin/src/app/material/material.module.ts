@@ -18,7 +18,7 @@ import {
 	MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
 	declarations: [],
 	imports: [CommonModule],
@@ -37,7 +37,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 		ScrollingModule,
 		MatCheckboxModule,
 		MatSnackBarModule,
-		MatDialogModule
+		MatDialogModule,
+		MatRadioModule
 	],
 	providers: [
 		{
