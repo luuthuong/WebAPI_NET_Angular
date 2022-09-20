@@ -41,6 +41,12 @@ namespace WebAPI.Controllers
             );
         }
 
+        [HttpGet("CheckExpiredToken")]
+        public bool CheckExpiredToken()
+        {
+            return _authenticationServices.CheckExpiredToken(_tokenService.GetCurrentToken());
+        }
+
         [HttpPost("LogOut")]
         public IActionResult LogOut()
         {

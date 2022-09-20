@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@app/material/material.module';
-import { TokenService } from '@app/service/token.service';
 import { PipeModule } from '@app/shared/pipe/pipe.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { CKEditorModule } from 'ng2-ckeditor';
@@ -30,13 +29,6 @@ import { BlogSearchResultComponent } from './blog-search-result/blog-search-resu
 		PipeModule,
 		CKEditorModule,
 		SharedModule,
-	],
-	providers: [
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: TokenService,
-			multi: true,
-		},
-	],
+	]
 })
 export class BlogModule {}

@@ -4,7 +4,7 @@ import {
 	IAuthLogginRequest,
 	IAuthorModel
 } from '@app/shared/model/auth/auth.model';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { HttpBaseService } from './http-base.service';
 import { TokenStorageService } from './token-storage.service';
 
@@ -23,7 +23,12 @@ export class AuthService extends HttpBaseService {
 		return this.post(this._path + 'login', request);
 	}
 
-	public checkLogin():boolean {
-		return !!this._tokenService.getToken()
+	public checkLogin():Observable<boolean> {
+		return this.get(this._path+ 'CheckExpiredToken');
+	}
+
+	public logOut(){
+		this._tokenService.clearAllToken();
+		window.location.reload();
 	}
 }

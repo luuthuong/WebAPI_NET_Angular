@@ -32,4 +32,8 @@ export class TokenStorageService {
 			JSON.stringify(user)
 		);
 	}
+
+	public clearAllToken(){
+		this._localStorageService.clearAll();
+	}
 }

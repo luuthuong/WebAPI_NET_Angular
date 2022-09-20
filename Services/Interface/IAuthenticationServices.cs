@@ -14,5 +14,6 @@ namespace Services.Interface
         Task<AuthenticatedResponseDTO?> Login(LoginDTO login);
         Task LogOut();
         Task<AuthenticatedResponseDTO?> RefreshToken(AuthenticatedResponseDTO token);
+        bool CheckExpiredToken(string token);
     }
 }

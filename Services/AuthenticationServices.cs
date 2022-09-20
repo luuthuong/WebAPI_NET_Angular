@@ -37,6 +37,13 @@ namespace Services
             _tokenService = tokenService;
             _config = config;
         }
+
+        public bool CheckExpiredToken(string token)
+        {
+            var principle = this._tokenService.GetPrincipalFromToken(token,true);
+            return principle != null;
+        }
+
         public async Task<AuthenticatedResponseDTO?> Login(LoginDTO login)
         {
             await _signInManager.SignOutAsync();

@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { NotfoundComponent } from './modules/notfound/notfound.component';
-import { TokenService } from './service/token.service';
+import { TokenStorageService } from './service/token-storage.service';
 
 @NgModule({
 	declarations: [AppComponent, NotfoundComponent],
@@ -31,7 +31,7 @@ import { TokenService } from './service/token.service';
 	providers: [
 		{
 			provide: HTTP_INTERCEPTORS,
-			useClass: TokenService,
+			useClass: TokenStorageService,
 			multi: true,
 		},
 	],
