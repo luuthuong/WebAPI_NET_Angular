@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
                 Id = _tokenService.ResolveUserId(),
                 Email = _tokenService.ResolveUserEmail(),
                 Name = _tokenService.ResolveUserName()
-            }) ;
+            });
         }
 
         [HttpPost("refresh")]

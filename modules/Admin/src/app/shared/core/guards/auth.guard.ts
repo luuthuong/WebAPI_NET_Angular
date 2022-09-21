@@ -31,6 +31,9 @@ export class AuthGuard implements CanActivate {
 		| boolean
 		| UrlTree {
 		this.authService.checkLogin().pipe(take(1)).subscribe({
+			next:()=>{
+				return;
+			},
 			error:()=>{
 				this.tokenStorageService.clearAllToken();
 				this.router.navigate([APP_ROUTE.AUTH, AUTH_ROUTE.LOGIN]);

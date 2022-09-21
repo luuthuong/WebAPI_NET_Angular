@@ -1,8 +1,8 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import {
 	HttpClientModule, HTTP_INTERCEPTORS
 } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
 	LocalStorageModule
@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { NotfoundComponent } from './modules/notfound/notfound.component';
-import { TokenStorageService } from './service/token-storage.service';
+import { TokenInterceptor } from './shared/core/interceptors/token.interceptor';
 
 @NgModule({
 	declarations: [AppComponent, NotfoundComponent],
@@ -31,7 +31,7 @@ import { TokenStorageService } from './service/token-storage.service';
 	providers: [
 		{
 			provide: HTTP_INTERCEPTORS,
-			useClass: TokenStorageService,
+			useClass: TokenInterceptor,
 			multi: true,
 		},
 	],
