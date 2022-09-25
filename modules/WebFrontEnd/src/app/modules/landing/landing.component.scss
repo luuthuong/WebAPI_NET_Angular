@@ -1,12 +1,101 @@
+@use '/src/styles/index.scss' as s;
 
-.particles{
-  ::ng-deep canvas{
-    position: unset !important;
-    height: 100vh;
+.landing {
+  .particle-part {
+    @apply w-full h-screen relative;
+  }
+
+  .landing-top {
+    .landing-top-wrapper {
+      @apply absolute top-0 right-0 bottom-0 left-0;
+
+      .landing-top-content {
+        @apply w-full h-full flex flex-col justify-center items-center;
+      }
+
+      .title {
+        transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+        @apply text-[60px] h-[50px] font-medium text-primary transition-all m-0 tracking-medium;
+
+        &:hover {
+          @apply cursor-pointer;
+          transform: translate3d(0, -10px, -100px);
+          color: #FF9551;
+        }
+      }
+
+      .subtitle-span {
+        @apply font-Roboto tracking-max font-light text-[#faebd7];
+        transition: all 0.1s ease;
+        animation: loading 1s ease-in-out infinite alternate;
+        -webkit-animation: loading 1s ease-in-out infinite alternate;
+        text-shadow: 0 0 0 #faebd7;
+
+        &:hover {
+          @apply text-[#FF4A4A] font-medium text-vw22;
+        }
+      }
+
+      @for $i from 0 through 16 {
+        .subtitle-span:nth-child(#{$i + 1}) {
+          animation-delay: #{calc($i / 10)}s;
+        }
+      }
+    }
+  }
+
+
+  .toolbar-landing{
+    @apply fixed h-16 top-0 left-0 w-full px-4 text-white;
+    .toolbar{
+      @apply flex justify-between items-center h-full;
+      .logo{
+        @apply flex items-center justify-center gap-3 cursor-pointer;
+        .name{
+          @apply text-2xl font-semibold font-Roboto ;
+        }
+      }
+      .item-navigate{
+        a{
+          @apply ml-3 transition-colors font-medium uppercase text-xs tracking-widest;
+          position: relative;
+          transition: all .3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          &.active::after{
+            height: 1px;
+            width: 0;
+            background-color: s.$color-highlight;
+          }
+          &:hover{
+            color: s.$color-highlight;
+          }
+
+        }
+      }
+    }
+    svg{
+      @apply h-11 w-11;
+    }
+
+    &.active{
+      color: s.$color-dark;
+      box-shadow: s.$box-shadow;
+      @apply bg-white;
+    }
   }
 }
 
-::ng-deep canvas{
-  position: unset !important;
-  height: 100vh;
+@-webkit-keyframes loading {
+  to {
+    text-shadow: 20px 0 70px #FF4A4A;
+    transform: translateY(5px);
+    color: #FF4A4A;
+  }
+}
+
+@keyframes loading {
+  to {
+    text-shadow: 20px 0 70px #FF4A4A;
+    color: #FF4A4A;
+    transform: translateY(10px);
+  }
 }

@@ -5,12 +5,18 @@ const routes: Routes = [
   {
     path: 'landing',
     loadChildren: () =>
-      import('@modules/landing/landing.module').then((x) => x.LandingModule),
+      import('@modules/landing/landing.module').then((m) => m.LandingModule),
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    scrollPositionRestoration:'enabled',
+    anchorScrolling: 'enabled',
+    onSameUrlNavigation: 'reload',
+    relativeLinkResolution: 'legacy',
+    scrollOffset:[0,64]
+  })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

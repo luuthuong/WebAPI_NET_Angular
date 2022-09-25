@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { NgParticlesModule } from 'ng-particles';
+import { WindowScrollDirective } from './directive/window-scroll.directive';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    WindowScrollDirective
+  ],
   imports: [
     // CommonModule,
     SwiperModule,
@@ -14,7 +17,8 @@ import { NgParticlesModule } from 'ng-particles';
   ],
   exports:[
     SwiperModule,
-    NgParticlesModule
+    NgParticlesModule,
+    WindowScrollDirective
   ]
 })
 export class SharedCommonModule { }

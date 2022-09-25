@@ -38,7 +38,7 @@ export const PARTICLE_CONFIG: RecursivePartial<IOptions> = {
   },
   particles: {
     color: {
-      value: ['#03dac6', '#ff0266', '#000000'],
+      value: ['#FF9551', '#FF4A4A', '#CFD2CF'],
     },
     links: {
       color: {
@@ -81,7 +81,7 @@ export const PARTICLE_CONFIG: RecursivePartial<IOptions> = {
         enable: true,
         area: 800,
       },
-      value: 80,
+      value: 40,
     },
     opacity: {
       value: 0.5,
