@@ -11,6 +11,7 @@ import SwiperCore, { Pagination, Navigation ,Mousewheel, Keyboard} from "swiper"
 import { IBlogModel } from 'app/shared/model/blog.model';
 import { BLOG_CARD, PRODUCT_PROMOTION } from './common/landing.template.constant';
 import { INavigateToolbar } from 'app/shared/model/navigate-fragment.model';
+import { BREAKPOINTS_SWIPER, BREAKPOINTS_SWIPER_PRIMARY } from 'app/shared/constants/swiper-config.constants';
 
 SwiperCore.use([Pagination, Navigation, Mousewheel, Keyboard]);
 
@@ -55,7 +56,8 @@ export class LandingComponent extends BaseComponent implements OnInit {
 
 	isChangeToolbar: boolean = false;
 	currentFragment: string = '';
-
+	breakpointSwiper = BREAKPOINTS_SWIPER;
+	breakpointSwiperBlog = BREAKPOINTS_SWIPER_PRIMARY
 	constructor(
 		private el: ElementRef,
 		private router: Router,

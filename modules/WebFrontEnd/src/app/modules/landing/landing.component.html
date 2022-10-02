@@ -65,6 +65,7 @@
 				[keyboard]="true"
 				[mousewheel]="true"
 				[cssMode]="true"
+				[breakpoints]="breakpointSwiper"
 			>
 				<ng-template *ngFor="let item of promotionProducts" swiperSlide>
 					<div class="promotion-item-wrapper cursor-pointer">
@@ -129,9 +130,7 @@
 			</h1>
 
 			<div class="blog-header">
-				<div class="blog-header-item">
-					Bài viết nổi bật
-				</div>
+				<div class="blog-header-item">Bài viết nổi bật</div>
 				<div class="blog-header-item right">
 					<span>Xem tất cả</span>
 					<mat-icon>keyboard_double_arrow_right</mat-icon>
@@ -152,11 +151,12 @@
 				[cssMode]="true"
 				(swiper)="onSwiper($event)"
 				(slideChange)="onSlideChange($event)"
+				[breakpoints]="breakpointSwiperBlog"
 			>
 				<ng-template *ngFor="let item of blogItems" swiperSlide>
 					<div class="blog-item-wrapper">
 						<div class="item-bg">
-						<img [src]="item.image" alt="" />
+							<img [src]="item.image" alt="" />
 						</div>
 						<div class="item-content">
 							<div class="title">{{ item.title }}</div>
@@ -164,10 +164,10 @@
 								<div class="content-time">
 									<div>
 										<b>Bài đăng lúc:</b>
-										{{ item.createdDate | appDate}}
+										{{ item.createdDate | appDate }}
 									</div>
 								</div>
-								<button mat-button class="item-action ">
+								<button mat-button class="item-action">
 									Xem ngay
 								</button>
 							</div>
