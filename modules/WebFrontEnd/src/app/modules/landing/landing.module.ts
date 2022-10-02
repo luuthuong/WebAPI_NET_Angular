@@ -5,15 +5,8 @@ import { LandingRoutingModule } from './landing-routing.module';
 import { LandingComponent } from './landing.component';
 import { SharedCommonModule } from '@shared/shared-common.module';
 
-
 @NgModule({
-  declarations: [
-    LandingComponent
-  ],
-  imports: [
-    CommonModule,
-    LandingRoutingModule,
-    SharedCommonModule
-  ]
+	declarations: [LandingComponent],
+	imports: [CommonModule, LandingRoutingModule, SharedCommonModule],
 })
-export class LandingModule { }
+export class LandingModule {}

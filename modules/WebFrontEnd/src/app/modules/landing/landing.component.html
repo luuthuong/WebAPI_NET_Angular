@@ -1,61 +1,193 @@
 <div class="landing relative">
-  <div id="home" class="landing-top relative w-full h-screen">
-    <div class="particle-part">
-      <ng-particles
-        id="tsparticle"
-        [options]="particleConfig"
-        [particlesInit]="particlesInit"
-        (particlesLoaded)="particlesLoaded($event)"
-      ></ng-particles>
-    </div>
-    <div class="landing-top-wrapper">
-      <div class="landing-top-content">
-        <div class="title">LANDING PAGE</div>
-        <div class="flex space-x-1 loader">
-          <div
-            class="subtitle-span text-[35px]"
-            *ngFor="let x of subTitleArr; let i = index"
-            [innerHTML]="x"
-          ></div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div id="home" class="landing-top relative w-full h-screen">
+		<div class="particle-part">
+			<ng-particles
+				id="tsparticle"
+				[options]="particleConfig"
+				[particlesInit]="particlesInit"
+				(particlesLoaded)="particlesLoaded($event)"
+			></ng-particles>
+		</div>
+		<div class="landing-top-wrapper">
+			<div class="landing-top-content">
+				<div class="title">SETUP Z</div>
+				<div class="flex space-x-1 loader">
+					<div
+						class="subtitle-span text-[35px]"
+						*ngFor="let x of subTitleArr; let i = index"
+						[innerHTML]="x"
+					></div>
+				</div>
+			</div>
+			<div class="box-card"></div>
+		</div>
+	</div>
 
-  <div class="toolbar-landing" [ngClass]="{ active: isChangeToolbar }">
-    <div class="toolbar">
-      <div class="logo">
-        <svg>
-          <use xlink:href="#svg" />
-        </svg>
-        <span class="name">Maze</span>
-      </div>
-      <div id="item-navigate" class="item-navigate">
-        <a
-          *ngFor="let item of navigateToolbar"
-          [routerLink]="'./'"
-          [fragment]="item.fragment"
-          [ngClass]="{ active: item.fragment === currentFragment }"
-          >{{ item.display }}</a
-        >
-      </div>
-    </div>
-  </div>
-  <div id="fragment-content" class="h-auto w-full">
-    <div id="story" class="h-screen container mx-auto">Story</div>
-    <div id="portfolio" class="h-screen container mx-auto">Portfolio</div>
-    <div id="blog" class="h-screen container mx-auto">Blog</div>
-    <div id="contact" class="h-screen container mx-auto">Contact me</div>
-  </div>
+	<div class="toolbar-landing" [ngClass]="{ active: isChangeToolbar }">
+		<div class="toolbar">
+			<div class="logo">
+				<svg>
+					<use xlink:href="#svg" />
+				</svg>
+				<span class="name">SETUP Z</span>
+			</div>
+			<div id="item-navigate" class="item-navigate">
+				<a
+					*ngFor="let item of navigateToolbar"
+					[style]="{ order: item.order }"
+					[routerLink]="'./'"
+					[fragment]="item.fragment"
+					[ngClass]="{ active: item.fragment === currentFragment }"
+					>{{ item.display }}</a
+				>
+				<a class="shop" href="shop" routerLinkActive="shop">
+					Cửa hàng
+				</a>
+			</div>
+		</div>
+	</div>
+	<div id="fragment-content" class="h-auto w-full">
+		<div id="promotion" class="promotion max-h-screen mx-auto">
+			<h1 class="promotion__title">
+				<mat-icon>flash_on</mat-icon>
+				<span>Flash Sale</span>
+			</h1>
+			<swiper
+				class="swiper-promotion"
+				[slidesPerView]="3"
+				[slidesPerGroup]="2"
+				[spaceBetween]="15"
+				[pagination]="{
+					clickable: true
+				}"
+				[grabCursor]="true"
+				[navigation]="true"
+				[keyboard]="true"
+				[mousewheel]="true"
+				[cssMode]="true"
+			>
+				<ng-template *ngFor="let item of promotionProducts" swiperSlide>
+					<div class="promotion-item-wrapper cursor-pointer">
+						<img [src]="item.src" alt="" />
+						<div class="item-content">
+							<div class="title">{{ item.name }}</div>
+							<div class="item-description">{{ item.title }}</div>
+							<div class="item-action">
+								<button mat-button class="text-white mx-auto">
+									Xem ngay
+								</button>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+				<ng-template swiperSlide>
+					<div class="promotion-item-wrapper cursor-pointer">
+						<img
+							src="../../../assets/images/template/product/read-more-bg.jpg"
+							alt=""
+							class="h-full"
+						/>
+						<div class="item-content h-fit read-more">
+							<div class="item-action">
+								<button
+									matRipple
+									mat-button
+									class="text-white read-more mx-auto"
+								>
+									<span>Xem thêm</span>
+									<mat-icon class="ml-2"
+										>trending_flat</mat-icon
+									>
+								</button>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</swiper>
+
+			<div class="promotion-description">
+				<p>
+					<b>SETUP-Z</b> mang đến cho bạn đồ chơi công nghệ cao có
+					thiết kế đỉnh cao, tối giản và chất lượng.
+				</p>
+			</div>
+		</div>
+
+		<div
+			id="featured-product"
+			class="featured-product h-screen container mx-auto"
+		>
+			<h1 class="featured-product__title">
+				<span>Sản phẩm nổi bật</span>
+			</h1>
+		</div>
+
+		<div id="blog" class="blog mx-auto">
+			<h1 class="blog__title">
+				<mat-icon>menu_book</mat-icon>
+				<span>Bài viết</span>
+			</h1>
+
+			<div class="blog-header">
+				<div class="blog-header-item">
+					Bài viết nổi bật
+				</div>
+				<div class="blog-header-item right">
+					<span>Xem tất cả</span>
+					<mat-icon>keyboard_double_arrow_right</mat-icon>
+				</div>
+			</div>
+			<swiper
+				class="swiper-blog"
+				[slidesPerView]="5"
+				[slidesPerGroup]="2"
+				[spaceBetween]="15"
+				[pagination]="{
+					clickable: true
+				}"
+				[grabCursor]="true"
+				[navigation]="true"
+				[keyboard]="true"
+				[mousewheel]="true"
+				[cssMode]="true"
+				(swiper)="onSwiper($event)"
+				(slideChange)="onSlideChange($event)"
+			>
+				<ng-template *ngFor="let item of blogItems" swiperSlide>
+					<div class="blog-item-wrapper">
+						<div class="item-bg">
+						<img [src]="item.image" alt="" />
+						</div>
+						<div class="item-content">
+							<div class="title">{{ item.title }}</div>
+							<div class="item-content-body">
+								<div class="content-time">
+									<div>
+										<b>Bài đăng lúc:</b>
+										{{ item.createdDate | appDate}}
+									</div>
+								</div>
+								<button mat-button class="item-action ">
+									Xem ngay
+								</button>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</swiper>
+		</div>
+
+		<div id="contact" class="h-screen container mx-auto">Contact me</div>
+	</div>
 </div>
 
 <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <symbol id="svg" viewBox="0 0 24 24">
-      <path
-        d="M17.243 3.006c2.066 0 3.742 8.714 3.742 19.478H24c0-11.588-3.042-20.968-6.766-20.968-2.127 0-4.007 2.81-5.248 7.227-1.241-4.416-3.121-7.227-5.231-7.227C3.031 1.516 0 10.888 0 22.476h3.014c0-10.763 1.658-19.47 3.724-19.47 2.066 0 3.741 8.05 3.741 17.98h2.997c0-9.93 1.684-17.98 3.75-17.98Z"
-        fill="#FF9551"
-      />
-    </symbol>
-  </defs>
+	<defs>
+		<symbol id="svg" viewBox="0 0 24 24">
+			<path
+				d="M17.243 3.006c2.066 0 3.742 8.714 3.742 19.478H24c0-11.588-3.042-20.968-6.766-20.968-2.127 0-4.007 2.81-5.248 7.227-1.241-4.416-3.121-7.227-5.231-7.227C3.031 1.516 0 10.888 0 22.476h3.014c0-10.763 1.658-19.47 3.724-19.47 2.066 0 3.741 8.05 3.741 17.98h2.997c0-9.93 1.684-17.98 3.75-17.98Z"
+				fill="#FF9551"
+			/>
+		</symbol>
+	</defs>
 </svg>

@@ -1,15 +1,31 @@
 @mixin absolute-full {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
+@mixin alignFlex($justify: center, $items: center) {
+	display: flex;
+	justify-content: $justify;
+	align-items: $items;
+}
 
-@function black($opacity){
-  @return rgba(0,0,0,$opacity);
+@mixin truncate($truncation-boundary: 100%, $line-number : 1) {
+	max-width: $truncation-boundary;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-break: $line-number;
+	-webkit-line-clamp: $line-number;
+	-webkit-box-orient: vertical;
 }
-@function white($opacity){
-  @return rgba(255,255,255,$opacity)
+
+@function black($opacity) {
+	@return rgba(0, 0, 0, $opacity);
 }
+@function white($opacity) {
+	@return rgba(255, 255, 255, $opacity);
+}
+

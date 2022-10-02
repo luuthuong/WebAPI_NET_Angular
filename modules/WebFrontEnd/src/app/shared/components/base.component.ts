@@ -1,13 +1,13 @@
-import { Injectable, OnDestroy } from "@angular/core";
-import { Subject } from "rxjs";
+import { Injectable, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn:'root'
+	providedIn: 'root',
 })
-export class BaseComponent implements OnDestroy{
-  protected ngUnSubcribe = new Subject<any>();
-  ngOnDestroy(): void {
-    this.ngUnSubcribe.complete();
-    this.ngUnSubcribe.unsubscribe();
-  }
+export class BaseComponent implements OnDestroy {
+	protected ngUnSubcribe = new Subject<any>();
+	ngOnDestroy(): void {
+		this.ngUnSubcribe.complete();
+		this.ngUnSubcribe.unsubscribe();
+	}
 }
