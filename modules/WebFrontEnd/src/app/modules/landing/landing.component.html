@@ -13,7 +13,7 @@
 				<div class="title">SETUP Z</div>
 				<div class="flex space-x-1 loader">
 					<div
-						class="subtitle-span "
+						class="subtitle-span"
 						*ngFor="let x of subTitleArr; let i = index"
 						[innerHTML]="x"
 					></div>
@@ -22,8 +22,6 @@
 			<div class="box-card"></div>
 		</div>
 	</div>
-
-
 
 	<div class="toolbar-landing" [ngClass]="{ active: isChangeToolbar }">
 		<div class="toolbar">
@@ -47,7 +45,7 @@
 				</a>
 			</div>
 			<div class="toggle-menu">
-				<input type="checkbox">
+				<input type="checkbox" />
 				<span></span>
 				<span></span>
 				<span></span>
@@ -62,19 +60,32 @@
 					[ngClass]="{ active: item.fragment === currentFragment }"
 					>{{ item.display }}</a
 				>
-				<a class="shop row-navigate" href="shop" routerLinkActive="shop">
+				<a
+					class="shop row-navigate"
+					href="shop"
+					routerLinkActive="shop"
+				>
 					Cửa hàng
 				</a>
 			</div>
 		</div>
 	</div>
+
 	<div id="fragment-content" class="h-auto w-full">
 		<div id="promotion" class="promotion max-h-screen mx-auto">
-			<h1 class="promotion__title">
+			<h1
+				data-aos="fade-up"
+				data-aos-easing="linear"
+				data-aos-duration="500"
+				class="promotion__title"
+			>
 				<mat-icon>flash_on</mat-icon>
 				<span>Flash Sale</span>
 			</h1>
 			<swiper
+				data-aos="fade-up"
+				data-aos-easing="linear"
+				data-aos-duration="500"
 				class="swiper-promotion"
 				[slidesPerView]="3"
 				[slidesPerGroup]="2"
@@ -128,7 +139,12 @@
 				</ng-template>
 			</swiper>
 
-			<div class="promotion-description">
+			<div
+				data-aos="fade-right"
+				data-aos-easing="linear"
+				data-aos-duration="500"
+				class="promotion-description"
+			>
 				<p>
 					<b>SETUP-Z</b> mang đến cho bạn đồ chơi công nghệ cao có
 					thiết kế đỉnh cao, tối giản và chất lượng.

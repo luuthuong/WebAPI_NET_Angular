@@ -12,6 +12,7 @@ import { IBlogModel } from 'app/shared/model/blog.model';
 import { BLOG_CARD, PRODUCT_PROMOTION } from './common/landing.template.constant';
 import { INavigateToolbar } from 'app/shared/model/navigate-fragment.model';
 import { BREAKPOINTS_SWIPER, BREAKPOINTS_SWIPER_PRIMARY } from 'app/shared/constants/swiper-config.constants';
+import * as AOS from 'aos';
 
 SwiperCore.use([Pagination, Navigation, Mousewheel, Keyboard]);
 
@@ -23,7 +24,7 @@ SwiperCore.use([Pagination, Navigation, Mousewheel, Keyboard]);
 })
 export class LandingComponent extends BaseComponent implements OnInit {
 	particleConfig = PARTICLE_CONFIG;
-	subTitleArr = 'A Moment Full Of Technology'.split('').map((x) => (x = x === ' ' ? '&nbsp;' : x));
+	subTitleArr = ('A Moment Technology').split('').map((x) => (x = x === ' ' ? '&nbsp;' : x));
 	navigateToolbar: INavigateToolbar[] = [
 		{
 			display: 'Trang chủ',
@@ -86,7 +87,9 @@ export class LandingComponent extends BaseComponent implements OnInit {
 		});
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		AOS.init();
+	}
 
 	particlesLoaded(container: Container): void {
 		this.el.nativeElement.querySelector('canvas').style.position =
