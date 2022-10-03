@@ -13,16 +13,19 @@ export const BREAKPOINTS_SWIPER = {
 		slidesPerView: 1,
 		slidesPerGroup: 1,
 		spaceBetween: 10,
+		navigation: false
 	},
 	'390': {
 		slidesPerView: 1,
 		slidesPerGroup: 1,
 		spaceBetween: 10,
+		navigation: false
 	},
 	'360': {
 		slidesPerView: 1,
 		slidesPerGroup: 1,
 		spaceBetween: 10,
+		navigation: false
 	},
 	'1024': {
 		slidesPerView: 4,

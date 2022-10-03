@@ -36,14 +36,14 @@ export class LandingComponent extends BaseComponent implements OnInit {
 			order: 2
 		},
 		{
-			display: 'Bài viết',
-			fragment: 'blog',
-			order: 4
-		},
-		{
 			display: 'Sản phẩm nổi bật',
 			fragment: 'featured-product',
 			order: 3
+		},
+		{
+			display: 'Bài viết',
+			fragment: 'blog',
+			order: 4
 		},
 		{
 			display: 'Liên hệ',
@@ -57,7 +57,8 @@ export class LandingComponent extends BaseComponent implements OnInit {
 	isChangeToolbar: boolean = false;
 	currentFragment: string = '';
 	breakpointSwiper = BREAKPOINTS_SWIPER;
-	breakpointSwiperBlog = BREAKPOINTS_SWIPER_PRIMARY
+	breakpointSwiperBlog = BREAKPOINTS_SWIPER_PRIMARY;
+
 	constructor(
 		private el: ElementRef,
 		private router: Router,

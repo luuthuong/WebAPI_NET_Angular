@@ -1,5 +1,5 @@
 <div class="landing relative">
-	<div id="home" class="landing-top relative w-full h-screen">
+	<div id="home" class="landing-top relative">
 		<div class="particle-part">
 			<ng-particles
 				id="tsparticle"
@@ -13,7 +13,7 @@
 				<div class="title">SETUP Z</div>
 				<div class="flex space-x-1 loader">
 					<div
-						class="subtitle-span text-[35px]"
+						class="subtitle-span "
 						*ngFor="let x of subTitleArr; let i = index"
 						[innerHTML]="x"
 					></div>
@@ -23,6 +23,8 @@
 		</div>
 	</div>
 
+
+
 	<div class="toolbar-landing" [ngClass]="{ active: isChangeToolbar }">
 		<div class="toolbar">
 			<div class="logo">
@@ -31,7 +33,7 @@
 				</svg>
 				<span class="name">SETUP Z</span>
 			</div>
-			<div id="item-navigate" class="item-navigate">
+			<div id="item-navigate tablet" class="item-navigate">
 				<a
 					*ngFor="let item of navigateToolbar"
 					[style]="{ order: item.order }"
@@ -41,6 +43,26 @@
 					>{{ item.display }}</a
 				>
 				<a class="shop" href="shop" routerLinkActive="shop">
+					Cửa hàng
+				</a>
+			</div>
+			<div class="toggle-menu">
+				<input type="checkbox">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<div class="item-navigate-mobile">
+				<a
+					class="row-navigate"
+					*ngFor="let item of navigateToolbar"
+					[style]="{ order: item.order }"
+					[routerLink]="'./'"
+					[fragment]="item.fragment"
+					[ngClass]="{ active: item.fragment === currentFragment }"
+					>{{ item.display }}</a
+				>
+				<a class="shop row-navigate" href="shop" routerLinkActive="shop">
 					Cửa hàng
 				</a>
 			</div>

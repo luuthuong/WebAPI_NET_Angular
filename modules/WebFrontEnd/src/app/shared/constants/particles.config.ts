@@ -73,7 +73,7 @@ export const PARTICLE_CONFIG: RecursivePartial<IOptions> = {
 				default: OutMode.out,
 			},
 			random: false,
-			speed: 2,
+			speed: 1,
 			straight: false,
 		},
 		number: {

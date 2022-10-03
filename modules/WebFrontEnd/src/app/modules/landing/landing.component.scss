@@ -4,10 +4,11 @@
 @import "~swiper/css/pagination";
 .landing {
 	.particle-part {
-		@apply w-full h-screen relative;
+		@apply w-full h-full relative;
 	}
 
 	.landing-top {
+		@apply relative h-[50vh] laptop:h-screen;
 		.landing-top-wrapper {
 			@apply absolute top-0 right-0 bottom-0 left-0;
 			.landing-top-content {
@@ -16,7 +17,7 @@
 
 			.title {
 				transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-				@apply text-[60px] h-[50px] font-medium text-primary transition-all m-0 tracking-medium;
+				@apply text-3xl laptop:text-[60px] h-[50px] font-medium text-primary transition-all m-0 tracking-medium;
 
 				&:hover {
 					@apply cursor-pointer;
@@ -26,7 +27,7 @@
 			}
 
 			.subtitle-span {
-				@apply font-Roboto tracking-max font-light text-[#faebd7];
+				@apply font-Roboto tracking-max font-light text-[#faebd7] text-[35px] hidden lg:block;
 				transition: all 0.1s ease;
 				animation: loading 1s ease-in-out infinite alternate;
 				-webkit-animation: loading 1s ease-in-out infinite alternate;
@@ -53,14 +54,13 @@
 			.logo {
 				@apply flex items-center justify-center gap-3 cursor-pointer;
 				.name {
-					@apply text-2xl font-semibold font-Roboto;
+					@apply text-2xl font-semibold font-Roboto block tablet:hidden;
 				}
 			}
 			.item-navigate {
-				display: flex;
+				@apply hidden tablet:flex;
 				a {
-					@apply ml-3 transition-colors font-medium uppercase text-xs tracking-widest;
-					position: relative;
+					@apply relative ml-5 transition-colors font-medium uppercase text-xs tracking-widest;
 					transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 					&::after {
 						@apply absolute -bottom-1 left-0 w-full h-[1px] scale-0 transition-all duration-300;
@@ -80,6 +80,78 @@
 
 					&.shop {
 						order: 5;
+					}
+				}
+			}
+// Navigate menu mobile
+			.toggle-menu {
+				@apply block relative tablet:hidden;
+				z-index: 1;
+				-webkit-user-select: none;
+				user-select: none;
+				span {
+					@apply block w-[33px] h-[3px] bg-gray mb-1 relative rounded-default z-1;
+					transform-origin: 4px 0;
+					transition: all 0.1s linear, transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+						background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+					-webkit-touch-callout: none;
+					&:first-child {
+						transform-origin: 0% 0%;
+					}
+					&:nth-last-child(2) {
+						transform-origin: 50% 0%;
+					}
+				}
+				input {
+					@apply block w-[40px] h-[32px] absolute cursor-pointer opacity-0 z-2;
+					top: -7px;
+					left: -5px;
+				}
+				input:checked {
+					& ~ span {
+						@apply opacity-100;
+						transform: rotate(-45deg) translate(-2px, -1px);
+						&:nth-last-child(3) {
+							transform: rotate(45deg) translate(-1px, -2px);
+						}
+						&:nth-last-child(2) {
+							@apply opacity-0;
+							transform: rotate(360deg) scale(0.2, 0.2);
+						}
+					}
+				}
+				&:has(input:checked) ~ .item-navigate-mobile {
+					height: calc(50vh - 64px);
+					.row-navigate {
+						transform: translateX(0px);
+						opacity: 1;
+					}
+				}
+			}
+			.item-navigate-mobile {
+				@apply w-full flex flex-col justify-center items-center gap-1  absolute top-16 left-0 h-0 overflow-hidden  tablet:hidden;
+				transition: height 0.3s cubic-bezier(0.78, -0.2, 0.265, 1);
+				background: s.black(0.6);
+				.row-navigate {
+					@apply text-gray-50 h-full leading-[42px] font-Roboto opacity-0;
+					transition: transform 0.3s linear, opacity 0.3s ease;
+					&.shop {
+						order: 5;
+					}
+					&:nth-child(odd) {
+						transform: translateX(-50px);
+					}
+					&:nth-child(even) {
+						transform: translateX(50px);
+					}
+
+					&.active {
+						color: s.$color-highlight;
+					}
+				}
+				@for $i from 1 through 6 {
+					.row-navigate:nth-child(#{$i}) {
+						transition-delay: calc(#{calc($i * 0.1)}s);
 					}
 				}
 			}
@@ -219,18 +291,18 @@
 				@include s.alignFlex(space-between, center);
 				@apply text-highLight tracking-wider mx-6;
 				.blog-header-item {
-					@apply  font-medium;
+					@apply font-medium;
 					&.right {
 						@apply relative cursor-pointer;
 						@include s.alignFlex(space-between, center);
-						&::after{
+						&::after {
 							@apply absolute -bottom-1 w-full h-[1px] bg-highLight scale-0 transition-transform;
-							content: ''
+							content: "";
 						}
-						&:hover::after{
+						&:hover::after {
 							@apply scale-100;
 						}
-						&>*~*{
+						& > * ~ * {
 							@apply ml-2;
 						}
 					}
@@ -320,7 +392,7 @@
 }
 
 .swiper {
-	padding: 20px 40px;
+	padding: 10px 40px;
 	height: 100%;
 	width: 100%;
 }
@@ -352,6 +424,7 @@
 }
 .swiper-button-prev,
 .swiper-button-next {
+	@apply hidden tablet:inline;
 	color: s.$color-highlight;
 	transition: text-shadow 0.1s ease;
 	text-shadow: 2px 5px 7px s.black(0);
