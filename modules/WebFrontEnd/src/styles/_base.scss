@@ -1,0 +1,7 @@
+.text-mobile{
+	@apply mobile:text-xs;
+}
+
+.text-default{
+	@apply text-base;
+}

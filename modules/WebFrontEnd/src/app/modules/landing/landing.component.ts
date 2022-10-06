@@ -9,11 +9,10 @@ import { loadFull } from 'tsparticles';
 import { Container, Engine } from 'tsparticles-engine';
 import SwiperCore, { Pagination, Navigation ,Mousewheel, Keyboard} from "swiper";
 import { IBlogModel } from 'app/shared/model/blog.model';
-import { BLOG_CARD, PRODUCT_PROMOTION } from './common/landing.template.constant';
+import { BLOG_CARD, PRODUCT_FEATURED, PRODUCT_PROMOTION } from './common/landing.template.constant';
 import { INavigateToolbar } from 'app/shared/model/navigate-fragment.model';
 import { BREAKPOINTS_SWIPER, BREAKPOINTS_SWIPER_PRIMARY } from 'app/shared/constants/swiper-config.constants';
 import * as AOS from 'aos';
-
 SwiperCore.use([Pagination, Navigation, Mousewheel, Keyboard]);
 
 @Component({
@@ -53,8 +52,8 @@ export class LandingComponent extends BaseComponent implements OnInit {
 		},
 	];
 	promotionProducts: IProductModel[] = PRODUCT_PROMOTION
+	productFeatured:IProductModel[] = PRODUCT_FEATURED;
 	blogItems: IBlogModel[] = BLOG_CARD;
-
 	isChangeToolbar: boolean = false;
 	currentFragment: string = '';
 	breakpointSwiper = BREAKPOINTS_SWIPER;

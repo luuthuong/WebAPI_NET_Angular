@@ -39,7 +39,10 @@ module.exports = {
 			},
 		},
 		screens: {
-			'mobile': "390px",
+			'mobile': {
+				'min':"270px",
+				'max':'640px'
+			},
 			'tablet': "640px",
 			'tabletLg': '768px',
 			'laptop': "1024px",

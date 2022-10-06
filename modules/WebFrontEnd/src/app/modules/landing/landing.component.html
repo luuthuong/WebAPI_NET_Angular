@@ -45,12 +45,16 @@
 				</a>
 			</div>
 			<div class="toggle-menu">
-				<input type="checkbox" />
+				<input #toggleMenu type="checkbox" />
 				<span></span>
 				<span></span>
 				<span></span>
 			</div>
-			<div class="item-navigate-mobile">
+			<!-- Mobile -->
+			<div
+				[class.active]="toggleMenu.checked"
+				class="item-navigate-mobile"
+			>
 				<a
 					class="row-navigate"
 					*ngFor="let item of navigateToolbar"
@@ -145,36 +149,75 @@
 				data-aos-duration="500"
 				class="promotion-description"
 			>
-				<p>
+				<p class="sub-title">
 					<b>SETUP-Z</b> mang đến cho bạn đồ chơi công nghệ cao có
 					thiết kế đỉnh cao, tối giản và chất lượng.
 				</p>
 			</div>
 		</div>
 
-		<div
-			id="featured-product"
-			class="featured-product h-screen container mx-auto"
-		>
+		<div id="featured-product" class="featured-product container mx-auto">
 			<h1 class="featured-product__title">
 				<span>Sản phẩm nổi bật</span>
 			</h1>
+			<div class="featured-product__body">
+				<div class="wrapper">
+					<div
+						class="featured-product-item"
+						data-aos="fade-up"
+						data-aos-easing="linear"
+						data-aos-duration="500"
+						*ngFor="let item of productFeatured"
+					>
+						<div class="item-view">
+							<img [src]="item.src" alt="" />
+							<div class="item-content">
+								<h1>{{ item.title }}</h1>
+								<div class="item-action">
+									<button
+										mat-button
+										class="text-white mx-auto"
+									>
+										Xem nhanh
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="item-title text-mobile">
+							{{ item.name }}
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<div id="blog" class="blog mx-auto">
-			<h1 class="blog__title">
+			<h1
+				data-aos="fade-up"
+				data-aos-easing="linear"
+				data-aos-duration="500"
+				class="blog__title"
+			>
 				<mat-icon>menu_book</mat-icon>
 				<span>Bài viết</span>
 			</h1>
 
-			<div class="blog-header">
-				<div class="blog-header-item">Bài viết nổi bật</div>
-				<div class="blog-header-item right">
+			<div
+				data-aos="fade-up"
+				data-aos-easing="linear"
+				data-aos-duration="500"
+				class="blog-header"
+			>
+				<div class="blog-header-item text-mobile">Bài viết nổi bật</div>
+				<div class="blog-header-item right text-mobile">
 					<span>Xem tất cả</span>
 					<mat-icon>keyboard_double_arrow_right</mat-icon>
 				</div>
 			</div>
 			<swiper
+				data-aos="fade-up"
+				data-aos-easing="linear"
+				data-aos-duration="500"
 				class="swiper-blog"
 				[slidesPerView]="5"
 				[slidesPerGroup]="2"
@@ -197,15 +240,20 @@
 							<img [src]="item.image" alt="" />
 						</div>
 						<div class="item-content">
-							<div class="title">{{ item.title }}</div>
+							<div class="title text-mobile">
+								{{ item.title }}
+							</div>
 							<div class="item-content-body">
 								<div class="content-time">
-									<div>
+									<div class="text-mobile">
 										<b>Bài đăng lúc:</b>
 										{{ item.createdDate | appDate }}
 									</div>
 								</div>
-								<button mat-button class="item-action">
+								<button
+									mat-button
+									class="item-action text-mobile"
+								>
 									Xem ngay
 								</button>
 							</div>
