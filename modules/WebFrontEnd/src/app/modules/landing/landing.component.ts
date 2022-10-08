@@ -91,6 +91,7 @@ export class LandingComponent extends BaseComponent implements OnInit {
 
 	ngOnInit(): void {
 		AOS.init({
+			once: true
 		});
 	}
 
@@ -118,9 +119,10 @@ export class LandingComponent extends BaseComponent implements OnInit {
 	openDialogOverViewProduct(){
 
 		const dialogConfig : MatDialogConfig = {
-			height:'80vh',
-			minWidth: '640px'
+			maxHeight:'80vh',
+			maxWidth: '840px'
 		}
 		this.dialog.open(OverviewProductDialogComponent,dialogConfig)
 	}
+
 }

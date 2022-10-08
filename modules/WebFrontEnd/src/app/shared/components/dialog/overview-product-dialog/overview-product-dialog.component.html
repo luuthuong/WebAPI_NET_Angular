@@ -1,36 +1,71 @@
 <div class="overview-product-dialog">
 	<div class="dialog-toolbar">
-	<button mat-icon-button class="close-button"><mat-icon mat-dialog-close>close</mat-icon></button>
+		<button mat-icon-button class="close-button">
+			<mat-icon mat-dialog-close>close</mat-icon>
+		</button>
 	</div>
 	<div class="overview-product-container">
 		<div class="gallery-product">
 			<div class="main-item">
 				<swiper
-				[slidesPerView]="1"
-				[slidesPerGroup]="2"
-				[spaceBetween]="15"
-				[pagination]="{
-					clickable: true
-				}"
-				[grabCursor]="true"
-				[navigation]="true"
-				[keyboard]="true"
-				[mousewheel]="true"
-				[cssMode]="true"
+					#swiper
+					[slidesPerView]="1"
+					[slidesPerGroup]="1"
+					[navigation]="true"
+					[loop]="true"
+					[grabCursor]="true"
+					[cssMode]="true"
+					[speed]="700"
+					[thumbs]="{ swiper: thumbsSwiper }"
 				>
-					<ng-template  *ngFor="let item of dataOvervviewProduct.gallerys" swiperSlide>
+					<ng-template
+						*ngFor="let item of dataOvervviewProduct.gallerys"
+						swiperSlide
+					>
 						<div>
-							<img [src]="item.src" alt="">
+							<img [src]="item.src" alt="" />
 						</div>
 					</ng-template>
 				</swiper>
-			</div>
-			<div class="list-sub-item">
-				<img *ngFor="let item of dataOvervviewProduct.gallerys" [src]="item.src" alt="">
+
+				<swiper
+					(swiper)="thumbsSwiper = $event"
+					[spaceBetween]="10"
+					[slidesPerView]="4"
+					[grabCursor]="true"
+					[freeMode]="true"
+					[watchSlidesProgress]="true"
+					[speed]="1000"
+					class="swiper-thumb"
+				>
+					<ng-template
+						*ngFor="let item of dataOvervviewProduct.gallerys"
+						swiperSlide
+					>
+						<img [src]="item.src" alt="" />
+					</ng-template>
+				</swiper>
 			</div>
 		</div>
 		<div class="information-product">
-
+			<div class="information-wraper">
+				<div class="information-content">
+					<h3 class="header-title">
+						<a href="">
+							{{ dataOvervviewProduct.title }}
+						</a>
+					</h3>
+					<div class="break-line"></div>
+					<h2 class="price">
+						{{ dataOvervviewProduct.price }}
+					</h2>
+					<p class="text-content">
+						{{ dataOvervviewProduct.content }}
+					</p>
+					<div matRipple class="view-detail-action">Xem chi tiết</div>
+				</div>
+				<div class="information-option"></div>
+			</div>
 		</div>
 	</div>
 </div>

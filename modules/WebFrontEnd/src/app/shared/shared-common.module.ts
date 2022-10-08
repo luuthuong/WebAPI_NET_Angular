@@ -1,4 +1,8 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+	CUSTOM_ELEMENTS_SCHEMA,
+	NgModule,
+	NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { NgParticlesModule } from 'ng-particles';
@@ -10,11 +14,13 @@ import { DatePipe } from './pipe/date.pipe';
 import { OverviewProductDialogComponent } from './components/dialog/overview-product-dialog/overview-product-dialog.component';
 import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ButtonOptionGroupComponent } from './components/button-option-group/button-option-group.component';
+
 const MaterialModule = [
 	MatButtonModule,
 	MatIconModule,
 	MatRippleModule,
-	MatDialogModule
+	MatDialogModule,
 ];
 
 @NgModule({
@@ -23,13 +29,9 @@ const MaterialModule = [
 		DatePipe,
 		OverviewProductDialogComponent,
 		ConfirmDialogComponent,
+		ButtonOptionGroupComponent,
 	],
-	imports: [
-		CommonModule,
-		...MaterialModule,
-		SwiperModule,
-		NgParticlesModule,
-	],
+	imports: [CommonModule, ...MaterialModule, SwiperModule, NgParticlesModule],
 	exports: [
 		SwiperModule,
 		NgParticlesModule,
@@ -37,8 +39,6 @@ const MaterialModule = [
 		...MaterialModule,
 		DatePipe,
 	],
-	schemas: [
-		CUSTOM_ELEMENTS_SCHEMA,
-	]
+	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedCommonModule {}

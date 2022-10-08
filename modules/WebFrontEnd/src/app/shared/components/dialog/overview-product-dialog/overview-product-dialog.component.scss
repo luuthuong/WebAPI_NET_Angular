@@ -1,23 +1,127 @@
-@use '/src/styles/index.scss' as s;
+@use "/src/styles/index.scss" as s;
 
-.overview-product-dialog{
+.mat-dialog-container{
+	position: relative !important;
+}
+.overview-product-dialog {
 	@apply h-full w-full;
-	.dialog-toolbar{
-		@include s.alignFlex(flex-end,center);
+	.dialog-toolbar {
+		@include s.alignFlex(flex-end, center);
+		@apply absolute right-0 top-0;
 	}
-	.close-button{
+	.close-button {
 		@apply cursor-pointer;
 	}
-	.overview-product-container{
-		height: calc(100% - 40px);
-		@apply grid grid-cols-2;
-		.gallery-product{
-			.main-item{
-				height: 400px;
+	.overview-product-container {
+		@apply grid grid grid-cols-2 laptop:grid-cols-5 h-full;
+		.gallery-product {
+			@apply laptop:col-span-3;
+			.main-item {
+				.swiper-thumb {
+					@apply mt-3;
+					.swiper-slide-visible {
+						@apply cursor-pointer relative rounded-default overflow-hidden transition-all;
+						height: 75px;
+						img {
+							z-index: 2;
+						}
+						&::after {
+							@apply absolute top-0 left-0 z-30 w-full h-full;
+							content: "";
+							background: s.black(0.6);
+						}
+						&:hover::after {
+							background: s.black(0.2);
+						}
+						&.swiper-slide-thumb-active {
+							padding: 2px;
+							&::before {
+								@apply absolute h-1/4 -z-1;
+								top: 50%;
+								transform: translateY(-50%);
+								left: -10px;
+								width: 120%;
+								content: "";
+								background: s.$color-highlight;
+								animation: activeThumb 3s linear infinite;
+							}
+							&::after {
+								background: s.black(0);
+							}
+						}
+					}
+					img {
+						@apply rounded-default;
+					}
+				}
 			}
-			.list-sub-item{
+			.list-sub-item {
 				@apply grid grid-cols-4 gap-1;
+				.img-sub-item {
+					@apply cursor-pointer blur-[2px] transition-all;
+					&.active {
+						@apply blur-0;
+					}
+				}
 			}
 		}
+
+		.information-product{
+			@apply col-span-2 pl-2;
+			.information-wraper{
+				@apply h-full grid grid-cols-1;
+				.header-title{
+					@apply font-medium text-dark transition-colors;
+					&:hover{
+						@apply text-highLight;
+					}
+				}
+				.price{
+					@apply text-primary;
+				}
+				.text-content{
+					@apply tracking-wide text-dark text-sm ;
+				}
+				.view-detail-action{
+					@apply overflow-hidden text-center font-medium py-2 cursor-pointer ;
+					&:hover{
+						@apply text-highLight;
+					}
+				}
+			}
+		}
+	}
+}
+
+@keyframes activeThumb {
+	0% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(90deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	75% {
+		transform: rotate(270deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.swiper{
+	@apply select-none;
+	.swiper-button-prev, .swiper-button-next{
+		@apply opacity-0 transition-opacity;
+	}
+	&:hover  {
+		.swiper-button-prev,.swiper-button-next{
+			@apply opacity-100;
+		}
+	}
+	.swiper-slide{
+		@apply rounded-default overflow-hidden;
 	}
 }

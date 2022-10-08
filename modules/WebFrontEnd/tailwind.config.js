@@ -24,7 +24,7 @@ module.exports = {
 				'full': "50%",
 			},
 			colors: {
-				'primary': "#FFB562",
+				'primary': "#EC994B",
 				'highLight': "#FF4A4A",
 				'dark': "#343A40",
 			},
