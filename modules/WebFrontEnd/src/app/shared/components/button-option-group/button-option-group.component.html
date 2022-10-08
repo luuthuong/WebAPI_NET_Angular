@@ -1,1 +1,39 @@
-<p>button-option-group works!</p>
+<div class="button-chip-group">
+	<div *ngIf="typeGroup === enumTypeGroup.Chip">
+		<mat-chip-list *ngIf="!!originData.length">
+			<mat-chip
+				[disabled]="chip.disable"
+				class="mat-chip-custom"
+				[ngClass]="{
+					active: currentValue && chip.id === currentValue.id
+				}"
+				(click)="onSelectChip(chip)"
+				*ngFor="let chip of originData"
+			>
+				<mat-icon *ngIf="chip.icon"></mat-icon>
+				<span class="chip-display-name">{{ chip.name }}</span>
+			</mat-chip>
+		</mat-chip-list>
+	</div>
+
+	<div
+		class="group-circle-option"
+		*ngIf="typeGroup === enumTypeGroup.Circle && !!originData.length"
+	>
+		<button
+			(click)="onSelectChip(chip)"
+			[disabled]="chip.disable"
+			mat-icon-button
+			class="circle"
+			[ngClass]="{
+				active: currentValue && chip.id === currentValue.id
+			}"
+			*ngFor="let chip of originData"
+		>
+			<div
+				class="circle-inline"
+				[ngStyle]="{ background: chip.disable ? '#CFD2CF': chip.color}"
+			></div>
+		</button>
+	</div>
+</div>

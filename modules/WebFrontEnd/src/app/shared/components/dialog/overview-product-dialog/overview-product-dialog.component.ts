@@ -1,3 +1,4 @@
+import { IChipOptionModel } from './../../../model/chip-group-option.model';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { OVERVIEW_PRODDUCT_DIALOG } from '@modules/landing/common/landing.template.constant';
@@ -12,6 +13,7 @@ import SwiperCore, {
 	Thumbs,
 } from 'swiper';
 import { BaseComponent } from '../../base.component';
+import { ButtonGroupTypeEnum } from 'app/shared/enum/button-group-type.enum';
 SwiperCore.use([
 	Grid,
 	Pagination,
@@ -20,7 +22,6 @@ SwiperCore.use([
 	Mousewheel,
 	Thumbs,
 	FreeMode,
-
 ]);
 
 @Component({
@@ -35,6 +36,45 @@ export class OverviewProductDialogComponent
 {
 	thumbsSwiper: any;
 	dataOvervviewProduct: IProductModel = OVERVIEW_PRODDUCT_DIALOG[0];
+	quantity: number = 0;
+	dataChip: IChipOptionModel[] = [
+		{
+			name: 'Blue',
+			value: '1',
+			disable: false,
+		},
+		{
+			name: 'Red',
+			value: '2',
+			disable: true,
+		},
+		{
+			name: 'Orange',
+			value: '3',
+			disable: false,
+		},
+	];
+	dataCircleOption: IChipOptionModel[] = [
+		{
+			name: 'Blue',
+			value: '1',
+			disable: false,
+			color: '#F7971E'
+		},
+		{
+			name: 'Red',
+			value: '2',
+			disable: false,
+			color:'#8E2DE2'
+		},
+		{
+			name: 'Orange',
+			value: '3',
+			disable: false,
+			color: '#021B79'
+		},
+	];
+	enumTypeGroup = ButtonGroupTypeEnum;
 	constructor(
 		private dialogRef: MatDialogRef<OverviewProductDialogComponent>
 	) {
@@ -42,4 +82,13 @@ export class OverviewProductDialogComponent
 	}
 
 	ngOnInit(): void {}
+
+	plusQuantity(){
+		this.quantity += 1;
+		console.log(this.quantity)
+	}
+	minusQuantity(){
+		this.quantity = this.quantity > 0 ? this.quantity - 1 : 0;
+		console.log(this.quantity)
+	}
 }

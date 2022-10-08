@@ -1,7 +1,7 @@
 <div class="overview-product-dialog">
 	<div class="dialog-toolbar">
-		<button mat-icon-button class="close-button">
-			<mat-icon mat-dialog-close>close</mat-icon>
+		<button mat-dialog-close mat-icon-button class="close-button">
+			<mat-icon >close</mat-icon>
 		</button>
 	</div>
 	<div class="overview-product-container">
@@ -33,6 +33,7 @@
 					[spaceBetween]="10"
 					[slidesPerView]="4"
 					[grabCursor]="true"
+					[loop]="true"
 					[freeMode]="true"
 					[watchSlidesProgress]="true"
 					[speed]="1000"
@@ -56,15 +57,59 @@
 						</a>
 					</h3>
 					<div class="break-line"></div>
-					<h2 class="price">
+					<h1 class="price">
 						{{ dataOvervviewProduct.price }}
-					</h2>
+					</h1>
 					<p class="text-content">
 						{{ dataOvervviewProduct.content }}
 					</p>
 					<div matRipple class="view-detail-action">Xem chi tiết</div>
 				</div>
-				<div class="information-option"></div>
+				<div class="information-option">
+					<div class="row-option">
+						<div class="option-title">Switch</div>
+						<app-chip-option-group #group [data]="dataChip">
+						</app-chip-option-group>
+					</div>
+					<div class="row-option">
+						<div class="option-title">Led</div>
+						<app-chip-option-group #group [data]="dataChip">
+						</app-chip-option-group>
+					</div>
+					<div class="row-option">
+						<div class="option-title">Color</div>
+						<app-chip-option-group
+							[type]="enumTypeGroup.Circle"
+							#group
+							[data]="dataCircleOption"
+						>
+						</app-chip-option-group>
+					</div>
+				</div>
+				<div class="font-medium mb-1">Số lượng</div>
+				<div class="action-order">
+					<div class="quantity-control">
+						<button (click)="minusQuantity()" mat-button>
+							<mat-icon>remove</mat-icon>
+						</button>
+						<input
+							[(ngModel)]="quantity"
+							class="quantity-input"
+							type="number"
+							matInput
+						/>
+						<button (click)="plusQuantity()" mat-button>
+							<mat-icon>add</mat-icon>
+						</button>
+					</div>
+					<button
+						class="btn-add-to-cart"
+						mat-button
+					>
+						<mat-icon>shopping_cart</mat-icon>
+						<span>Thêm vào giỏ hàng</span>
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>

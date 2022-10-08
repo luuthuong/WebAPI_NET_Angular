@@ -16,7 +16,7 @@
 			}
 
 			.title {
-				transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+				transition: all s.$timing-default cubic-bezier(0.075, 0.82, 0.165, 1);
 				@apply text-3xl laptop:text-[60px] h-[50px] font-medium text-primary transition-all m-0 tracking-medium;
 
 				&:hover {
@@ -69,7 +69,7 @@
 				@apply hidden tablet:flex;
 				a {
 					@apply relative ml-5 transition-colors font-medium uppercase text-xs tracking-widest;
-					transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+					transition: all s.$timing-default cubic-bezier(0.68, -0.55, 0.265, 1.55);
 					&::after {
 						@apply absolute -bottom-1 left-0 w-full h-[1px] scale-0 transition-all duration-300;
 						content: "";
@@ -138,11 +138,11 @@
 			}
 			.item-navigate-mobile {
 				@apply w-full flex flex-col justify-center items-center gap-1  absolute top-16 left-0 h-0 overflow-hidden  tablet:hidden;
-				transition: height 0.3s cubic-bezier(0.78, -0.2, 0.265, 1);
+				transition: height s.$timing-default cubic-bezier(0.78, -0.2, 0.265, 1);
 				background: s.black(0.6);
 				.row-navigate {
 					@apply text-gray-50 h-full leading-[42px] font-Roboto opacity-0;
-					transition: transform 0.3s linear, opacity 0.3s ease;
+					transition: transform s.$timing-default linear, opacity s.$timing-default ease;
 					&.shop {
 						order: 5;
 					}
@@ -189,7 +189,7 @@
 				max-height: 540px;
 				img {
 					@apply object-cover relative z-0 scale-100;
-					transition: transform 0.3s cubic-bezier(0.6, -0.38, 0.735, 0.045);
+					transition: transform s.$timing-default cubic-bezier(0.6, -0.38, 0.735, 0.045);
 				}
 				.item-content {
 					@apply absolute z-2 top-1/2 left-1/2 right-0 -translate-x-1/2 -translate-y-1/2 bottom-1/2  overflow-hidden;
@@ -197,7 +197,7 @@
 					transition-delay: 0.2s;
 					& > * {
 						opacity: 0;
-						transition: all 0.3s ease-in-out;
+						transition: all s.$timing-default ease-in-out;
 						@for $i from 1 through 3 {
 							&:nth-child(#{$i}) {
 								transition-delay: #{calc($i * 0.1)}s;
@@ -209,8 +209,8 @@
 						&::after {
 							@apply absolute left-0 -bottom-1 h-[1px] w-full scale-0 bg-gray;
 							content: "";
-							transition: transform 0.3s ease;
-							transition-delay: 0.3s;
+							transition: transform s.$timing-default ease;
+							transition-delay: s.$timing-default;
 						}
 					}
 					.item-description {
@@ -221,7 +221,7 @@
 						.mat-button {
 							@apply bg-gray text-black transition-all block mx-auto translate-y-4;
 							transition: background, color 0.2s linear;
-							transition: transform 0.3s ease-in-out 0.3s;
+							transition: transform s.$timing-default ease-in-out s.$timing-default;
 							&:hover:not(.read-more) {
 								@apply bg-highLight text-white;
 							}
@@ -332,7 +332,7 @@
 					}
 					img {
 						@apply scale-100;
-						transition: transform 0.3s cubic-bezier(0.6, -0.38, 0.735, 0.045);
+						transition: transform s.$timing-default cubic-bezier(0.6, -0.38, 0.735, 0.045);
 					}
 					&:hover {
 						&::after {
@@ -401,7 +401,7 @@
 							.item-content {
 								@apply absolute top-0 left-0 w-full h-0 z-2 rounded-default overflow-hidden opacity-0;
 								background: s.black(0.6);
-								transition: height 0.3s ease, opacity 0.3s linear;
+								transition: height s.$timing-default ease, opacity s.$timing-default linear;
 								@include s.alignFlex();
 								flex-direction: column;
 								h1 {
@@ -413,7 +413,7 @@
 										@apply bg-gray text-black transition-all block mx-auto;
 										transform: translateY(100%);
 										transition: background, color 0.2s linear;
-										transition: transform 0.2s ease 0.3s;
+										transition: transform 0.2s ease s.$timing-default;
 										&:hover:not(.read-more) {
 											@apply bg-highLight text-white;
 										}
@@ -429,8 +429,7 @@
 						}
 						.item-title {
 							@apply mt-2 px-2 text-dark font-medium tablet:text-base;
-							transition: transform 0.3s cubic-bezier(0.76, 0.16, 0.77, 1.29) 0.3s, max-height 0.3s linear;
-
+							transition: transform s.$timing-default cubic-bezier(0.76, 0.16, 0.77, 1.29) s.$timing-default, max-height s.$timing-default linear;
 							transform: translateX(-300px);
 						}
 

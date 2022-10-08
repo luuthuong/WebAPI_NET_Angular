@@ -15,12 +15,20 @@ import { OverviewProductDialogComponent } from './components/dialog/overview-pro
 import { ConfirmDialogComponent } from './components/dialog/confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ButtonOptionGroupComponent } from './components/button-option-group/button-option-group.component';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatChipsModule } from '@angular/material/chips';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import {MatDividerModule} from '@angular/material/divider';
 const MaterialModule = [
 	MatButtonModule,
 	MatIconModule,
 	MatRippleModule,
 	MatDialogModule,
+	MatButtonToggleModule,
+	MatChipsModule,
+	MatInputModule,
+	MatDividerModule
 ];
 
 @NgModule({
@@ -31,7 +39,7 @@ const MaterialModule = [
 		ConfirmDialogComponent,
 		ButtonOptionGroupComponent,
 	],
-	imports: [CommonModule, ...MaterialModule, SwiperModule, NgParticlesModule],
+	imports: [CommonModule, ...MaterialModule, SwiperModule, NgParticlesModule, FormsModule],
 	exports: [
 		SwiperModule,
 		NgParticlesModule,

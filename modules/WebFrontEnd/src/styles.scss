@@ -2,7 +2,6 @@
 @import "swiper/scss";
 @import "swiper/scss/navigation";
 @import "swiper/scss/pagination";
-@import "swiper/scss/grid";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,4 +31,8 @@ body {
 }
 .cdk-overlay-dark-backdrop {
 	background: s.black(0.7) !important;
+}
+
+.mat-chip-list-wrapper input.mat-input-element, .mat-chip-list-wrapper .mat-standard-chip{
+	cursor: pointer !important;
 }

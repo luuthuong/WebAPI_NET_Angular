@@ -1,0 +1,31 @@
+@use "/src/styles/index.scss" as s;
+
+.button-chip-group {
+	.mat-chip-custom {
+		@apply select-none;
+		&.active {
+			@apply border border-primary border-solid;
+			.chip-display-name {
+				@apply text-primary;
+			}
+		}
+		.chip-display-name {
+			@apply text-dark tracking-wide;
+		}
+	}
+
+	.group-circle-option {
+		@include s.alignFlex(flex-start, center);
+		gap: 10px;
+		.circle {
+			@apply w-9 h-9 border-solid border-2 border-gray rounded-full relative;
+			.circle-inline {
+				inset: 2px;
+				@apply rounded-full absolute;
+			}
+			&.active{
+				@apply border-primary;
+			}
+		}
+	}
+}
