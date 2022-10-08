@@ -1,0 +1,23 @@
+@use '/src/styles/index.scss' as s;
+
+.overview-product-dialog{
+	@apply h-full w-full;
+	.dialog-toolbar{
+		@include s.alignFlex(flex-end,center);
+	}
+	.close-button{
+		@apply cursor-pointer;
+	}
+	.overview-product-container{
+		height: calc(100% - 40px);
+		@apply grid grid-cols-2;
+		.gallery-product{
+			.main-item{
+				height: 400px;
+			}
+			.list-sub-item{
+				@apply grid grid-cols-4 gap-1;
+			}
+		}
+	}
+}

@@ -102,195 +102,238 @@ export const PRODUCT_PROMOTION: IProductModel[] = [
 	},
 ];
 
-export const PRODUCT_FEATURED:IProductModel[] = [
+export const PRODUCT_FEATURED: IProductModel[] = [
 	{
 		name: 'BÀN PHÍM HYPERWORK KB2',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_1.avif',
-		title: '859.000₫'
+		title: '859.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB1',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_2.avif',
-		title: '659.000₫'
+		title: '659.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_3.avif',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_4.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB2',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_1.avif',
-		title: '859.000₫'
+		title: '859.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB1',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_5.avif',
-		title: '659.000₫'
+		title: '659.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_6.jpg',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_9.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_8.webp',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_4.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_3.avif',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_4.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB2',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_1.avif',
-		title: '859.000₫'
+		title: '859.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB1',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_5.avif',
-		title: '659.000₫'
+		title: '659.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_6.jpg',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_9.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_8.webp',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_4.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_3.avif',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_4.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB2',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_1.avif',
-		title: '859.000₫'
+		title: '859.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB1',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_5.avif',
-		title: '659.000₫'
+		title: '659.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_6.jpg',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_9.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_8.webp',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_4.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB2',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_1.avif',
-		title: '859.000₫'
+		title: '859.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB1',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_2.avif',
-		title: '659.000₫'
+		title: '659.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_3.avif',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_4.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB2',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_1.avif',
-		title: '859.000₫'
+		title: '859.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB1',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_5.avif',
-		title: '659.000₫'
+		title: '659.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB2',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_1.avif',
-		title: '859.000₫'
+		title: '859.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB1',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_2.avif',
-		title: '659.000₫'
+		title: '659.000₫',
 	},
 	{
 		name: 'BÀN PHÍM CƠ CUSTOM KEYCHRON Q8 (ALICE LAYOUT)',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_3.avif',
-		title: '3.450.000₫'
+		title: '3.450.000₫',
 	},
 	{
 		name: 'Bàn phím cơ không dây Keychron K5',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_4.avif',
-		title: '2.090.000₫'
+		title: '2.090.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB2',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_1.avif',
-		title: '859.000₫'
+		title: '859.000₫',
 	},
 	{
 		name: 'BÀN PHÍM HYPERWORK KB1',
 		src: '../../../../assets/images/template/product/featured_product/keyboard_5.avif',
-		title: '659.000₫'
+		title: '659.000₫',
 	},
+];
+
+export const OVERVIEW_PRODDUCT_DIALOG: IProductModel[] = [
+	{
+		title: "Keychron Q5 - Bàn phím cơ custom QMK FULL-SIZE 96% (bản có núm)",
+		name: 'Keychron Q5 - Bàn phím cơ custom QMK FULL-SIZE 96% (bản có núm)',
+		src: '../../../../assets/images/template/product/gallery_product/item_1.webp',
+		content: 'Bàn phím Keychron Q5 - Sáng tạo không giới hạn Keychron Q series là những chiếc bàn phím cơ được thiết kế hoàn toàn từ...',
+		gallerys: [
+			{
+				name:'Keychron Q5',
+				src: '../../../../assets/images/template/product/gallery_product/item_1.webp'
+			},
+			{
+				name:'Keychron Q5',
+				src: '../../../../assets/images/template/product/gallery_product/item_2.webp'
+			},
+			{
+				name:'Keychron Q5',
+				src: '../../../../assets/images/template/product/gallery_product/item_3.webp'
+			},
+			{
+				name:'Keychron Q5',
+				src: '../../../../assets/images/template/product/gallery_product/item_4.webp'
+			},
+			{
+				name:'Keychron Q5',
+				src: '../../../../assets/images/template/product/gallery_product/item_5.webp'
+			},
+			{
+				name:'Keychron Q5',
+				src: '../../../../assets/images/template/product/gallery_product/item_6.webp'
+			},
+			{
+				name:'Keychron Q5',
+				src: '../../../../assets/images/template/product/gallery_product/item_7.webp'
+			},
+			{
+				name:'Keychron Q5',
+				src: '../../../../assets/images/template/product/gallery_product/item_8.webp'
+			},
+		]
+	}
 ];

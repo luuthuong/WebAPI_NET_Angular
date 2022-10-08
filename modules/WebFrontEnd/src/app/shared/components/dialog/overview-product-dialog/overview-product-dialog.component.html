@@ -1,0 +1,36 @@
+<div class="overview-product-dialog">
+	<div class="dialog-toolbar">
+	<button mat-icon-button class="close-button"><mat-icon mat-dialog-close>close</mat-icon></button>
+	</div>
+	<div class="overview-product-container">
+		<div class="gallery-product">
+			<div class="main-item">
+				<swiper
+				[slidesPerView]="1"
+				[slidesPerGroup]="2"
+				[spaceBetween]="15"
+				[pagination]="{
+					clickable: true
+				}"
+				[grabCursor]="true"
+				[navigation]="true"
+				[keyboard]="true"
+				[mousewheel]="true"
+				[cssMode]="true"
+				>
+					<ng-template  *ngFor="let item of dataOvervviewProduct.gallerys" swiperSlide>
+						<div>
+							<img [src]="item.src" alt="">
+						</div>
+					</ng-template>
+				</swiper>
+			</div>
+			<div class="list-sub-item">
+				<img *ngFor="let item of dataOvervviewProduct.gallerys" [src]="item.src" alt="">
+			</div>
+		</div>
+		<div class="information-product">
+
+		</div>
+	</div>
+</div>

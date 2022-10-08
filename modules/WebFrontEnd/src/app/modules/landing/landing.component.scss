@@ -428,7 +428,7 @@
 							}
 						}
 						.item-title {
-							@apply max-h-0 mt-2 px-2 text-dark font-medium tablet:text-base;
+							@apply mt-2 px-2 text-dark font-medium tablet:text-base;
 							transition: transform 0.3s cubic-bezier(0.76, 0.16, 0.77, 1.29) 0.3s, max-height 0.3s linear;
 
 							transform: translateX(-300px);
@@ -436,7 +436,6 @@
 
 						&:hover {
 							.item-title {
-								@apply max-h-16;
 								transform: translateX(0);
 							}
 							.item-content {

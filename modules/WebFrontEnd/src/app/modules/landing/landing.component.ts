@@ -13,6 +13,8 @@ import { BLOG_CARD, PRODUCT_FEATURED, PRODUCT_PROMOTION } from './common/landing
 import { INavigateToolbar } from 'app/shared/model/navigate-fragment.model';
 import { BREAKPOINTS_SWIPER, BREAKPOINTS_SWIPER_PRIMARY } from 'app/shared/constants/swiper-config.constants';
 import * as AOS from 'aos';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog'
+import { OverviewProductDialogComponent } from 'app/shared/components/dialog/overview-product-dialog/overview-product-dialog.component';
 SwiperCore.use([Pagination, Navigation, Mousewheel, Keyboard]);
 
 @Component({
@@ -62,7 +64,8 @@ export class LandingComponent extends BaseComponent implements OnInit {
 	constructor(
 		private el: ElementRef,
 		private router: Router,
-		private location: Location
+		private location: Location,
+		private dialog: MatDialog
 	) {
 		super();
 		fromEvent(window, 'scroll')
@@ -87,7 +90,8 @@ export class LandingComponent extends BaseComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		AOS.init();
+		AOS.init({
+		});
 	}
 
 	particlesLoaded(container: Container): void {
@@ -109,5 +113,14 @@ export class LandingComponent extends BaseComponent implements OnInit {
 
 	onSlideChange($event:any){
 
+	}
+
+	openDialogOverViewProduct(){
+
+		const dialogConfig : MatDialogConfig = {
+			height:'80vh',
+			minWidth: '640px'
+		}
+		this.dialog.open(OverviewProductDialogComponent,dialogConfig)
 	}
 }
