@@ -180,7 +180,7 @@
 								<div class="item-action">
 									<button
 										mat-button
-										class="text-white mx-auto"
+										class="text-white mx-auto text-mobile"
 										(click)="openDialogOverViewProduct()"
 									>
 										Xem nhanh
@@ -195,8 +195,20 @@
 				</div>
 			</div>
 			<div class="mx-auto w-fit mb-2">
-				<button mat-button>Xem thêm</button>
+				<button mat-button class="text-highLight">Xem thêm...</button>
 			</div>
+			<mat-divider></mat-divider>
+		</div>
+
+		<div class="home-img-slogan my-2 container mx-auto">
+			<img
+				src="../../../assets/images/template/bg-ship.webp"
+				class="mx-auto"
+				alt=""
+			/>
+		</div>
+
+		<div class="container mx-auto">
 			<mat-divider></mat-divider>
 		</div>
 		<div id="blog" class="blog mx-auto">
@@ -271,7 +283,70 @@
 			</swiper>
 		</div>
 
-		<div id="contact" class="h-screen container mx-auto">Contact me</div>
+		<div id="contact" class="h-screen container mx-auto">
+			<h1 class="contact-title">Contact</h1>
+			<div class="contact-container">
+				<form class="contact-form">
+					<div class="name-container">
+						<mat-form-field appearance="outline">
+							<mat-label>Họ</mat-label>
+							<input matInput placeholder="Placeholder" />
+						</mat-form-field>
+						<mat-form-field appearance="outline">
+							<mat-label>Tên</mat-label>
+							<input matInput placeholder="Placeholder" />
+						</mat-form-field>
+					</div>
+
+					<mat-form-field appearance="fill">
+						<mat-label>Email của bạn</mat-label>
+						<input
+							matInput
+							placeholder="email@example.com"
+							required
+						/>
+						<mat-error *ngIf="false"></mat-error>
+					</mat-form-field>
+
+					<mat-form-field appearance="fill">
+						<mat-label>SDT</mat-label>
+						<input matInput placeholder="0123" required />
+						<mat-error *ngIf="false"></mat-error>
+					</mat-form-field>
+
+					<mat-form-field appearance="fill">
+						<mat-label>Nội dung</mat-label>
+						<textarea matInput></textarea>
+					</mat-form-field>
+					<button mat-stroked-button class="btn-send-contact">
+						Gửi
+					</button>
+				</form>
+				<div id="traditional-contact">
+					<h2>Contact me through:</h2>
+					<a href="mailto:mail@example.com" class="contact-link"
+						>email@example.com</a
+					>
+					<mat-divider></mat-divider>
+					<h2>Find me on</h2>
+					<a href="#">
+						<svg>
+							<use xlink:href="#insta" />
+						</svg>
+					</a>
+					<a href="#">
+						<svg>
+							<use xlink:href="#facebook" />
+						</svg>
+					</a>
+					<a href="#">
+						<svg>
+							<use xlink:href="#skype" />
+						</svg>
+					</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

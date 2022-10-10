@@ -1,6 +1,9 @@
 .text-mobile{
 	@apply mobile:text-xs;
 }
+.text-mobile-title{
+	@apply mobile:text-sm;
+}
 
 .text-default{
 	@apply text-base;

@@ -3,36 +3,51 @@
 .mat-dialog-container {
 	position: relative !important;
 }
+
+.panel-dialog-product{
+	@apply px-3 laptop:max-w-4xl tablet:max-w-2xl;
+}
 .overview-product-dialog {
-	@apply h-full w-full;
+	@apply h-full w-full py-3;
 	.dialog-toolbar {
 		@include s.alignFlex(flex-end, center);
-		@apply absolute right-0 top-0;
+		@apply absolute right-0 top-0 text-sm;
 	}
 	.close-button {
 		@apply cursor-pointer;
 	}
 	.overview-product-container {
-		@apply grid grid grid-cols-2 laptop:grid-cols-5 h-full;
+		@apply grid grid-cols-2 laptop:grid-cols-5 h-full;
 		.gallery-product {
+			@apply col-span-2;
 			@apply laptop:col-span-3;
 			.main-item {
+				img{
+					@apply rounded-default mx-auto;
+				}
 				.swiper-thumb {
 					@apply mt-3;
+					.swiper-slide{
+						height: 75px;
+						@apply flex;
+					}
 					.swiper-slide-visible {
 						@apply cursor-pointer relative rounded-default overflow-hidden transition-all;
 						height: 75px;
 						img {
-							z-index: 2;
+							@apply object-cover w-full z-2;
 						}
+
 						&::after {
 							@apply absolute top-0 left-0 z-30 w-full h-full;
 							content: "";
 							background: s.black(0.6);
 						}
+
 						&:hover::after {
 							background: s.black(0.2);
 						}
+
 						&.swiper-slide-thumb-active {
 							padding: 2px;
 							&::before {
@@ -96,10 +111,11 @@
 				}
 				.action-order {
 					@include s.alignFlex(space-between,center);
-					column-gap: 20px;
+					gap: 10px;
+					@apply mobile:gap-x-2 h-[35px] flex-row mobileTiny:flex-col mobileTiny:justify-around ;
 					.quantity-control {
 						@include s.alignFlex();
-						@apply rounded-default w-fit;
+						@apply rounded-default w-fit h-full;
 						background: #eaeaea;
 						.mat-button{
 							min-width: 35px !important;
@@ -118,7 +134,7 @@
 						margin: 0;
 					}
 					.btn-add-to-cart{
-						@apply text-dark transition-all;
+						@apply text-dark transition-all min-h-[35px] h-full flex justify-center items-center;
 						&:hover{
 							@apply text-primary;
 						}

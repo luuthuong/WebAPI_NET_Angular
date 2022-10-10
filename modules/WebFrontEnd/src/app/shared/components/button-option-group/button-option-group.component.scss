@@ -15,14 +15,17 @@
 	}
 
 	.group-circle-option {
-		@include s.alignFlex(flex-start, center);
-		gap: 10px;
-		.circle {
-			@apply w-9 h-9 border-solid border-2 border-gray rounded-full relative;
+		@include s.alignFlex(flex-start,center);
+		@apply gap-2 ;
+
+		.circle-btn {
+			@apply w-9 h-9 border-solid border-2 border-gray-50 rounded-full relative;
+
 			.circle-inline {
-				inset: 2px;
 				@apply rounded-full absolute;
+				inset: 2px;
 			}
+
 			&.active{
 				@apply border-primary;
 			}

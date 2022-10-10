@@ -32,6 +32,12 @@ export const BREAKPOINTS_SWIPER = {
 		slidesPerGroup: 3,
 		spaceBetween: 15,
 	},
+	'280': {
+		slidesPerView: 1,
+		slidesPerGroup: 1,
+		spaceBetween: 10,
+		navigation: false
+	},
 };
 export const BREAKPOINTS_SWIPER_PRIMARY = {
 	'768': {
@@ -64,4 +70,25 @@ export const BREAKPOINTS_SWIPER_PRIMARY = {
 		slidesPerGroup: 3,
 		spaceBetween: 15,
 	},
+	'280': {
+		slidesPerView: 1,
+		slidesPerGroup: 1,
+		spaceBetween: 0,
+		navigation: false
+	},
 };
+
+export const BREAKPOINT_SWIPER_THUMB ={
+	'768':{
+		slidesPerView: 4,
+		slidesPerGroup: 4
+	},
+	'360':{
+		slidesPerView: 2,
+		slidesPerGroup: 2
+	},
+	'280':{
+		slidesPerView: 2,
+		slidesPerGroup: 2
+	},
+}

@@ -11,20 +11,20 @@
 				*ngFor="let chip of originData"
 			>
 				<mat-icon *ngIf="chip.icon"></mat-icon>
-				<span class="chip-display-name">{{ chip.name }}</span>
+				<span class="chip-display-name text-mobile">{{ chip.name }}</span>
 			</mat-chip>
 		</mat-chip-list>
 	</div>
 
 	<div
-		class="group-circle-option"
 		*ngIf="typeGroup === enumTypeGroup.Circle && !!originData.length"
 	>
+		<div class="group-circle-option" >
 		<button
 			(click)="onSelectChip(chip)"
 			[disabled]="chip.disable"
 			mat-icon-button
-			class="circle"
+			class="circle-btn"
 			[ngClass]="{
 				active: currentValue && chip.id === currentValue.id
 			}"
@@ -35,5 +35,6 @@
 				[ngStyle]="{ background: chip.disable ? '#CFD2CF': chip.color}"
 			></div>
 		</button>
+		</div>
 	</div>
 </div>

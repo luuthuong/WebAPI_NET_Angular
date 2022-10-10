@@ -37,6 +37,7 @@
 					[freeMode]="true"
 					[watchSlidesProgress]="true"
 					[speed]="1000"
+					[breakpoints]="breakpointThumb"
 					class="swiper-thumb"
 				>
 					<ng-template
@@ -52,7 +53,7 @@
 			<div class="information-wraper">
 				<div class="information-content">
 					<h3 class="header-title">
-						<a href="">
+						<a class="text-mobile-title" href="">
 							{{ dataOvervviewProduct.title }}
 						</a>
 					</h3>
@@ -60,24 +61,24 @@
 					<h1 class="price">
 						{{ dataOvervviewProduct.price }}
 					</h1>
-					<p class="text-content">
+					<p class="text-content text-mobile">
 						{{ dataOvervviewProduct.content }}
 					</p>
-					<div matRipple class="view-detail-action">Xem chi tiết</div>
+					<div matRipple class="view-detail-action text-mobile-title">Xem chi tiết</div>
 				</div>
-				<div class="information-option">
+				<div class="information-option text-mobile">
 					<div class="row-option">
-						<div class="option-title">Switch</div>
+						<div class="option-title text-mobile-title">Switch</div>
 						<app-chip-option-group #group [data]="dataChip">
 						</app-chip-option-group>
 					</div>
 					<div class="row-option">
-						<div class="option-title">Led</div>
+						<div class="option-title text-mobile-title">Led</div>
 						<app-chip-option-group #group [data]="dataChip">
 						</app-chip-option-group>
 					</div>
 					<div class="row-option">
-						<div class="option-title">Color</div>
+						<div class="option-title text-mobile-title">Color</div>
 						<app-chip-option-group
 							[type]="enumTypeGroup.Circle"
 							#group
@@ -86,7 +87,7 @@
 						</app-chip-option-group>
 					</div>
 				</div>
-				<div class="font-medium mb-1">Số lượng</div>
+				<div class="font-medium mb-1 text-mobile-title">Số lượng</div>
 				<div class="action-order">
 					<div class="quantity-control">
 						<button (click)="minusQuantity()" mat-button>
@@ -103,7 +104,7 @@
 						</button>
 					</div>
 					<button
-						class="btn-add-to-cart"
+						class="btn-add-to-cart text-mobile"
 						mat-button
 					>
 						<mat-icon>shopping_cart</mat-icon>

@@ -1,3 +1,4 @@
+import { BREAKPOINT_SWIPER_THUMB } from './../../../constants/swiper-config.constants';
 import { IChipOptionModel } from './../../../model/chip-group-option.model';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -75,6 +76,8 @@ export class OverviewProductDialogComponent
 		},
 	];
 	enumTypeGroup = ButtonGroupTypeEnum;
+	breakpointThumb =  BREAKPOINT_SWIPER_THUMB
+
 	constructor(
 		private dialogRef: MatDialogRef<OverviewProductDialogComponent>
 	) {

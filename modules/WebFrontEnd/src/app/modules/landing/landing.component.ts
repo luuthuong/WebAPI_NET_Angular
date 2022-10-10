@@ -117,12 +117,11 @@ export class LandingComponent extends BaseComponent implements OnInit {
 	}
 
 	openDialogOverViewProduct(){
-
 		const dialogConfig : MatDialogConfig = {
 			maxHeight:'80vh',
-			maxWidth: '840px'
+			maxWidth: '840px',
+			panelClass: 'panel-dialog-product'
 		}
 		this.dialog.open(OverviewProductDialogComponent,dialogConfig)
 	}
-
 }
