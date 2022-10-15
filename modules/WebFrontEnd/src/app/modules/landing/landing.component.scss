@@ -388,7 +388,7 @@
 					grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 					grid-template-rows: repeat(auto-fill, minmax(250px, 1fr));
 					grid-auto-rows: auto 1fr auto;
-					@media only screen and (max-width: 640px ) and (min-width: 270px) {
+					@media only screen and (max-width: 640px) and (min-width: 270px) {
 						grid-template-columns: repeat(auto-fit, 1fr);
 					}
 					.featured-product-item {
@@ -432,7 +432,9 @@
 						}
 						.item-title {
 							@apply mt-2 px-2 text-dark font-medium tablet:text-base;
-							transition: transform s.$timing-default cubic-bezier(0.76, 0.16, 0.77, 1.29) s.$timing-default, max-height s.$timing-default linear;
+							transition: transform s.$timing-default cubic-bezier(0.76, 0.16, 0.77, 1.29)
+									s.$timing-default,
+								max-height s.$timing-default linear;
 							transform: translateX(-300px);
 						}
 
@@ -458,8 +460,30 @@
 			}
 		}
 
-		.home-img-slogan{
+		.contact-container {
+			@apply flex justify-center mx-auto gap-4 w-fit flex-col-reverse tablet:flex-row;
 
+			.contact-form {
+				@apply flex flex-col;
+				.name-container {
+					& > * ~ * {
+						@apply ml-0  tablet:ml-2;
+					}
+					&>*{
+						@apply w-full tablet:w-auto;
+					}
+				}
+			}
+
+			.traditional-contact {
+				a:not(.icon-contact) {
+					@apply block mx-auto text-base text-dark text-center transition-colors hover:text-primary;
+				}
+				.find-me {
+					@apply flex gap-3 items-center justify-center;
+				}
+
+			}
 		}
 	}
 
@@ -507,7 +531,6 @@
 		transform: translateY(10px);
 	}
 }
-
 
 .swiper-pagination-bullet-active {
 	background: s.$color-highlight !important;

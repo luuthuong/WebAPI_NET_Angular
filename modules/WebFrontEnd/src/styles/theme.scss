@@ -1,0 +1,23 @@
+@use './color' as *;
+
+// Mat form field
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick{
+	color: $color-primary !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-thick{
+	color: $color-main;
+}
+.mat-form-field.mat-focused .mat-form-field-label{
+	color: $color-primary ;
+}
+.mat-input-element{
+	color: $color-dark !important;
+	caret-color:$color-primary ;
+}
+.mat-form-field-underline {
+    background-color: $color-main !important;;
+}
+.mat-form-field-ripple {
+    background-color: $color-main !important;
+}

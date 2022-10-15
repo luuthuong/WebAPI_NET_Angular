@@ -26,13 +26,13 @@ module.exports = {
 			},
 			colors: {
 				primary: "#EC994B",
-				highLight: "#FF4A4A",
+				highLight: "#FD841F",
 				dark: "#343A40",
 				"gray-cus": "#CFD2CF",
 			},
 			backgroundColor: {
 				main: "#1e1f26",
-				highLight: "#FF4A4A",
+				highLight: "#FD841F",
 				gray: "#CFD2CF",
 				dark:"#1B1F23"
 			},
@@ -58,3 +58,6 @@ module.exports = {
 	},
 	plugins: [],
 };
+
+
+// #FF4A4A

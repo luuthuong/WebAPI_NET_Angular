@@ -25,7 +25,7 @@ SwiperCore.use([Pagination, Navigation, Mousewheel, Keyboard]);
 })
 export class LandingComponent extends BaseComponent implements OnInit {
 	particleConfig = PARTICLE_CONFIG;
-	subTitleArr = ('A Moment Technology').split('').map((x) => (x = x === ' ' ? '&nbsp;' : x));
+	subTitleArr = ('Technology').split('').map((x) => (x = x === ' ' ? '&nbsp;' : x));
 	navigateToolbar: INavigateToolbar[] = [
 		{
 			display: 'Trang chủ',

@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-	CUSTOM_ELEMENTS_SCHEMA,
-	NgModule
-} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -29,7 +26,7 @@ const MaterialModule = [
 	MatButtonToggleModule,
 	MatChipsModule,
 	MatInputModule,
-	MatDividerModule
+	MatDividerModule,
 ];
 
 @NgModule({
@@ -39,16 +36,23 @@ const MaterialModule = [
 		OverviewProductDialogComponent,
 		ConfirmDialogComponent,
 		ButtonOptionGroupComponent,
-  TopbarComponent,
-  FooterComponent,
+		TopbarComponent,
+		FooterComponent,
 	],
-	imports: [CommonModule, ...MaterialModule, SwiperModule, NgParticlesModule, FormsModule],
+	imports: [
+		CommonModule,
+		...MaterialModule,
+		SwiperModule,
+		NgParticlesModule,
+		FormsModule,
+	],
 	exports: [
 		SwiperModule,
 		NgParticlesModule,
 		WindowScrollDirective,
 		...MaterialModule,
 		DatePipe,
+		FooterComponent
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
