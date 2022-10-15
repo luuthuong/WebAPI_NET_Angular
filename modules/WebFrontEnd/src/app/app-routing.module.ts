@@ -9,6 +9,10 @@ const routes: Routes = [
 				(m) => m.LandingModule
 			),
 	},
+	{
+		path:'shop',
+		loadChildren: ()=> import('@modules/shop/shop.module').then(m=>m.ShopModule)
+	}
 ];
 
 @NgModule({
