@@ -11,7 +11,6 @@ using Token.Interface;
 
 namespace Token
 {
-
     public class TokenServices : ITokenService
     {
         private readonly IConfiguration _config;

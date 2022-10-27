@@ -15,7 +15,6 @@ namespace Repositories
         }
         public bool Create(T entity)
         {
-
            _context.Set<T>().Add(entity);
            return _context.SaveChanges() > 0;
         }
@@ -57,7 +56,6 @@ namespace Repositories
             {
                 query = query.Where(filter);
             }
-
             foreach (var includeProperty in includeProperties.Split
                 (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
             {

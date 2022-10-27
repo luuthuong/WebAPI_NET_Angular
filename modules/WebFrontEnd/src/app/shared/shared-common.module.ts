@@ -52,7 +52,8 @@ const MaterialModule = [
 		WindowScrollDirective,
 		...MaterialModule,
 		DatePipe,
-		FooterComponent
+		FooterComponent,
+		TopbarComponent
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

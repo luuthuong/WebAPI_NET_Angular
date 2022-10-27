@@ -18,6 +18,6 @@ namespace Services.Interface.Media
         Task<bool> UpdateFileMedia(UpdateFileRequest request);
 
         IEnumerable<FileDTOModel>? SearchFile(SearchFileRequest request);
-
+        Task<bool> AddFileToFolder(IEnumerable<IFormFile> files);
     }
 }
