@@ -66,9 +66,13 @@ namespace Services
                         {
                             new Claim(JwtClaimTypes.UserId, user.Id),
                             new Claim(ClaimTypes.Name, user.UserName),
-                            new Claim(ClaimTypes.Email, user.Email),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
+                    if(user.Email != null){
+                        authClaims.Add(
+                            new Claim(ClaimTypes.Email, user.Email)
+                        );
+                    }
                     if (userRoles.Any())
                     {
                         foreach (var item in userRoles)
