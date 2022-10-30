@@ -61,7 +61,7 @@ namespace WebAPI.Extensions
             {
                 options.MaxRequestBodySize = long.MaxValue;
                 options.MaxRequestBodyBufferSize = int.MaxValue;
-                
+
             });
             services.Configure<KestrelServerOptions>(options =>
             {
@@ -71,7 +71,7 @@ namespace WebAPI.Extensions
 
             services.Configure<FormOptions>(x =>
             {
-                x.ValueCountLimit =int.MaxValue;
+                x.ValueCountLimit = int.MaxValue;
                 x.BufferBodyLengthLimit = long.MaxValue;
                 x.ValueLengthLimit = int.MaxValue;
                 x.MultipartBodyLengthLimit = long.MaxValue; // if don't set default value is: 128 MB
@@ -80,7 +80,7 @@ namespace WebAPI.Extensions
 
         }
 
-        public static void ConfigureAuthentication(this IServiceCollection services,IConfiguration config)
+        public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration config)
         {
             services.AddAuthentication(options =>
             {
@@ -102,7 +102,7 @@ namespace WebAPI.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:JWTTokenKey"])),
                 };
             });
-            
+
         }
 
         public static void ConfigureAuthorization(this IServiceCollection service)
@@ -117,7 +117,7 @@ namespace WebAPI.Extensions
 
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<UserModel,RoleModel>()
+            services.AddIdentity<UserModel, RoleModel>()
                     .AddRoles<RoleModel>()
                     .AddEntityFrameworkStores<IdentityUserContext>()
                     .AddDefaultTokenProviders();
@@ -143,7 +143,7 @@ namespace WebAPI.Extensions
             });
         }
 
-        public static void ConfigureDbContext(this IServiceCollection services , IConfiguration config)
+        public static void ConfigureDbContext(this IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<IdentityUserContext>(options =>
             {
@@ -159,10 +159,10 @@ namespace WebAPI.Extensions
             services.AddScoped<ITokenService, TokenServices>();
 
             //DependencyRepository
-            services.AddScoped<IUserRepository,UserRepository>();
-            services.AddScoped<ICategoryRepository,CategoryRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
-            services.AddScoped<IRepositoryWrapper,RepositoryWrapper>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IFileMediaRepository, FileMediaRepository>();
             services.AddScoped<IMediaCategoryRepository, MediaCategoryRepository>();
             services.AddScoped<IFileCategoryRepository, FileCategoryRepository>();
@@ -178,23 +178,21 @@ namespace WebAPI.Extensions
 
             //Dependency Services DbContext
             services.AddScoped<IUserServices, UserServices>();
-            services.AddScoped<IRoleServices,RoleServices>();
+            services.AddScoped<IRoleServices, RoleServices>();
             services.AddScoped<IFileMediaServices, FileMediaServices>();
-            services.AddScoped<IMediaCategoryServices,MediaCategoryServices>();
+            services.AddScoped<IMediaCategoryServices, MediaCategoryServices>();
 
             services.AddScoped<IPostService, PostService>();
-            
+
 
             //Dependency claimTransformationIdentity
             services.AddTransient<IClaimsTransformation, ClaimTransformationIdentity>();
-
-
         }
 
         public static void ConfigureLogging(this IServiceCollection services)
         {
             LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "./nlog.config"));
-            services.AddSingleton<ILoggerManager,LoggerManager>();
+            services.AddSingleton<ILoggerManager, LoggerManager>();
         }
 
         public static void ConfigureCookie(this IServiceCollection services)

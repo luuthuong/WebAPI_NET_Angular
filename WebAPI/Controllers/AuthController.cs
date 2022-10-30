@@ -19,12 +19,12 @@ namespace WebAPI.Controllers
         private readonly IAuthenticationServices _authenticationServices;
         private readonly ITokenService _tokenService;
         private readonly ILoggerManager _logger;
-        
+
         public AuthController(
             IAuthenticationServices authenticationServices,
             ITokenService tokenService,
             ILoggerManager logger
-         )
+        )
         {
             _authenticationServices = authenticationServices;
             _tokenService = tokenService;
@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO login)
         {
-          var token = await _authenticationServices.Login(login);
+            var token = await _authenticationServices.Login(login);
             if (token == null)
             {
                 return BadRequest("Login Fail");

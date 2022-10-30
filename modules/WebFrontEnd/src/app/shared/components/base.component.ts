@@ -10,4 +10,7 @@ export class BaseComponent implements OnDestroy {
 		this.ngUnSubcribe.complete();
 		this.ngUnSubcribe.unsubscribe();
 	}
+	trackByFn<T>(index:number , item: T){
+		return item;
+	}
 }

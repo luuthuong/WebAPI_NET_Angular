@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToolBarDataTemplate } from 'app/shared/components/topbar/topbar-template-data';
 
 @Component({
   selector: 'app-shop',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopComponent implements OnInit {
 
+  dataTopbar = ToolBarDataTemplate;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSearchEvent(event:any){
+    console.log(event)
   }
 
 }

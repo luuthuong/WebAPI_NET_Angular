@@ -34,7 +34,7 @@ module.exports = {
 				main: "#1e1f26",
 				highLight: "#FD841F",
 				gray: "#CFD2CF",
-				dark:"#1B1F23"
+				dark:"#1B1F23",
 			},
 			zIndex: {
 				1: 1,
