@@ -5,7 +5,13 @@ import { ShopComponent } from './shop.component';
 const routes: Routes = [
 	{
 		path:'',
-		component: ShopComponent
+		component: ShopComponent,
+		children: [
+			{
+				path: '',
+				loadChildren: () => import('@modules/home/home.module').then(m => m.HomeModule)
+			}
+		]
 	}
 ];
 

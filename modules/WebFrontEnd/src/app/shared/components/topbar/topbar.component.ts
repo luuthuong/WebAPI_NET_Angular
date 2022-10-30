@@ -27,7 +27,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		
+	
 	}
 
 

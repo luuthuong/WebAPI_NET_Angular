@@ -15,8 +15,8 @@ import { BREAKPOINTS_SWIPER, BREAKPOINTS_SWIPER_PRIMARY } from 'app/shared/const
 import * as AOS from 'aos';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog'
 import { OverviewProductDialogComponent } from 'app/shared/components/dialog/overview-product-dialog/overview-product-dialog.component';
-SwiperCore.use([Pagination, Navigation, Mousewheel, Keyboard]);
 
+SwiperCore.use([Pagination, Navigation, Mousewheel, Keyboard]);
 @Component({
 	selector: 'app-landing',
 	templateUrl: './landing.component.html',
