@@ -5,7 +5,6 @@ using Entities.Models.Shop;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +33,6 @@ namespace Entities
 
         public DbSet<FileCategoryModel>? FileCategory { get; set; }
 
-
         public DbSet<ProductModel>? Product { get; set; }
         public DbSet<ProductOrderItemModel>? ProductOrderItem { get; set; }
         public DbSet<ProductCartItemModel>? ProductCartItem { get; set; }
@@ -54,8 +52,8 @@ namespace Entities
 
         public IdentityUserContext(DbContextOptions<IdentityUserContext> option) : base(option) { }
         protected override void OnConfiguring(DbContextOptionsBuilder option){
-            option.UseSqlServer("Server = localhost; Database = WEBAPI; User Id=sa; Password=@Nlt231162289; Trusted_Connection=True;");
-        }
+            option.UseSqlServer("Server = localhost; Database = WEBAPI; Trusted_Connection=True;");
+        } 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -197,20 +195,24 @@ namespace Entities
                 item.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.ClientCascade);
                 item.HasOne(x => x.Type).WithMany().HasForeignKey(x => x.TypeId).OnDelete(DeleteBehavior.ClientCascade);
             });
+
             builder.Entity<ShopTypeModel>(item =>
             {
                 item.HasIndex(x => x.Name).IsUnique();
             });
+
             builder.Entity<ProductFileCategoryItemModel>(item =>
             {
                 item.HasKey(x => new { x.FileMediaId, x.CategoryId });
                 item.HasOne(x => x.FileMedia).WithMany().HasForeignKey(x => x.FileMediaId).OnDelete(DeleteBehavior.ClientCascade);
                 item.HasOne(x => x.MediaCategory).WithMany().HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.ClientCascade);
             });
+
             builder.Entity<ShopFileMedia>(item =>
             {
                 item.HasIndex(x => x.Name).IsUnique();
             });
+
             builder.Entity<ShopMediaCategoryModel>(item =>
             {
                 item.HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId).OnDelete(DeleteBehavior.ClientNoAction);

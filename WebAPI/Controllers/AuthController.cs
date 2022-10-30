@@ -1,4 +1,6 @@
-﻿using DTO;
+﻿using Common;
+using Common.Interface;
+using DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,18 +18,23 @@ namespace WebAPI.Controllers
     {
         private readonly IAuthenticationServices _authenticationServices;
         private readonly ITokenService _tokenService;
+        private readonly ILoggerManager _logger;
+
         public AuthController(
             IAuthenticationServices authenticationServices,
-            ITokenService tokenService
-         )
+            ITokenService tokenService,
+            ILoggerManager logger
+        )
         {
             _authenticationServices = authenticationServices;
             _tokenService = tokenService;
+            _logger = logger;
         }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO login)
         {
-          var token = await _authenticationServices.Login(login);
+            var token = await _authenticationServices.Login(login);
             if (token == null)
             {
                 return BadRequest("Login Fail");

@@ -80,3 +80,7 @@ Entities/Migrations/*
 /Common/bin
 /Token/obj
 /Token/bin
+
+#Resource File
+/WebAPI/Resource
+/WebAPI/Project

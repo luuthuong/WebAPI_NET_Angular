@@ -43,8 +43,8 @@ namespace Services
                 Name = request.Name,
                 CreatedDate = DateTime.Now
             };
-           var result =await  _roleManager.CreateAsync(role);
-           return result.Succeeded;
+            var result = await _roleManager.CreateAsync(role);
+            return result.Succeeded;
         }
 
         public async Task<bool> DeleteRole(string id)
@@ -61,7 +61,7 @@ namespace Services
             foreach (var id in ids)
             {
                 _roleManager.Roles.ToList().RemoveAll(x => x.Id == id);
-                
+
             }
             //var result =await _roleManager.
 
@@ -78,7 +78,7 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        
+
 
         public Task<bool> UpdateRole(UpdateRoleRequest request)
         {

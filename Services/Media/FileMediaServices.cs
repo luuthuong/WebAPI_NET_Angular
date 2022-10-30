@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Token.Interface;
 
 namespace Services.Media
 {
@@ -20,10 +21,12 @@ namespace Services.Media
 
         private readonly IFileMediaRepository _fileRepository;
         private readonly IFileCategoryRepository _fileCategoryRepository;
-        public FileMediaServices(IFileMediaRepository repository, IFileCategoryRepository fileCategoryRepository)
+        private readonly ITokenService _tokenService;
+        public FileMediaServices(IFileMediaRepository repository, IFileCategoryRepository fileCategoryRepository, ITokenService tokenService)
         {
             _fileRepository = repository;
             _fileCategoryRepository = fileCategoryRepository;
+            _tokenService = tokenService;
         }
 
         public async Task<bool> AddFilesMedia(CreateFileRequest files)
@@ -56,6 +59,29 @@ namespace Services.Media
             return newFileCategories.Count > 0 && result ? await _fileCategoryRepository.CreateRange(newFileCategories) : result;
         }
 
+        public async Task<bool> AddFileToFolder(IEnumerable<IFormFile> files)
+        {
+            string userId = _tokenService.ResolveUserId();
+
+            var filesModels = new List<FileModel>();
+            foreach (var file in files)
+            {
+               string filePath = await FileTransfer.WriteFileToFolder(file, "Resource/Images");
+                var fileModel = new FileModel
+                {
+                    CreatedBy = userId,
+                    CreatedDate = DateTime.Now,
+                    FileURL = filePath,
+                    Id = Guid.NewGuid().ToString(),
+                    Name = file.FileName,
+                    Type = file.ContentType
+                };
+                filesModels.Add(fileModel);
+            }
+            bool result = await _fileRepository.CreateRange(filesModels);
+           return result;
+        }
+
         public async Task<bool> DeleteFileMedia(DeleteFileRequest requests)
         {
             var filesDelete = new List<FileModel>();
@@ -85,6 +111,7 @@ namespace Services.Media
                     Type = item.Type,
                     CreatedDate = item.CreatedDate,
                     FileName = item.Name,
+                    FileUrl = item.FileURL,
                     FileCategoryIds = _fileCategoryRepository.GetAll().Where(x => x.FileId == item.Id).Select(x => x.FileId)
                 };
                 if (item.SrcFile != null)

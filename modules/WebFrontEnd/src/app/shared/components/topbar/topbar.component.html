@@ -1,1 +1,52 @@
-<p>topbar works!</p>
+<div class="app-topbar h-[65px] flex justify-between items-stretch px-4 bg-dark relative">
+	<div class="navigate-container  text-gray-cus">
+		<ul  class="item-navigate-list h-full flex justify-start items-stretch gap-x-4 transition-colors font-medium tracking-wider">
+			<li *ngFor="let item of data" [class.can-trigger]="item.children" class="item-menu-navigate z-10   flex justify-center items-stretch">
+				<a class="item-navigate-main hover:text-white cursor-pointer flex justify-center items-center" href="">
+					{{ item.displayName | uppercase}}
+					<mat-icon class="font-normal" *ngIf="item.children">
+						expand_more
+					</mat-icon>
+				</a>
+				
+				<div *ngIf="item.children" class="overlay-menu absolute top-[65px] hidden left-0 h-fit w-full overflow-hidden justify-around gap-2 items-stretch">
+					<div *ngFor="let category of item.children" class="menu-category-column py-4 mt-2">
+						<ul class="category-item-header">
+							<li class="text-gray-cus text-base font-medium cursor-pointer hover:text-white">{{category.displayName}}</li>
+						</ul>
+						<mat-divider *ngIf="category.children" class="bg-gray-cus"></mat-divider>
+						<ul *ngIf="category.children">
+							<li class="mt-4 cursor-pointer text-gray-cus hover:text-white" *ngFor="let itemCate of category.children" >
+								{{itemCate.displayName}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="logo cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+		<svg class="h-11 w-11">
+			<use xlink:href="#svg"/>
+		</svg>
+	</div>
+
+	<div class="input-search text-white">
+		<mat-form-field class='w-52'>
+			<mat-label>Tìm kiếm</mat-label>
+			<input [formControl]="inputSearchControl" matInput placeholder="Tìm kiếm..." />
+			<button *ngIf="inputSearchControl.value" (click)="inputSearchControl.setValue('')" mat-icon-button matSuffix arial-label="Clear">
+				<mat-icon>close</mat-icon>
+			</button>
+		</mat-form-field>
+	</div>
+</div>
+
+<svg style="display: none" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<symbol id="svg" viewBox="0 0 24 24">
+			<path d="M17.243 3.006c2.066 0 3.742 8.714 3.742 19.478H24c0-11.588-3.042-20.968-6.766-20.968-2.127 0-4.007 2.81-5.248 7.227-1.241-4.416-3.121-7.227-5.231-7.227C3.031 1.516 0 10.888 0 22.476h3.014c0-10.763 1.658-19.47 3.724-19.47 2.066 0 3.741 8.05 3.741 17.98h2.997c0-9.93 1.684-17.98 3.75-17.98Z" fill="#FF9551"/>
+		</symbol>
+	</defs>
+</svg>

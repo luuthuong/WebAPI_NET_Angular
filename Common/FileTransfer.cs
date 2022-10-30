@@ -37,7 +37,7 @@ namespace Common
                 {
                     await file.CopyToAsync(stream);
                 }
-                return fileName;
+                return pathFile;
             }
             catch (Exception)
             {

@@ -11,16 +11,14 @@ using Token.Interface;
 
 namespace Token
 {
-
     public class TokenServices : ITokenService
     {
         private readonly IConfiguration _config;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public TokenServices(
-             IConfiguration config,
-             IHttpContextAccessor httpContextAccessor
-             )
+            IConfiguration config,
+            IHttpContextAccessor httpContextAccessor)
         {
             _config = config ?? throw new ArgumentNullException(nameof(_config));
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(_httpContextAccessor));

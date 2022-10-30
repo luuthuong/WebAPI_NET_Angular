@@ -62,7 +62,7 @@ export class LandingComponent extends BaseComponent implements OnInit {
 	breakpointSwiperBlog = BREAKPOINTS_SWIPER_PRIMARY;
 
 	constructor(
-		private el: ElementRef,
+		private eleRef: ElementRef,
 		private router: Router,
 		private location: Location,
 		private dialog: MatDialog
@@ -72,12 +72,11 @@ export class LandingComponent extends BaseComponent implements OnInit {
 			.pipe(takeUntil(this.ngUnSubcribe))
 			.subscribe((e: Event) => {
 				const positionY = window.scrollY;
-				const homeEl = this.el.nativeElement.querySelector(
+				const homeEl = this.eleRef.nativeElement.querySelector(
 					'#home'
 				) as Element;
 				this.isChangeToolbar =
-					positionY > homeEl.clientHeight - 65 &&
-					!!this.router.parseUrl(this.router.url).fragment;
+					positionY > homeEl.clientHeight - 65 ;
 			});
 
 		this.router.events
@@ -85,6 +84,14 @@ export class LandingComponent extends BaseComponent implements OnInit {
 			.subscribe((result) => {
 				if (result instanceof NavigationEnd) {
 					this.currentFragment = this.router.parseUrl(result.url).fragment || 'home';
+					// const element = this.eleRef.nativeElement.querySelector(`#${this.currentFragment}`) as Element;
+					// console.log(element)
+					// if(element){
+					// 	element.scrollIntoView({
+					// 		behavior: 'smooth',
+					// 		block: 'start'
+					// 	})
+					// }
 				}
 		});
 	}
@@ -96,9 +103,9 @@ export class LandingComponent extends BaseComponent implements OnInit {
 	}
 
 	particlesLoaded(container: Container): void {
-		this.el.nativeElement.querySelector('canvas').style.position =
+		this.eleRef.nativeElement.querySelector('canvas').style.position =
 			'absolute';
-		this.el.nativeElement.querySelector('canvas').style.zIndex = '0';
+		this.eleRef.nativeElement.querySelector('canvas').style.zIndex = '0';
 	}
 
 	async particlesInit(engine: Engine): Promise<void> {
@@ -117,11 +124,17 @@ export class LandingComponent extends BaseComponent implements OnInit {
 	}
 
 	openDialogOverViewProduct(){
+		this.isChangeToolbar = true;
 		const dialogConfig : MatDialogConfig = {
 			maxHeight:'80vh',
 			maxWidth: '840px',
 			panelClass: 'panel-dialog-product'
 		}
-		this.dialog.open(OverviewProductDialogComponent,dialogConfig)
+		const dialogRef = this.dialog.open(OverviewProductDialogComponent,dialogConfig)
+		dialogRef.afterClosed()
+		.pipe(takeUntil(this.ngUnSubcribe))
+		.subscribe(result =>{
+			this.isChangeToolbar= false;
+		})
 	}
 }

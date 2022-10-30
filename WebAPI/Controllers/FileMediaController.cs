@@ -109,5 +109,16 @@ namespace WebAPI.Controllers
                 });
             }
         }
+
+        [HttpPost("AddFileToFolder")]
+        public async Task<IActionResult> AddFileToFolderAsync([FromForm]IEnumerable<IFormFile> files)
+        {
+            bool result = await _services.AddFileToFolder(files);
+            if (!result)
+            {
+                return BadRequest("Can not add file to folder");
+            }
+            return Ok("Create Success");
+        }
     }
 }
