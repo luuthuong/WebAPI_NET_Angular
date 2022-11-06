@@ -2,7 +2,7 @@
 	<div class="navigate-container  text-gray-cus">
 		<ul  class="item-navigate-list h-full flex justify-start items-stretch gap-x-4 transition-colors font-medium tracking-wider">
 			<li *ngFor="let item of data" [class.can-trigger]="item.children" class="item-menu-navigate z-10   flex justify-center items-stretch">
-				<a class="item-navigate-main hover:text-white cursor-pointer flex justify-center items-center" href="">
+				<a class="item-navigate-main hover:text-white cursor-pointer flex justify-center items-center" routerLink="/" >
 					{{ item.displayName | uppercase}}
 					<mat-icon class="font-normal" *ngIf="item.children">
 						expand_more

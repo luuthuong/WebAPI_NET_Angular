@@ -1,0 +1,51 @@
+@use 'src/styles/index.scss' as *;
+.shop-home{
+    .home-slide-item{
+
+    }
+    .card-item img{
+        position: relative;
+        transform: scale(0);
+        filter: blur(50px);
+        transition: transform .8s linear, filter .5s linear;
+    }
+    .view-detail-action{
+        border-color: $color-primary !important;
+    }
+    .card-item-content{
+        
+    }
+    .title-item{
+        opacity: 0;
+        transform: translateY(-100px);
+        transition:all .3s linear .8s;
+    }
+    .item-content{
+        opacity: 0;
+        transform: translateX(-350px);
+        transition:all .3s linear 1.1s;
+    }
+    .item-action-group{
+        opacity: 0;
+        transform: translateX(-150px);
+        transition: all .3s  linear 1.4s;
+    }
+    .swiper-slide-active{
+        .card-item img{
+            transform: scale(1);
+            filter: blur(0);
+        }
+        .item-content{
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .item-action-group{
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .title-item{
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

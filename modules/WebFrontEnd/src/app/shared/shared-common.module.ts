@@ -18,6 +18,7 @@ import { WindowScrollDirective } from './directive/window-scroll.directive';
 import { DatePipe } from './pipe/date.pipe';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { RouterModule } from '@angular/router';
 const MaterialModule = [
 	MatButtonModule,
 	MatIconModule,
@@ -40,6 +41,7 @@ const MaterialModule = [
 		FooterComponent,
 	],
 	imports: [
+		RouterModule,
 		CommonModule,
 		...MaterialModule,
 		SwiperModule,

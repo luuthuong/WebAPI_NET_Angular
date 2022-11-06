@@ -1,5 +1,8 @@
-<app-topbar [data]="dataTopbar" (onSearchEvent)="onSearchEvent($event)">
-</app-topbar>
-<router-outlet></router-outlet>
-
-<app-footer></app-footer>
+<div >
+    <app-topbar [data]="dataTopbar" (onSearchEvent)="onSearchEvent($event)">
+    </app-topbar>
+    <div class="content-main-container">
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+    </div>
+</div>
