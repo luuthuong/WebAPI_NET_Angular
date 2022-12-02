@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Repositories.Blog
 {
-    public class PostCommentRepository : RepositoryBase<PostCommentModel, IdentityUserContext>, IPostCommentRepository
+    public class PostCommentRepository : RepositoryBase<PostCommentModel, Entities.AppDbContext>, IPostCommentRepository
     {
-        public PostCommentRepository(IdentityUserContext context) : base(context)
+        public PostCommentRepository(Entities.AppDbContext context) : base(context)
         {
         }
     }

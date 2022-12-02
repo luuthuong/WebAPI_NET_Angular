@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Repositories.Blog
 {
-    public class PostTagRepository : RepositoryBase<PostTagModel, IdentityUserContext>,IPostTagRepository
+    public class PostTagRepository : RepositoryBase<PostTagModel, Entities.AppDbContext>,IPostTagRepository
     {
-        public PostTagRepository(IdentityUserContext context) : base(context)
+        public PostTagRepository(Entities.AppDbContext context) : base(context)
         {
         }
     }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class IdentityUserContext:IdentityDbContext<UserModel,RoleModel,string,
+    public class AppDbContext:IdentityDbContext<UserModel,RoleModel,string,
         IdentityUserClaim<string>,IdentityUserRole<string>,
         IdentityUserLogin<string>, IdentityRoleClaim<string>,
         IdentityUserToken<string>>
@@ -50,7 +50,7 @@ namespace Entities
         public DbSet<ProductFileCategoryItemModel>? FileCategoryItem { get; set; }
         public DbSet<ShopFileMedia>? ShopFileMedia { get; set; }
 
-        public IdentityUserContext(DbContextOptions<IdentityUserContext> option) : base(option) { }
+        public AppDbContext(DbContextOptions<AppDbContext> option) : base(option) { }
         protected override void OnConfiguring(DbContextOptionsBuilder option){
             option.UseSqlServer("Server = localhost; Database = WEBAPI; Trusted_Connection=True;");
         } 

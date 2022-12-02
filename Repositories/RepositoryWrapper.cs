@@ -11,9 +11,9 @@ namespace Repositories
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private IUserRepository? _repository;
-        private readonly IdentityUserContext _userContext;
+        private readonly  AppDbContext _userContext;
         public RepositoryWrapper(
-            IdentityUserContext userContext
+             AppDbContext userContext
             )
         {
             _userContext = userContext;

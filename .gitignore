@@ -68,8 +68,6 @@ publish
 /Repositories/obj
 /Entities/bin
 /Entities/obj
-/Entities/Migrations
-Entities/Migrations/*
 /DTO/bin
 /DTO/obj
 /Dependencies/bin

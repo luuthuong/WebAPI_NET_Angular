@@ -119,7 +119,7 @@ namespace WebAPI.Extensions
         {
             services.AddIdentity<UserModel, RoleModel>()
                     .AddRoles<RoleModel>()
-                    .AddEntityFrameworkStores<IdentityUserContext>()
+                    .AddEntityFrameworkStores<AppDbContext>()
                     .AddDefaultTokenProviders();
 
             //services.AddIdentityServer(options =>
@@ -145,7 +145,7 @@ namespace WebAPI.Extensions
 
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<IdentityUserContext>(options =>
+            services.AddDbContext<Entities.AppDbContext>(options =>
             {
                 options.UseSqlServer(config.GetConnectionString("connection"));
             });

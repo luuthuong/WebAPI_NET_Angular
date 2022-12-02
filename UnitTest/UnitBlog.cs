@@ -27,7 +27,7 @@ namespace UnitTest
         [SetUp]
         public void Setup()
         {
-            _postRepository = new PostRepository(new IdentityUserContext(new DbContextOptions<IdentityUserContext>()));
+            _postRepository = new PostRepository(new Entities.AppDbContext(new DbContextOptions<Entities.AppDbContext>()));
             _postService = new PostService(
                 new Mock<IPostRepository>().Object, 
                 new Mock<ITokenService>().Object, 

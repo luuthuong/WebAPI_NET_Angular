@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class UserRepository : RepositoryBase<UserModel, IdentityUserContext>, IUserRepository
+    public class UserRepository : RepositoryBase<UserModel, Entities.AppDbContext>, IUserRepository
     {
-        public UserRepository(IdentityUserContext context) : base(context){ }
+        public UserRepository(Entities.AppDbContext context) : base(context){ }
     }
 }

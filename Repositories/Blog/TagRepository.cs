@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Repositories.Blog
 {
-    public class TagRepository:RepositoryBase<TagModel,IdentityUserContext>,ITagRepository
+    public class TagRepository:RepositoryBase<TagModel, Entities.AppDbContext>,ITagRepository
     {
-        public TagRepository(IdentityUserContext context) : base(context) { }
+        public TagRepository(Entities.AppDbContext context) : base(context) { }
     }
 }

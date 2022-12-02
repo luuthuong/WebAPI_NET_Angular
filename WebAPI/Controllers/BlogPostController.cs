@@ -2,6 +2,7 @@
 using Common.Interface;
 using DTO;
 using DTO.PostDTO;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,16 @@ namespace WebAPI.Controllers
     {
         private readonly IPostService _service;
         private readonly ILoggerManager _logger;
+        private readonly IMediator _mediator;
         public BlogPostController(
             IPostService service,
-            ILoggerManager logger
+            ILoggerManager logger,
+            IMediator mediator
             )
         {
             _service = service;
             _logger = logger;
+            _mediator = mediator;
         }
 
         [Authorize]

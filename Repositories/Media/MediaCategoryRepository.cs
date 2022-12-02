@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Repositories.Media
 {
-    public class MediaCategoryRepository : RepositoryBase<MediaCategoryModel, IdentityUserContext>, IMediaCategoryRepository
+    public class MediaCategoryRepository : RepositoryBase<MediaCategoryModel, Entities.AppDbContext>, IMediaCategoryRepository
     {
-        public MediaCategoryRepository(IdentityUserContext context) : base(context) { }
+        public MediaCategoryRepository(Entities.AppDbContext context) : base(context) { }
 
     }
 }

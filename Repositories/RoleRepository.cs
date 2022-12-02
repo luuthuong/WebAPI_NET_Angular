@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class RoleRepository : RepositoryBase<RoleModel, IdentityUserContext>, IRoleRepository
+    public class RoleRepository : RepositoryBase<RoleModel, Entities.AppDbContext>, IRoleRepository
     {
-        public RoleRepository(IdentityUserContext context) : base(context){}
+        public RoleRepository(Entities.AppDbContext context) : base(context){}
     }
 }

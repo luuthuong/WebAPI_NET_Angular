@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace Repositories.Media
 {
-    public class FileCategoryRepository : RepositoryBase<FileCategoryModel, IdentityUserContext>, IFileCategoryRepository
+    public class FileCategoryRepository : RepositoryBase<FileCategoryModel, Entities.AppDbContext>, IFileCategoryRepository
     {
-        public FileCategoryRepository(IdentityUserContext context) : base(context) { }
+        public FileCategoryRepository(Entities.AppDbContext context) : base(context) { }
     }
 }

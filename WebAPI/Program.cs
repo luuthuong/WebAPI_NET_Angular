@@ -7,6 +7,8 @@ using WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//var environtmentName = Environment.GetEnvironmentVariable("")
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

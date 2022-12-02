@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Repositories.Blog
 {
-    public class PostMetaRepository:RepositoryBase<PostMetaModel,IdentityUserContext>,IPostMetaRepository
+    public class PostMetaRepository:RepositoryBase<PostMetaModel, Entities.AppDbContext>,IPostMetaRepository
     {
-        public PostMetaRepository(IdentityUserContext context) : base(context) {       }
+        public PostMetaRepository(Entities.AppDbContext context) : base(context) {       }
     }
 }

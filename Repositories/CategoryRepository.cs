@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class CategoryRepository : RepositoryBase<CategoryModel, IdentityUserContext>,ICategoryRepository
+    public class CategoryRepository : RepositoryBase<CategoryModel, Entities.AppDbContext>,ICategoryRepository
     {
-        public CategoryRepository(IdentityUserContext context) : base(context){ }
+        public CategoryRepository(Entities.AppDbContext context) : base(context){ }
     }
 }

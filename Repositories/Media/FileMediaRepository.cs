@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Repositories.Media
 {
-    public class FileMediaRepository : RepositoryBase<FileModel, IdentityUserContext>, IFileMediaRepository
+    public class FileMediaRepository : RepositoryBase<FileModel, Entities.AppDbContext>, IFileMediaRepository
     {
-        public FileMediaRepository(IdentityUserContext context) : base(context) { }
+        public FileMediaRepository(Entities.AppDbContext context) : base(context) { }
     }
 }
