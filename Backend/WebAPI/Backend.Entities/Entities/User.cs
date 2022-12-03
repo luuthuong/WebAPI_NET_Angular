@@ -23,7 +23,7 @@ namespace Backend.Entities.Entities
 
         public bool EnableEmailNotification { get; set; }
 
-        public ICollection<RefreshToken> RefreshTokens { get; set; }
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
         public DateTime LastLogin { get; set; }
         public string Intro { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }

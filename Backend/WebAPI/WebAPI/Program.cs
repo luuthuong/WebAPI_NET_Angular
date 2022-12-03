@@ -1,3 +1,4 @@
+using Backend.Business;
 using Backend.Common;
 using WebAPI.Extensions;
 
@@ -20,6 +21,7 @@ service.ConfigureDbContext(builder.Configuration);
 service.ConfigureIdentity();
 service.ConfigureAuthentication(builder.Configuration);
 service.ConfigureAuthorization();
+service.DIServiceRegister();
 
 // Add services to the container.
 
