@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="CQRS\Commands\" />
     <Folder Include="CQRS\Queries\" />
+    <Folder Include="AutoMapperProfile\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Services\Services\" />
   </ItemGroup>

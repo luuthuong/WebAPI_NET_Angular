@@ -34,4 +34,8 @@
     <ProjectReference Include="..\Services\Services.csproj" />
     <ProjectReference Include="..\Token\Token.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DbInitializer\" />
+  </ItemGroup>
 </Project>
