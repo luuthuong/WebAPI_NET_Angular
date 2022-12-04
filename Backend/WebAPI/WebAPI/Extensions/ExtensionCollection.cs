@@ -29,7 +29,7 @@ namespace WebAPI.Extensions
                     policy.AllowAnyHeader();
                     policy.AllowAnyMethod();
                     policy.AllowAnyOrigin();
-                    //policy.AllowCredentials();
+                    policy.AllowCredentials();
                 });
             });
         }

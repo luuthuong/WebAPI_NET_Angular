@@ -23,6 +23,8 @@ namespace Backend.Business.Services.Services
         private readonly SignInManager<User> _signInManager;
         private readonly IConfigurationService _configuration;
         private readonly ITokenService _tokenService;
+
+
         public AuthService(AppDbContext dBContext, 
             ILogger<AuthService> logger, 
             IMapper mapper, 
@@ -45,6 +47,7 @@ namespace Backend.Business.Services.Services
         public async Task<UserLoginResponse> LoginAsync(LoginRequest request)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(usr => usr.Status == StatusEnum.Active && (usr.UserName == request.UserName || usr.Email == request.Email));
+            var token = _tokenService.JwtToken;
             if(user == null)
             {
                 return new UserLoginResponse()
@@ -58,6 +61,7 @@ namespace Backend.Business.Services.Services
                 var roles = await _userManager.GetRolesAsync(user);
                 var jwtToken = _tokenService.GenerateJwtToken(user, roles);
                 var refreshToken = _tokenService.GenerateRefreshToken(user.Id);
+                DBContext.RefreshTokens.RemoveRange(DBContext.RefreshTokens.Where(x =>x.UserId == user.Id));
                 DBContext.RefreshTokens.Add(refreshToken);
                 await DBContext.SaveChangesAsync();
                 return new UserLoginResponse()
@@ -84,7 +88,6 @@ namespace Backend.Business.Services.Services
             {
                 return "Unauthorized";
             }
-
             return "";
         }
 

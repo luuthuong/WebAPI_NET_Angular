@@ -23,7 +23,7 @@ namespace Backend.DBContext
                 Key = Key
             };
             await UpAsync(dbContext, serviceProvider);
-            await dbContext.AddAsync(seedData);
+            await dbContext.SeedDataHistory.AddAsync(seedData);
             await dbContext.SaveChangesAsync();
         }
     }

@@ -5,6 +5,7 @@ using Backend.Common.Models;
 using Backend.Common.Responses;
 using Backend.DBContext;
 using Backend.Entities.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -22,10 +23,20 @@ namespace Backend.Business.Services.Services
     public class TokenService : ServiceBase, ITokenService
     {
         private readonly IConfigurationService _configuration;
-
-        public TokenService(AppDbContext dbContext, ILogger<TokenService> logger, IMapper mapper, IConfigurationService configuration) : base(dbContext, logger, mapper)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public TokenService(AppDbContext dbContext, ILogger<TokenService> logger, IMapper mapper, IConfigurationService configuration, IHttpContextAccessor httpContextAccessor) : base(dbContext, logger, mapper)
         {
-            _configuration = configuration;
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(_configuration));
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(_httpContextAccessor));
+        }
+
+        public string JwtToken
+        {
+            get
+            {
+                var authorizationHeader = _httpContextAccessor.HttpContext.Request.Headers.Authorization.Single();
+                return authorizationHeader?.Split(" ").Last() ?? string.Empty;
+            }
         }
 
         public string GenerateJwtToken(User user, IEnumerable<string> roles)
@@ -66,6 +77,26 @@ namespace Backend.Business.Services.Services
             }
         }
 
+        public ClaimsPrincipal GetPrincipalFromToken(string token, bool isCheckExpired = false)
+        {
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.JWTTokenKey));
+            var tokenValidationParameter = new TokenValidationParameters()
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                RequireExpirationTime = isCheckExpired,
+                ClockSkew = TimeSpan.Zero,
+                ValidateLifetime = isCheckExpired
+            };
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameter, out SecurityToken validatedToken);
+            var jwtSecurityToken = validatedToken as JwtSecurityToken;
+            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("Invalid Token");
+            return principal;
+        }
+
         public async Task<AuthenticationResponse> RefreshToken(string token, IList<string> roles)
         {
             var user = DBContext.Users.SingleOrDefault(usr => usr.RefreshTokens.Any(t => t.Token == token));
@@ -87,7 +118,7 @@ namespace Backend.Business.Services.Services
         {
             var user = await DBContext.Users.Include(x => x.RefreshTokens).SingleOrDefaultAsync(usr => usr.RefreshTokens.Any(t => t.Token == token));
             if (user == null) return false;
-            var refreshToken = user.RefreshTokens.Single(x=>x.Token== token);
+            var refreshToken = user.RefreshTokens.Single(x=> x.Token == token);
             if (!refreshToken.IsActive) return false;
             refreshToken.Revoked = DateTime.UtcNow;
             return await DBContext.SaveChangesAsync() > 0;

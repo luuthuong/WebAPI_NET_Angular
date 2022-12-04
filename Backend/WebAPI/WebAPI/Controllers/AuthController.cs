@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using WebAPI.Extensions;
 
 namespace WebAPI.Controllers
 {
@@ -24,7 +25,6 @@ namespace WebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody]LoginRequest request)
         {
-            var token = Request.Headers["authorization"];
            var result =  await _authService.LoginAsync(request);
             if(result.HttpStatusCode == HttpStatusCode.OK)
             {
@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(Request.Headers["authorization"]);
+            return Ok(User.GetUserId());
         }
     }
 }
