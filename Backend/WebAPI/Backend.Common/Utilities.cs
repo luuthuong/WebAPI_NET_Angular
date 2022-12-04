@@ -27,7 +27,6 @@ namespace Backend.Common
             catch (ReflectionTypeLoadException e)
             {
                 return e.Types.Where(x =>x != null);
-                throw;
             }
         }
     }
