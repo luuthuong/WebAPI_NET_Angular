@@ -12,6 +12,9 @@ using AutoMapper;
 using System.Text;
 using Backend.Common;
 using Backend.Business;
+using Backend.Business.Services.Interfaces;
+using System.Reflection;
+using MediatR;
 
 namespace WebAPI.Extensions
 {
@@ -123,10 +126,26 @@ namespace WebAPI.Extensions
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
+                options.Events = new JwtBearerEvents()
+                {
+                    OnTokenValidated = context =>
+                    {
+                        var authService = context.HttpContext.RequestServices.GetRequiredService<IAuthService>();
+                        var message = authService.ValidUserAsync(context.Principal.GetUserId()).Result;
+                        if (!string.IsNullOrEmpty(message))
+                        {
+                            context.Fail("Unauthorized");
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
+
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     RequireExpirationTime = true,
                     ValidateIssuerSigningKey = true,
@@ -141,6 +160,12 @@ namespace WebAPI.Extensions
         public static void ConfigureAutoMapper(this IServiceCollection service)
         {
             service.AddAutoMapper(Utilities.GetAssembliesOfType(typeof(Profile), typeof(ServiceBase)));
+        }
+
+        public static void ConfigureMediatR(this IServiceCollection service)
+        {
+            service.AddMediatR(Assembly.GetExecutingAssembly());
+            service.AddMediatR(Utilities.GetAssembliesOfType(typeof(ServiceBase)).ToArray());
         }
     }
 }

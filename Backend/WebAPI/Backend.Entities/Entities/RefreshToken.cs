@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Backend.Entities.Entities
 {
     [Table("RefreshToken",Schema = SchemaConstants.App)]
-    public class RefreshToken
+    public class RefreshToken: EntityBase
     {
         public string Token { get; set; }
         public string OriginalToken { get; set; }

@@ -15,6 +15,8 @@ namespace Backend.Business
         public static void DIServiceRegister(this IServiceCollection service)
         {
             service.AddTransient<IAuthService, AuthService>();
+            service.AddSingleton<IConfigurationService, ConfigurationService>();
+            service.AddScoped<ITokenService, TokenService>();
         }
     }
 }

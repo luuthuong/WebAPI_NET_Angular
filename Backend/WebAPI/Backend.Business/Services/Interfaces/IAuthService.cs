@@ -13,7 +13,6 @@ namespace Backend.Business.Services.Interfaces
         Task<UserLoginResponse> LoginAsync(LoginRequest request);
         Task<bool> LogOutAsync(string refreshToken);
         Task<bool> ChangePasswordAsync(Guid userId, UserChangePasswordRequest request);
-        Task<bool> RefreshToken(string token);
-        Task<bool> RevokeToken(string token);
+        Task<string> ValidUserAsync(Guid id);
     }
 }

@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{283EBB96-DE44-472F-85F6-A16518DAA101}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{283EBB96-DE44-472F-85F6-A16518DAA101}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Business", "Backend.Business\Backend.Business.csproj", "{24941782-8C9D-4FF4-B806-6BE3EF6E4665}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Business", "Backend.Business\Backend.Business.csproj", "{24941782-8C9D-4FF4-B806-6BE3EF6E4665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Common", "Backend.Common\Backend.Common.csproj", "{C8F15916-5D21-4F9B-BB49-8C9C2ECAC60C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Common", "Backend.Common\Backend.Common.csproj", "{C8F15916-5D21-4F9B-BB49-8C9C2ECAC60C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.Entities", "Backend.Entities\Backend.Entities.csproj", "{C52539FA-5E11-4452-8E40-3CF9A2953CB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Entities", "Backend.Entities\Backend.Entities.csproj", "{C52539FA-5E11-4452-8E40-3CF9A2953CB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.DBContext", "Backend.DBContext\Backend.DBContext.csproj", "{D422C44A-8F9A-4369-9C10-8920710F1FE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.DBContext", "Backend.DBContext\Backend.DBContext.csproj", "{D422C44A-8F9A-4369-9C10-8920710F1FE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{16818F2B-D93E-4513-A325-1B2DE0998E01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{D422C44A-8F9A-4369-9C10-8920710F1FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D422C44A-8F9A-4369-9C10-8920710F1FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D422C44A-8F9A-4369-9C10-8920710F1FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16818F2B-D93E-4513-A325-1B2DE0998E01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16818F2B-D93E-4513-A325-1B2DE0998E01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16818F2B-D93E-4513-A325-1B2DE0998E01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16818F2B-D93E-4513-A325-1B2DE0998E01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,6 +24,7 @@ service.ConfigureAuthentication(builder.Configuration);
 service.ConfigureAuthorization();
 service.DIServiceRegister();
 service.ConfigureAutoMapper();
+service.ConfigureMediatR();
 #endregion
 
 service.AddControllers();

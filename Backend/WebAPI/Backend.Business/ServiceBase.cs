@@ -12,9 +12,9 @@ namespace Backend.Business
         protected readonly AppDbContext DBContext;
         protected readonly ILogger Logger;
         protected readonly IMapper Mapper;
-        public ServiceBase(AppDbContext dBContext, ILogger logger, IMapper mapper)
+        public ServiceBase(AppDbContext dbContext, ILogger logger, IMapper mapper)
         {
-            DBContext = dBContext;
+            DBContext = dbContext;
             Logger = logger;
             Mapper = mapper;
         }
@@ -33,7 +33,6 @@ namespace Backend.Business
                 return query.OrderByDescending(orderExpression);
             }
             return query.OrderBy(orderExpression);
-
         }
     }
 }

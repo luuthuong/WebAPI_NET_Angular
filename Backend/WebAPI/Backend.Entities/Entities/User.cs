@@ -18,7 +18,7 @@ namespace Backend.Entities.Entities
         public bool Sex { get; set; }
         public string Adress { get; set; }
         public DateTime? DateofBirth { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
 
         public bool EnableEmailNotification { get; set; }

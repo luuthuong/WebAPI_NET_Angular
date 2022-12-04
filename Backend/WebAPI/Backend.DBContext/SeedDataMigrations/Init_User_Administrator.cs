@@ -21,8 +21,8 @@ namespace Backend.DBContext.SeedDataMigrations
             {
                 Id = ValueConstants.AdministratorId,
                 DisplayName = "Administrator",
-                Email = "administrator@netpower.no",
-                UserName = "administrator@netpower.no",
+                Email = "administrator@gmail.com",
+                UserName = "admin",
                 Status = StatusEnum.Active,
                 PhoneNumberConfirmed = true,
                 EmailConfirmed = true,
@@ -60,7 +60,7 @@ namespace Backend.DBContext.SeedDataMigrations
             {
                 var existingUser = await userManager.FindByIdAsync(user.Id.ToString());
                 if(existingUser == null) {
-                    await userManager.CreateAsync(user, "admin123");
+                    await userManager.CreateAsync(user, "admin");
                     await userManager.AddToRoleAsync(user, roleType.ToString());
                 }
             }

@@ -40,7 +40,7 @@ namespace Backend.DBContext
 
             builder.Entity<RefreshToken>(refreshToken =>
             {
-                refreshToken.HasKey(ur => ur.UserId);
+                refreshToken.HasKey(ur => ur.Id);
                 refreshToken.HasOne(token => token.User)
                 .WithMany(user => user.RefreshTokens).HasForeignKey(token => token.UserId).IsRequired(true);
             });

@@ -9,13 +9,14 @@ namespace Backend.Common.Models
     public class UserUpdateModel
     {
         public string DisplayName { get; set; }
-        public string Emai { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         public bool EnableEmailNotification { get; set; }
         public IEnumerable<Guid> Roles { get; set; }
         public void Format()
         {
             DisplayName = DisplayName?.Trim() ?? string.Empty;
-            Emai = Emai?.Trim() ?? string.Empty;
+            Email = Email?.Trim() ?? string.Empty;
         }
     }
 
