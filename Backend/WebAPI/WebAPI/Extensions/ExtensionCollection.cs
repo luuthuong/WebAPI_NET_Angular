@@ -8,7 +8,10 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using AutoMapper;
 using System.Text;
+using Backend.Common;
+using Backend.Business;
 
 namespace WebAPI.Extensions
 {
@@ -61,11 +64,24 @@ namespace WebAPI.Extensions
 
         public static void ConfigureDbContext(this IServiceCollection service, IConfiguration configuration)
         {
-            Log.Information("Starting migration");
             service.AddDbContext<AppDbContext>(option =>
             {
                 option.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+        }
+
+        public static void HandleRequiredService(this IServiceProvider serviceProvider)
+        {
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var provider = scope.ServiceProvider;
+                Log.Information("Starting migration");
+                var dbContext = provider.GetRequiredService<AppDbContext>();
+                var connectionString = dbContext.Database.GetConnectionString();
+                Log.Information($"============= Connection string: {connectionString}");
+                dbContext.Database.Migrate();
+                DataSeedingContext.InitSeedDataMigrationAsync(dbContext, provider).Wait();
+            }
         }
 
         public static void ConfigureIdentity(this IServiceCollection service)
@@ -120,6 +136,11 @@ namespace WebAPI.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:JWTTokenKey"])),
                 };
             });
+        }
+
+        public static void ConfigureAutoMapper(this IServiceCollection service)
+        {
+            service.AddAutoMapper(Utilities.GetAssembliesOfType(typeof(Profile), typeof(ServiceBase)));
         }
     }
 }

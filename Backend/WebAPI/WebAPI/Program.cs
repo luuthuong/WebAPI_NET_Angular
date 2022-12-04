@@ -15,6 +15,7 @@ builder.Configuration.SetBasePath(path)
 
 SeriLogHelper.UseCustomizedSerilog(environtmentName, builder.Configuration);
 
+#region Collection_Service
 service.ConfigureIISItergration(builder.Configuration);
 service.ConfigureCorsPolicy();
 service.ConfigureDbContext(builder.Configuration);
@@ -22,15 +23,16 @@ service.ConfigureIdentity();
 service.ConfigureAuthentication(builder.Configuration);
 service.ConfigureAuthorization();
 service.DIServiceRegister();
-
-// Add services to the container.
+service.ConfigureAutoMapper();
+#endregion
 
 service.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 service.AddEndpointsApiExplorer();
 service.AddSwaggerGen();
 
 var app = builder.Build();
+//Handle required service
+app.Services.HandleRequiredService();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

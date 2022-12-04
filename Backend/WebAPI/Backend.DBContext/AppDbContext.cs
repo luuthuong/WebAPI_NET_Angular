@@ -12,6 +12,7 @@ namespace Backend.DBContext
     public class AppDbContext : DbContextBase<User, Role, UserRole, Guid>
     {
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<SeedDataHistory> SeedDataHistory { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }

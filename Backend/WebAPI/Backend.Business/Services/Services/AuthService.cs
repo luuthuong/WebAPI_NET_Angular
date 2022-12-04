@@ -3,6 +3,8 @@ using Backend.Business.Services.Interfaces;
 using Backend.Common.Requests;
 using Backend.Common.Responses;
 using Backend.DBContext;
+using Backend.Entities.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,9 +14,18 @@ using System.Threading.Tasks;
 
 namespace Backend.Business.Services.Services
 {
-    public class AuthService : ServiceBase, IAuthService
+    public class AuthService :ServiceBase, IAuthService
     {
-        public AuthService(AppDbContext dBContext, ILogger logger, IMapper mapper) : base(dBContext, logger, mapper){}
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        public AuthService(AppDbContext dBContext, 
+            ILogger<AuthService> logger, 
+            IMapper mapper, 
+            UserManager<User> userManager, 
+            SignInManager<User> signInManager) : base(dBContext, logger, mapper) {
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+        }
 
         public Task<bool> ChangePasswordAsync(Guid userId, UserChangePasswordRequest request)
         {

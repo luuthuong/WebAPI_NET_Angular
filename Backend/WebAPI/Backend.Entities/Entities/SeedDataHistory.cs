@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Backend.Common.Enums
+namespace Backend.Entities.Entities
 {
-    public enum RoleTypeEnum
+    public class SeedDataHistory: EntityBase
     {
-        Admin,
-        Reader
+        public string Key { get; set; }
     }
 }
