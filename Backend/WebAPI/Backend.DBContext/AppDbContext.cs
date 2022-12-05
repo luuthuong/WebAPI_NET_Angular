@@ -13,6 +13,8 @@ namespace Backend.DBContext
     {
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<SeedDataHistory> SeedDataHistory { get; set; }
+
+        public DbSet<Blog> Blogs { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }

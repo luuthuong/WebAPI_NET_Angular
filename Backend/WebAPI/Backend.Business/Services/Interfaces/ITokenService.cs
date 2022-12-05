@@ -1,4 +1,5 @@
-﻿using Backend.Common.Responses;
+﻿using Backend.Common.Requests;
+using Backend.Common.Responses;
 using Backend.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace Backend.Business.Services.Interfaces
         string JwtToken { get; }
         string GenerateJwtToken(User user, IEnumerable<string> roles);
         RefreshToken GenerateRefreshToken(Guid userId);
-        Task<AuthenticationResponse> RefreshToken(string token, IList<string> roles);
-        Task<bool> RevokeToken(string token);
+        Task<AuthenticationResponse> RefreshToken(RefreshTokenRequest request, IList<string> roles);
+        Task<bool> RevokeToken(RefreshTokenRequest token);
         ClaimsPrincipal GetPrincipalFromToken(string token, bool isCheckExpired = false);
     }
 }

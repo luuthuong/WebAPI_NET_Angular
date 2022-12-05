@@ -26,6 +26,5 @@ namespace Backend.DBContext
                 await notExecuteDataSeedMigration[i].ExecuteAsync(dbContext, serviceProvider);
             }
         }
-
     }
 }

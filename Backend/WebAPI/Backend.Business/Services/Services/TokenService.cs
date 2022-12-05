@@ -2,6 +2,7 @@
 using Backend.Business.Services.Interfaces;
 using Backend.Common.Constants;
 using Backend.Common.Models;
+using Backend.Common.Requests;
 using Backend.Common.Responses;
 using Backend.DBContext;
 using Backend.Entities.Entities;
@@ -46,7 +47,7 @@ namespace Backend.Business.Services.Services
             var phone = user.PhoneNumber?.ToString() ?? string.Empty;
             var claimIdentity = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.Role, string.Join(",", roles)),
+                new Claim(ClaimTypeConstants.Role, string.Join(",", roles)),
                 new Claim(ClaimTypeConstants.Email, user?.Email ?? string.Empty),
                 new Claim(ClaimTypeConstants.PhoneNumber, phone),
                 new Claim(ClaimTypeConstants.UserId, user.Id.ToString())
@@ -97,29 +98,30 @@ namespace Backend.Business.Services.Services
             return principal;
         }
 
-        public async Task<AuthenticationResponse> RefreshToken(string token, IList<string> roles)
+        public async Task<AuthenticationResponse> RefreshToken(RefreshTokenRequest request, IList<string> roles)
         {
-            var user = DBContext.Users.SingleOrDefault(usr => usr.RefreshTokens.Any(t => t.Token == token));
+            var user = DBContext.Users.SingleOrDefault(usr => usr.RefreshTokens.Any(t => t.Token == request.RefreshToken));
             if (user == null) return null;
-            var refreshToken = await DBContext.RefreshTokens.FirstOrDefaultAsync(t => t.UserId == user.Id && t.Token == token);
-            if(!refreshToken.IsActive) return null;
+            var refreshToken = await DBContext.RefreshTokens.FirstOrDefaultAsync(t => t.UserId == user.Id && t.Token == request.RefreshToken);
+            if(refreshToken.Expires< DateTime.UtcNow || !refreshToken.IsActive) throw new SecurityTokenExpiredException("Token invalid or was expried");
+
             var newRefreshToken = GenerateRefreshToken(user.Id);
-            newRefreshToken.OriginalToken = refreshToken.OriginalToken;
+            newRefreshToken.OriginalToken = refreshToken.OriginalToken;  
             refreshToken.Revoked = DateTime.UtcNow;
             refreshToken.ReplacedByToken = newRefreshToken.Token;
             DBContext.RefreshTokens.Add(newRefreshToken);
             await DBContext.SaveChangesAsync();
             var jwtToken = GenerateJwtToken(user, roles);
             var userModel = Mapper.Map<User, UserModel>(user);
-            return new AuthenticationResponse(userModel, jwtToken, refreshToken.Token, roles);
+            return new AuthenticationResponse(userModel, jwtToken, newRefreshToken.Token, roles);
         }
 
-        public async Task<bool> RevokeToken(string token)
+        public async Task<bool> RevokeToken(RefreshTokenRequest token)
         {
-            var user = await DBContext.Users.Include(x => x.RefreshTokens).SingleOrDefaultAsync(usr => usr.RefreshTokens.Any(t => t.Token == token));
-            if (user == null) return false;
-            var refreshToken = user.RefreshTokens.Single(x=> x.Token == token);
-            if (!refreshToken.IsActive) return false;
+            var user = await DBContext.Users.Include(x => x.RefreshTokens).SingleOrDefaultAsync(usr => usr.RefreshTokens.Any(t => t.Token == token.RefreshToken));
+            if (user == null) throw new SecurityTokenException("token invalid");
+            var refreshToken = user.RefreshTokens.Single(x=> x.Token == token.RefreshToken);
+            if (!refreshToken.IsActive) throw new SecurityTokenException("token was expired");
             refreshToken.Revoked = DateTime.UtcNow;
             return await DBContext.SaveChangesAsync() > 0;
         }

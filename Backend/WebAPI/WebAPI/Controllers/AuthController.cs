@@ -16,9 +16,11 @@ namespace WebAPI.Controllers
     {
 
         private readonly IAuthService _authService;
-        public AuthController(IAuthService authService)
+        private readonly ITokenService _tokenService;
+        public AuthController(IAuthService authService, ITokenService tokenService)
         {
             _authService = authService;
+            _tokenService = tokenService;
         }
 
         [HttpPost("login")]
@@ -36,10 +38,35 @@ namespace WebAPI.Controllers
             return BadRequest();
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
-            return Ok(User.GetUserId());
+            try
+            {
+                var roles = User.GetRoles();
+                var result =await _tokenService.RefreshToken(request, roles);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
+
+        [HttpPost("revoke-token")]
+        public async Task<IActionResult> RevokeToken([FromBody] RefreshTokenRequest request)
+        {
+            try
+            {
+                var result = await _tokenService.RevokeToken(request);
+                return result ? Ok(result) : BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw;
+            }
+        }
+
     }
 }
