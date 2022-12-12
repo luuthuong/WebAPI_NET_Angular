@@ -11,6 +11,8 @@ namespace Backend.Common.Models
     {
         public IEnumerable<T> Data { get; set; }
         public int TotalRecord { get; set; }
+
+        public int TotalPage { get; set; }
         public PagingResultModel()
         {
             Data = new List<T>();

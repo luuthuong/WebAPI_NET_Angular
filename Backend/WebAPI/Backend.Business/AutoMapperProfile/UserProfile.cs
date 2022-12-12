@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using Backend.Common.Models;
 using Backend.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend.Business.AutoMapperProfile
 {
@@ -45,6 +40,18 @@ namespace Backend.Business.AutoMapperProfile
                     PhoneNumber = model.PhoneNumber,
                     SecurityStamp = Guid.NewGuid().ToString("D"),
                     LockoutEnabled = true
+                };
+            });
+
+            CreateMap<User, UserInformation>().ConvertUsing((model, entity) =>
+            {
+                return new UserInformation()
+                {
+                    Id = entity.Id,
+                    CreateDate = entity.CreateDate,
+                    UpdateDate = entity.UpdateDate,
+                    DisplayName = entity.DisplayName,
+                    Roles = entity.Roles
                 };
             });
         }

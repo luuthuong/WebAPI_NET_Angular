@@ -103,10 +103,10 @@ namespace Backend.Business.Services.Services
             var user = DBContext.Users.SingleOrDefault(usr => usr.RefreshTokens.Any(t => t.Token == request.RefreshToken));
             if (user == null) return null;
             var refreshToken = await DBContext.RefreshTokens.FirstOrDefaultAsync(t => t.UserId == user.Id && t.Token == request.RefreshToken);
-            if(refreshToken.Expires< DateTime.UtcNow || !refreshToken.IsActive) throw new SecurityTokenExpiredException("Token invalid or was expried");
+            if(refreshToken.Expires< DateTime.UtcNow || !refreshToken.IsActive) throw new SecurityTokenExpiredException("Token invalid or was expired");
 
             var newRefreshToken = GenerateRefreshToken(user.Id);
-            newRefreshToken.OriginalToken = refreshToken.OriginalToken;  
+            newRefreshToken.OriginalToken = refreshToken.OriginalToken;    
             refreshToken.Revoked = DateTime.UtcNow;
             refreshToken.ReplacedByToken = newRefreshToken.Token;
             DBContext.RefreshTokens.Add(newRefreshToken);

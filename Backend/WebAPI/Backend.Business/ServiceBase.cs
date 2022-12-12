@@ -2,6 +2,7 @@
 using Backend.Common.Enums;
 using Backend.Common.Models;
 using Backend.DBContext;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
@@ -33,6 +34,29 @@ namespace Backend.Business
                 return query.OrderByDescending(orderExpression);
             }
             return query.OrderBy(orderExpression);
+        }
+    }
+
+    public static class PaginationList
+    {
+        public static async Task<PagingResultModel<T>> CreatePagingResultAsync<T, TFilter>(this IQueryable<T> source, PagingParamenters<TFilter> pagingFilter)
+        {
+            var result =await source.ToListAsync();
+            var pagingResult = new PagingResultModel<T>();
+            pagingResult.TotalRecord = result.Count;
+            pagingResult.TotalPage = (int)Math.Ceiling(pagingResult.TotalRecord / (double)pagingFilter.PageSize);
+            pagingResult.Data = result.Skip((pagingFilter.PageIndex - 1) * pagingFilter.PageSize).Take(pagingFilter.PageSize);
+            return pagingResult;
+        }
+
+        public static PagingResultModel<TDest> MapPagingResult<TEntity,TDest>(this IMapper mapper, PagingResultModel<TEntity> source)
+        {
+            return new PagingResultModel<TDest>()
+            {
+                Data = mapper.Map<List<TEntity>, List<TDest>>(source.Data.ToList()),
+                TotalPage = source.TotalPage, 
+                TotalRecord = source.TotalRecord,
+            };
         }
     }
 }

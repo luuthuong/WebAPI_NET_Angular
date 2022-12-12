@@ -38,6 +38,13 @@ namespace WebAPI.Controllers
             return BadRequest();
         }
 
+        [HttpPost("log-out")]
+        public async Task<IActionResult> LogOut(string refreshToken)
+        {
+            var result = _authService.LogOutAsync(refreshToken);
+            return Ok();
+        }
+
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {

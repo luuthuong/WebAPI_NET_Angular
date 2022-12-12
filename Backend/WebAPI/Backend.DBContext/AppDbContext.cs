@@ -14,7 +14,11 @@ namespace Backend.DBContext
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<SeedDataHistory> SeedDataHistory { get; set; }
 
-        public DbSet<Blog> Blogs { get; set; }
+        //public DbSet<Blog> Blogs { get; set; }
+
+        public DbSet<FileMedia> File { get; set; }
+        public DbSet<CategoryMedia> CategoryMedia { get; set; }
+        public DbSet<FileCategory> FileCategory { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -45,6 +49,16 @@ namespace Backend.DBContext
                 refreshToken.HasKey(ur => ur.Id);
                 refreshToken.HasOne(token => token.User)
                 .WithMany(user => user.RefreshTokens).HasForeignKey(token => token.UserId).IsRequired(true);
+            });
+
+            builder.Entity<FileCategory>(x =>
+            {
+                x.HasKey(item => new { item.CategoryId, item.FileId });
+            });
+
+            builder.Entity<CategoryMedia>(x =>
+            {
+                x.HasOne(item => item.Parent).WithMany().HasForeignKey(item => item.ParentId).OnDelete(DeleteBehavior.Restrict);
             });
         }
     }

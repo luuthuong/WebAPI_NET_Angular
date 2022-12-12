@@ -20,7 +20,7 @@ namespace Backend.DBContext.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SeedDataHistory", x => x.Id);
-                });
+                });  
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
