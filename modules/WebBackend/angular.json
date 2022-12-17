@@ -3,7 +3,12 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "material-dashboard-angular": {
+    "web-backend": {
+      "schematics": {
+				"@schematics/angular:component": {
+					"style": "scss"
+				}
+			},
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -11,7 +16,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/web-backend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
@@ -85,14 +90,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "material-dashboard-angular:build"
+            "browserTarget": "web-backend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "material-dashboard-angular:build:production"
+              "browserTarget": "web-backend:build:production"
             },
             "development": {
-              "browserTarget": "material-dashboard-angular:build:development"
+              "browserTarget": "web-backend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -100,7 +105,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "material-dashboard-angular:build"
+            "browserTarget": "web-backend:build"
           }
         },
         "test": {
@@ -143,7 +148,7 @@
         }
       }
     },
-    "material-dashboard-angular-e2e": {
+    "web-backend-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -152,7 +157,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "material-dashboard-angular:serve"
+            "devServerTarget": "web-backend:serve"
           }
         },
         "lint": {
@@ -167,11 +172,11 @@
       }
     }
   },
-  "defaultProject": "material-dashboard-angular",
+  "defaultProject": "web-backend",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"

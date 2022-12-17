@@ -1,11 +1,11 @@
 {
-  "name": "material-dashboard-angular",
+  "name": "web-backend",
   "version": "2.8.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build-prod": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
