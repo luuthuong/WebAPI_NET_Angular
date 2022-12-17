@@ -2,11 +2,20 @@ import { ButtonGroupTypeEnum } from './../../enum/button-group-type.enum';
 import { IChipOptionModel } from './../../model/chip-group-option.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '../base.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-	selector: 'app-chip-option-group',
+	selector: 'chip-option-group',
 	templateUrl: './button-option-group.component.html',
 	styleUrls: ['./button-option-group.component.scss'],
+	standalone: true,
+	imports:[
+		MatChipsModule,
+		CommonModule,
+		MatIconModule
+	]
 })
 export class ButtonOptionGroupComponent
 	extends BaseComponent

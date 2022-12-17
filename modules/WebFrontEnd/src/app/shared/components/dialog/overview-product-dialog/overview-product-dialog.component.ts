@@ -15,6 +15,11 @@ import SwiperCore, {
 } from 'swiper';
 import { BaseComponent } from '../../base.component';
 import { ButtonGroupTypeEnum } from 'app/shared/enum/button-group-type.enum';
+import { SwiperModule } from 'swiper/angular';
+import { MatIconModule } from '@angular/material/icon';
+import { ButtonOptionGroupComponent } from '../../button-option-group/button-option-group.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 SwiperCore.use([
 	Grid,
 	Pagination,
@@ -30,6 +35,14 @@ SwiperCore.use([
 	templateUrl: './overview-product-dialog.component.html',
 	styleUrls: ['./overview-product-dialog.component.scss'],
 	encapsulation: ViewEncapsulation.None,
+	standalone: true,
+	imports:[
+		SwiperModule,
+		MatIconModule,
+		ButtonOptionGroupComponent,
+		FormsModule,
+		CommonModule
+	]
 })
 export class OverviewProductDialogComponent
 	extends BaseComponent

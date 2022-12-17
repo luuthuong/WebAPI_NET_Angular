@@ -19,6 +19,12 @@ import { DatePipe } from './pipe/date.pipe';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { LoadingService } from 'app/services/loading.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { DEFAULT_TIMEOUT, TimeoutInterceptor } from './interceptors/timeout.interceptor';
+import { environment } from '@env/environment';
+import { MessageBoxComponent } from './components/message-box/message-box.component';
 const MaterialModule = [
 	MatButtonModule,
 	MatIconModule,
@@ -34,9 +40,6 @@ const MaterialModule = [
 	declarations: [
 		WindowScrollDirective,
 		DatePipe,
-		OverviewProductDialogComponent,
-		ConfirmDialogComponent,
-		ButtonOptionGroupComponent,
 		TopbarComponent,
 		FooterComponent,
 	],
@@ -47,7 +50,7 @@ const MaterialModule = [
 		SwiperModule,
 		NgParticlesModule,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
 	],
 	exports: [
 		SwiperModule,
@@ -57,6 +60,27 @@ const MaterialModule = [
 		DatePipe,
 		FooterComponent,
 		TopbarComponent
+	],
+	providers:[
+		LoadingService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: LoadingInterceptor,
+			multi: true
+		},
+		[
+			{
+				provide: HTTP_INTERCEPTORS,
+				useClass: TimeoutInterceptor,
+				multi: true
+			}
+		],
+		[
+			{
+				provide: DEFAULT_TIMEOUT,
+				useValue: environment.defaultTimeOut
+			}
+		]
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
