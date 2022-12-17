@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { BaseComponent } from './shared/components/base.component';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

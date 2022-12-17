@@ -21,7 +21,10 @@
 		"@angular/platform-browser": "^14.0.0",
 		"@angular/platform-browser-dynamic": "^14.0.0",
 		"@angular/router": "^14.0.0",
+		"@auth0/angular-jwt": "^5.1.1",
+		"@types/crypto-js": "^4.1.1",
 		"aos": "^2.3.4",
+		"crypto-js": "^4.1.1",
 		"moment": "^2.29.4",
 		"ng-particles": "^3.3.2",
 		"rxjs": "~7.5.0",
@@ -29,6 +32,7 @@
 		"tslib": "^2.3.0",
 		"tsparticles": "^2.3.2",
 		"tsparticles-engine": "^2.3.2",
+		"universal-cookie": "^4.0.4",
 		"zone.js": "~0.11.4"
 	},
 	"devDependencies": {
@@ -37,6 +41,7 @@
 		"@angular/compiler-cli": "^14.0.0",
 		"@types/aos": "^3.0.4",
 		"@types/jasmine": "~4.0.0",
+		"@types/lodash": "^4.14.191",
 		"autoprefixer": "^10.4.12",
 		"jasmine-core": "~4.3.0",
 		"karma": "~6.4.0",

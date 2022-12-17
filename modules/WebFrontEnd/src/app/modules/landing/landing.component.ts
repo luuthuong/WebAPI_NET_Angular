@@ -69,7 +69,7 @@ export class LandingComponent extends BaseComponent implements OnInit {
 	) {
 		super();
 		fromEvent(window, 'scroll')
-			.pipe(takeUntil(this.ngUnSubcribe))
+			.pipe(takeUntil(this.ngUnsubscribe))
 			.subscribe((e: Event) => {
 				const positionY = window.scrollY;
 				const homeEl = this.eleRef.nativeElement.querySelector(
@@ -80,7 +80,7 @@ export class LandingComponent extends BaseComponent implements OnInit {
 			});
 
 		this.router.events
-			.pipe(takeUntil(this.ngUnSubcribe))
+			.pipe(takeUntil(this.ngUnsubscribe))
 			.subscribe((result) => {
 				if (result instanceof NavigationEnd) {
 					this.currentFragment = this.router.parseUrl(result.url).fragment || 'home';
@@ -132,7 +132,7 @@ export class LandingComponent extends BaseComponent implements OnInit {
 		}
 		const dialogRef = this.dialog.open(OverviewProductDialogComponent,dialogConfig)
 		dialogRef.afterClosed()
-		.pipe(takeUntil(this.ngUnSubcribe))
+		.pipe(takeUntil(this.ngUnsubscribe))
 		.subscribe(result =>{
 			this.isChangeToolbar= false;
 		})

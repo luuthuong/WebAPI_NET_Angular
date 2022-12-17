@@ -13,9 +13,6 @@ export class WindowScrollDirective {
 		) {}
 	@HostListener('window:scroll', ['$event'])
 	onWindowScroll($event: any) {
-		console.log(window.scrollY);
 		const element = this.el.nativeElement as Element;
-
-		console.log(element.getClientRects())
 	}
 }

@@ -21,26 +21,18 @@ import { BaseComponent } from '../base.component';
 				</div>
 			</mat-dialog-content>
 			<mat-dialog-actions align="end">
-				<button mat-button mat-dialog-close>
-          Cancel
-				</button>
+				<button mat-button mat-dialog-close>Cancel</button>
 			</mat-dialog-actions>
 		</div>
 	`,
 	styleUrls: ['./message-box.component.scss'],
 	standalone: true,
-	imports: [
-    SharedCommonModule,
-    CommonModule
-  ],
+	imports: [SharedCommonModule, CommonModule],
 })
 export class MessageBoxComponent extends BaseComponent implements OnInit {
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: MessageBoxConfig
-  ) { 
-    super();
-  }
+	constructor(@Inject(MAT_DIALOG_DATA) public data: MessageBoxConfig) {
+		super();
+	}
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {}
 }

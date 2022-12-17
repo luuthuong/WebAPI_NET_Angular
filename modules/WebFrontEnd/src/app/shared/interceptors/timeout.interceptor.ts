@@ -15,7 +15,6 @@ export class TimeoutInterceptor implements HttpInterceptor {
   constructor(
     @Inject(DEFAULT_TIMEOUT) protected defaultTimeout: number
   ) {}
-
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const timeoutValue = request.headers.get('timeout') || this.defaultTimeout;
     return next.handle(request).pipe(timeout(+timeoutValue));

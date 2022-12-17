@@ -20,7 +20,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
 	constructor() {
 		super();
 		this.inputSearchControl.valueChanges
-		.pipe(takeUntil(this.ngUnSubcribe),debounceTime(1000))
+		.pipe(takeUntil(this.ngUnsubscribe),debounceTime(1000))
 		.subscribe(result =>{
 			this.onSearchEvent.emit(result);
 		});
