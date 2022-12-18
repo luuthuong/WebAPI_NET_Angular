@@ -12,7 +12,8 @@ namespace Backend.Common.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public bool EnableEmailNotification { get; set; }
-        public IEnumerable<Guid> Roles { get; set; }
+        public IEnumerable<Guid> RoleIds { get; set; }
+
         public void Format()
         {
             DisplayName = DisplayName?.Trim() ?? string.Empty;
@@ -23,6 +24,8 @@ namespace Backend.Common.Models
     public class UserModel : UserUpdateModel
     {
         public Guid Id { get; set; }
+        public IEnumerable<RoleModel> Roles { get; set; }
+
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
     }

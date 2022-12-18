@@ -37,7 +37,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
   });
   returnUrl: string = ''
   constructor(
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
   ) { 
@@ -66,7 +65,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         }
       })
-
     }
   }
 

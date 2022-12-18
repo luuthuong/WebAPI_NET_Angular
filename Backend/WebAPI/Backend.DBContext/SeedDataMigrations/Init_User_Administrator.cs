@@ -26,7 +26,8 @@ namespace Backend.DBContext.SeedDataMigrations
                 Status = StatusEnum.Active,
                 PhoneNumberConfirmed = true,
                 EmailConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString("D")
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                CreatedDate = DateTime.Now,
             }, RoleTypeEnum.Admin);
 
             await AddUser(userManager, new User
@@ -38,7 +39,8 @@ namespace Backend.DBContext.SeedDataMigrations
                 Status = StatusEnum.Active,
                 PhoneNumberConfirmed = true,
                 EmailConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString("D")
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                CreatedDate = DateTime.Now
             }, RoleTypeEnum.Reader);
         }
 

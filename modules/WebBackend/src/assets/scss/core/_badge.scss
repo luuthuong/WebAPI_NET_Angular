@@ -1,0 +1,55 @@
+.badge {
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  display: inline-block;
+  height: 100%;
+  white-space: nowrap;
+  width: auto;
+
+  position: relative;
+  border-radius: 100px;
+  line-height: 1.2;
+  overflow: hidden;
+  padding: 2px 12px 2px 20px;
+  text-overflow: ellipsis;
+  line-height: 1.25rem;
+  color: #232222;
+  letter-spacing: 2px;
+  word-break: break-word;
+
+  &:before {
+    border-radius: 50%;
+    content: "";
+    height: 10px;
+    left: 6px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+  }
+}
+
+.badge.success {
+  background: #b4eda0;
+}
+
+.badge.success:before {
+  background: #6bc167;
+}
+
+.badge.warning {
+  background: #ffebb6;
+}
+
+.badge.warning:before {
+  background: #ffc400;
+}
+
+.badge.danger {
+  background: #ffd5d1;
+}
+
+.badge.danger:before {
+  background: #ff4436;
+}

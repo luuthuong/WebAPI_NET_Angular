@@ -17,6 +17,7 @@ namespace Backend.Business.AutoMapperProfile
                     EnableEmailNotification= entity.EnableEmailNotification,
                     CreateDate = entity.CreatedDate,
                     UpdateDate = entity?.UpdatedDate ?? DateTime.MinValue,
+                    PhoneNumber = entity.PhoneNumber
                 };
             });
 

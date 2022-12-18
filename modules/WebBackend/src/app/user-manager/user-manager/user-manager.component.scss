@@ -1,0 +1,11 @@
+.list-user{
+    ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar{
+        background-color: rgb(16 98 14 / 54%);
+    }
+    ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{
+        background-color: #268524;
+    }
+    ::ng-deep .mat-slide-toggle.mat-checked .mat-ripple-element{
+        background-color: #268524;
+    }
+}

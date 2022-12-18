@@ -14,7 +14,8 @@ const routes: Routes = [
     },
     {
         path: 'create',
-        component: CreateEditUserComponent
+        component: CreateEditUserComponent,
+        pathMatch: 'full'
     },
     {
         path: 'edit/:id',

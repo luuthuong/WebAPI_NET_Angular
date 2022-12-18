@@ -23,7 +23,6 @@ export class NavbarComponent extends BaseComponent implements OnInit {
     constructor(
         location: Location, 
         private element: ElementRef, 
-        private router: Router,
         private authService: AuthService
         ) {
         super();
