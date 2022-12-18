@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Quicksand", sans-serif;
+	scroll-behavior: smooth;
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		background-color: #2d4263;
+	}
+}
+
+body{
+	overflow: hidden;
+}

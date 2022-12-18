@@ -1,0 +1,119 @@
+<div class="blog-overview w-full h-full overflow-auto px-10">
+	<div class="blog-overview__header">
+		<h1 class="text-yellow-900 font-semibold text-center">BLOG</h1>
+	</div>
+	<div class="blog-overview__btn-group mx-auto text-right mb-10 w-full">
+		<button mat-button>Filter</button>
+		<button
+			mat-button
+			(click)="navigateTo([appRoute.BLOG, blogRoute.CREATE])"
+			class="ml-3"
+		>
+			Create
+		</button>
+		<button (click)="deletePost(postSelected)" mat-button class="ml-3">Delete</button>
+		<mat-checkbox (change)="selectAll($event.checked)" [indeterminate]="checkIndeterminate()" class="ml-3" color="warn"></mat-checkbox>
+	</div>
+
+	<div
+		*ngIf="!!blogsList.length"
+		class="blog-grid grid grid-cols-autoColumnCustom overflow-auto px-3 py-3 gap-3 w-full h-full"
+	>
+		<div
+			*ngFor="let item of blogsList"
+			class="blog-item w-full min-h-[350px] relative  justify-self-center self-center"
+		>
+			<div
+				class="absolute top-0 left-0 right-0 bottom-0 bg-card-light rounded-lg overflow-hidden shadow-baseShadow bg-blend-exclusion "
+			>
+				<mat-checkbox
+					[(ngModel)]="item.isSelected"
+					class="absolute top-1 right-1 z-10"
+					[color]="'warn'"
+					(ngModelChange)="onSelectedChange(item.id)"
+				></mat-checkbox>
+				<div class="h-3/5 w-full overflow-hidden">
+					<img
+						class="h-full w-full cursor-pointer object-cover transition-all hover:scale-105 hover:blur-sm"
+						[src]="'https://images.pexels.com/photos/12908191/pexels-photo-12908191.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load'"
+						(click)="navigateTo([appRoute.BLOG,item.id])"
+						alt=""
+					/>
+				</div>
+				<div class="title w-full mt-1 h-2/5">
+					<div
+						class="text-base px-2 leading-5 font-bold text-center overflow-hidden text-ellipsis break-words whitespace-nowrap cursor-pointer transition-all hover:underline underline-offset-2"
+						[matTooltip]="item.title"
+						matTooltipPosition="above"
+						(click)="navigateTo([appRoute.BLOG, item.id])"
+					>
+						{{ item.title }}
+					</div>
+
+					<div
+						class="date-infor font-medium flex justify-around items-center "
+					>
+						<div class="font-medium">
+							<i>Create: </i>
+							<span class="text-baseColor font-bold">{{
+								item.createdDate | appdate
+							}}</span>
+						</div>
+						<div>
+							<i>Update: </i>
+							<span class="text-baseColor font-bold">{{
+								item.updatedDate | appdate
+							}}</span>
+						</div>
+					</div>
+
+					<div
+						class="blog-author mt-1 px-2 text-md text-black flex font-medium justify-between items-center"
+					>
+						<div>
+							<i>Author: </i>
+							<b>{{ item.authorName }}</b>
+						</div>
+						<div class="flex justify-around items-center">
+							<i>Published: </i>
+							<mat-icon
+								class="text-gray-600 text-sm ml-2"
+								[ngClass]="{ 'text-green-600': item.published }"
+								>check_circle</mat-icon
+							>
+						</div>
+					</div>
+
+					<!-- <div class="category px-2 font-medium">
+						<i>Category: </i>
+						<b>{{ data.category }}</b>
+					</div> -->
+
+					<div class="btn-action flex justify-evenly px-5 mt-2">
+						<button
+							mat-button
+							(click)="
+								navigateTo([appRoute.BLOG, 'edit', item.id])
+							"
+						>
+							Edit
+						</button>
+						<button
+							mat-button
+							(click)="navigateTo([appRoute.BLOG, item.id])"
+						>
+							View
+						</button>
+						<button (click)="deletePost([item.id])" mat-flat-button color="warn">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<mat-paginator
+		[length]="100"
+		[pageSize]="10"
+		[pageSizeOptions]="[5, 10, 25, 100]"
+	>
+	</mat-paginator>
+</div>

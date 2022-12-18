@@ -1,0 +1,86 @@
+<div class="blog-edit px-5 h-full">
+	<div
+		class="blog-edit-header font-bold leading-5 text-gray-800 my-2 text-xl"
+	>
+		{{ !!blogId ? "Edit Blog" : "Create new blog" }}
+	</div>
+	<form [formGroup]="editorFormControl">
+		<div class="grid grid-rows-1">
+			<mat-form-field appearance="fill">
+				<mat-label>Title</mat-label>
+				<input
+					formControlName="title"
+					matInput
+					class="resize-none"
+					placeholder="Fill title..."
+					[errorStateMatcher]="matcherInput"
+				/>
+			</mat-form-field>
+
+			<mat-form-field appearance="fill">
+				<mat-label>Meta Title</mat-label>
+				<input
+					formControlName="metaTitle"
+					matInput
+					placeholder="Meta title ..."
+				/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Slug</mat-label>
+				<input formControlName="slug" matInput placeholder="Slug..." />
+			</mat-form-field>
+
+			<div class="flex gap-3 my-3">
+				<span>Publish: </span>
+				<mat-checkbox color="primary" formControlName="published"></mat-checkbox>
+			</div>
+
+			<mat-form-field class="w-52" appearance="fill">
+				<mat-label>Toppings</mat-label>
+				<mat-select formControlName="category" multiple>
+					<mat-select-trigger> </mat-select-trigger>
+					<mat-option>2</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div>
+			<ckeditor
+				formControlName="ckeditorContent"
+				debounce="500"
+				[config]="{
+					height : 600,
+					image2_alignClasses : [ 'align-left', 'align-center', 'align-right' ]
+				}"
+			>
+				<ckbutton
+					[name]="'saveButton'"
+					[command]="'saveCmd'"
+					(click)="fileinput?.click()"
+					[icon]="
+						'https://cdn-icons-png.flaticon.com/512/5175/5175601.png'
+					"
+					[label]="'Save Document'"
+					[toolbar]="'clipboard,1'"
+				>
+				</ckbutton>
+			</ckeditor>
+			<input style="display: none" #fileinput type="file" />
+		</div>
+		<div class="grid grid-rows-1 mt-4">
+			<mat-form-field appearance="fill">
+				<mat-label>Summary</mat-label>
+				<textarea
+					formControlName="summary"
+					matInput
+					class="resize-none"
+					placeholder="Summary.."
+					[errorStateMatcher]="matcherInput"
+				></textarea>
+			</mat-form-field>
+		</div>
+		<div class="btn-group flex my-5 justify-end gap-3 items-center">
+			<button mat-stroked-button color="primary" (click)="navigateToBlogHome()">Go back</button>
+			<button (click)="updatePost()" [disabled]="editorFormControl.invalid" mat-stroked-button>{{blogId ? 'Update':'Create'}}</button>
+		</div>
+	</form>
+</div>
