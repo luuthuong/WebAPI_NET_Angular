@@ -1,5 +1,7 @@
 ﻿using Backend.Business.Services.Interfaces;
+using Backend.Common.Enums;
 using Backend.Common.Requests;
+using Backend.Common.Responses;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -38,13 +40,6 @@ namespace WebAPI.Controllers
             return BadRequest();
         }
 
-        [HttpPost("log-out")]
-        public async Task<IActionResult> LogOut(string refreshToken)
-        {
-            var result = _authService.LogOutAsync(refreshToken);
-            return Ok();
-        }
-
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
@@ -61,17 +56,37 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("revoke-token")]
-        public async Task<IActionResult> RevokeToken([FromBody] RefreshTokenRequest request)
+        public async Task<ResponseBase<bool>> RevokeToken([FromBody] RefreshTokenRequest request)
         {
+
+            if (string.IsNullOrEmpty(request.RefreshToken))
+            {
+                return new ResponseBase<bool>
+                {
+                    Data = false,
+                    Message = "Token is required",
+                    ResponseStatus = ResponseStatusEnum.Error
+                };
+            }
+
             try
             {
                 var result = await _tokenService.RevokeToken(request);
-                return result ? Ok(result) : BadRequest();
+                return new ResponseBase<bool>
+                {
+                    Message = "Revoke success",
+                    ResponseStatus = ResponseStatusEnum.Success,
+                    Data = true
+                };
             }
-            catch (Exception ex)
+            catch ( Exception e)
             {
-                return BadRequest(ex.Message);
-                throw;
+                return  new ResponseBase<bool>
+                {
+                    Data = false,
+                    Message = e.Message,
+                    ResponseStatus = ResponseStatusEnum.Error
+                };
             }
         }
 

@@ -11,7 +11,6 @@ namespace Backend.Business.Services.Interfaces
     public interface IAuthService
     {
         Task<UserLoginResponse> LoginAsync(LoginRequest request);
-        Task<bool> LogOutAsync(string refreshToken);
         Task<bool> ChangePasswordAsync(Guid userId, UserChangePasswordRequest request);
         Task<string> ValidUserAsync(Guid id);
     }

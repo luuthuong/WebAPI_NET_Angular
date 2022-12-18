@@ -23,6 +23,97 @@ namespace Backend.DBContext.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Backend.Entities.Entities.CategoryMedia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreateBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CategoryMedia", "Media");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Entities.FileCategory", b =>
+                {
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CategoryId", "FileId");
+
+                    b.HasIndex("FileId");
+
+                    b.ToTable("FileCategory", "Media");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Entities.FileMedia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreateBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("FileContent")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("File", "Media");
+                });
+
             modelBuilder.Entity("Backend.Entities.Entities.RefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
@@ -304,6 +395,50 @@ namespace Backend.DBContext.Migrations
                     b.ToTable("UserTokens", "App");
                 });
 
+            modelBuilder.Entity("Backend.Entities.Entities.CategoryMedia", b =>
+                {
+                    b.HasOne("Backend.Entities.Entities.CategoryMedia", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Backend.Entities.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Parent");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Entities.FileCategory", b =>
+                {
+                    b.HasOne("Backend.Entities.Entities.CategoryMedia", "Category")
+                        .WithMany("FileCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.Entities.Entities.FileMedia", "File")
+                        .WithMany("FileCategories")
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("File");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Entities.FileMedia", b =>
+                {
+                    b.HasOne("Backend.Entities.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Backend.Entities.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Backend.Entities.Entities.User", "User")
@@ -368,6 +503,16 @@ namespace Backend.DBContext.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Backend.Entities.Entities.CategoryMedia", b =>
+                {
+                    b.Navigation("FileCategories");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Entities.FileMedia", b =>
+                {
+                    b.Navigation("FileCategories");
                 });
 
             modelBuilder.Entity("Backend.Entities.Entities.Role", b =>

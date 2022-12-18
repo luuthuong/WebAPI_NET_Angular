@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { AppInjectorService } from './app-injector.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoadingService {
-  private getLoading$ = new Subject<boolean>();
-  constructor() { }
+  constructor(
+    private spinner: NgxSpinnerService
+  ) { }
   
   setStateLoading(state: boolean){
-    this.getLoading$.next(state);
-  }
-
-  getStateLoading(){
-    return this.getLoading$.asObservable();
+    state ? this.spinner.show() : this.spinner.hide();      
   }
 }

@@ -1,3 +1,4 @@
+import { ToastService } from './services/toast.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -25,6 +26,6 @@ import { AppInjectorService } from './services/app-injector.service';
 })
 export class AppModule {
 	constructor(private injector: Injector){
-		AppInjectorService.setInjector(injector);
+		AppInjectorService.setInjector(this.injector);
 	}
 }

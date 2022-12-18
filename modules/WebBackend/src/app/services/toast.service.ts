@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TemplateRef } from '@angular/core';
 import {
 	MatSnackBar,
 	MatSnackBarConfig,
@@ -7,17 +7,15 @@ import {
 } from '@angular/material/snack-bar';
 import { AppInjectorService } from './app-injector.service';
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ToastService {
-  static horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+	static horizontalPosition: MatSnackBarHorizontalPosition = 'right';
 	static verticalPosition: MatSnackBarVerticalPosition = 'top';
 	static actionButtonLabel: string = 'Đóng';
 	static action: boolean = true;
 	static setAutoHide: boolean = true;
-	static autoHideTiming: number = 2000;
-	static snackBar: MatSnackBar = AppInjectorService.getService(MatSnackBar);
-
+	static autoHideTiming: number = 2500;
 	static success(msg: string) {
 		if (msg && typeof msg === 'string') {
 			const config = new MatSnackBarConfig();
@@ -28,7 +26,8 @@ export class ToastService {
 				'toast-success',
 				'mat-snack-bar-container-custom',
 			];
-			this.snackBar.open(
+			const snackBar: MatSnackBar = AppInjectorService.getService(MatSnackBar);
+			snackBar.open(
 				msg,
 				this.action ? this.actionButtonLabel : undefined,
 				config
@@ -46,7 +45,8 @@ export class ToastService {
 				'toast-error',
 				'mat-snackbar-container-custom',
 			];
-			this.snackBar.open(
+			const snackBar: MatSnackBar = AppInjectorService.getService(MatSnackBar);
+			snackBar.open(
 				msg,
 				this.action ? this.actionButtonLabel : undefined,
 				config

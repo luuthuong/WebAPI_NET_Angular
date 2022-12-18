@@ -47,7 +47,6 @@ namespace Backend.Business.Services.Services
         public async Task<UserLoginResponse> LoginAsync(LoginRequest request)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(usr => usr.Status == StatusEnum.Active && (usr.UserName == request.UserName || usr.Email == request.Email));
-            var token = _tokenService.JwtToken;
             if(user == null)
             {
                 return new UserLoginResponse()
@@ -89,11 +88,6 @@ namespace Backend.Business.Services.Services
                 return "Unauthorized";
             }
             return "";
-        }
-
-        public Task<bool> LogOutAsync(string refreshToken)
-        {
-            throw new NotImplementedException();
         }
     }
 }

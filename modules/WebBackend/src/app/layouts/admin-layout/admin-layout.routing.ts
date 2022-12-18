@@ -11,6 +11,7 @@ import { UserProfileComponent } from '../../user-profile/user-profile.component'
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'user-manager',   loadChildren: () => import("app/user-manager/user-manager.module").then(m => m.UserManagerModule) },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },

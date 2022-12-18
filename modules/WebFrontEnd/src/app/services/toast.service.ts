@@ -17,7 +17,6 @@ export class ToastService {
 	static action: boolean = true;
 	static setAutoHide: boolean = true;
 	static autoHideTiming: number = 2000;
-	static snackBar: MatSnackBar = AppInjectorService.getService(MatSnackBar);
 
 	static success(msg: string) {
 		if (msg && typeof msg === 'string') {
@@ -29,7 +28,8 @@ export class ToastService {
 				'toast-success',
 				'mat-snack-bar-container-custom',
 			];
-			this.snackBar.open(
+			const snackBar = AppInjectorService.getService(MatSnackBar);
+			snackBar.open(
 				msg,
 				this.action ? this.actionButtonLabel : undefined,
 				config
@@ -47,7 +47,8 @@ export class ToastService {
 				'toast-error',
 				'mat-snackbar-container-custom',
 			];
-			this.snackBar.open(
+			const snackBar = AppInjectorService.getService(MatSnackBar);
+			snackBar.open(
 				msg,
 				this.action ? this.actionButtonLabel : undefined,
 				config

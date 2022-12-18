@@ -25,6 +25,7 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { DEFAULT_TIMEOUT, TimeoutInterceptor } from './interceptors/timeout.interceptor';
 import { environment } from '@env/environment';
 import { MessageBoxComponent } from './components/message-box/message-box.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 const MaterialModule = [
 	MatButtonModule,
 	MatIconModule,
@@ -34,6 +35,7 @@ const MaterialModule = [
 	MatChipsModule,
 	MatInputModule,
 	MatDividerModule,
+	MatSnackBarModule
 ];
 
 @NgModule({

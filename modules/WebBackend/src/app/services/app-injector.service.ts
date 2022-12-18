@@ -1,20 +1,16 @@
 import { Injectable, Injector } from "@angular/core";
 
-@Injectable({
-  providedIn: "root",
-})
 export class AppInjectorService {
-  static injector: Injector;
-  constructor() {}
+  private static injector: Injector;
   static setInjector(injector: Injector) {
-    this.injector = injector;
+    AppInjectorService.injector = injector;
   }
   static getInjector(): Injector {
-    return this.injector;
+    return AppInjectorService.injector;
   }
-  static getService(type: any){
-    const injector = this.getInjector();
-    const service = injector.get(type);
+  static getService<T>(type: any ): T{
+    const injector = AppInjectorService.getInjector();
+    const service: T = injector.get(type) as T;
     return service;
   }
 }
