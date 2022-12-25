@@ -62,15 +62,19 @@ namespace Backend.Business.CQRS.Queries.Users
 
             private IQueryable<User> ApplyFilter(IQueryable<User> query, PagingParamenters<UserFilterModel> pagingParamenters)
             {
-                var searchText = pagingParamenters.Filter.SearchText ?? string.Empty;
-                if(!string.IsNullOrEmpty(searchText))
+                if (pagingParamenters.Filter != null)
                 {
-                    query = query.Where(x => EF.Functions.Like(x.DisplayName, $"%{searchText}%"));
+                    var searchText = pagingParamenters.Filter.SearchText ?? string.Empty;
+                    if (!string.IsNullOrEmpty(searchText))
+                    {
+                        query = query.Where(x => EF.Functions.Like(x.DisplayName, $"%{searchText}%"));
+                    }
                 }
                 return query;
             }
             private IQueryable<User> ApplyOrder(IQueryable<User> query, PagingOrderModel orderBy)
             {
+                if (orderBy == null) return query;
                 var orderByName = FirstCharToUpper(orderBy.Name) ?? string.Empty;
                 if (orderByName.Equals("Notifications"))
                 {

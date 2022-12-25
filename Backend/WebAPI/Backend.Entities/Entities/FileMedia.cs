@@ -15,13 +15,15 @@ namespace Backend.Entities.Entities
         [Required]
         public string Extension { get;set; }
         [Required]
-        public string Name { get; set; } 
+        public string Title { get; set; } 
         public byte[] FileContent { get; set; }
+        public double Size { get; set; }
         public string FileUrl { get; set; }
+        public string Description { get; set; }
         public DateTime CreateDate { get; set; }
-        public DateTime UpdateDate { get; set; }
-        public Guid CreateBy { get; set; }
-        public User User { get; set; }
+        public DateTime? UpdateDate { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public Guid CreatedBy { get; set; }
         public virtual ICollection<FileCategory> FileCategories { get; set; }
     }
 }

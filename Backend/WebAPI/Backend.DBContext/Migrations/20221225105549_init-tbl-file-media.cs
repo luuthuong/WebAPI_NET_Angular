@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Backend.DBContext.Migrations
 {
-    public partial class initmedia : Migration
+    public partial class inittblfilemedia : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,23 +51,19 @@ namespace Backend.DBContext.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Extension = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FileContent = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Size = table.Column<double>(type: "float", nullable: false),
                     FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreateBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_File", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_File_Users_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "App",
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -107,12 +103,6 @@ namespace Backend.DBContext.Migrations
                 name: "IX_CategoryMedia_UserId",
                 schema: "Media",
                 table: "CategoryMedia",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_File_UserId",
-                schema: "Media",
-                table: "File",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(

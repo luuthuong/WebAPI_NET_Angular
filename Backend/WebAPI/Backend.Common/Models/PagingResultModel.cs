@@ -1,9 +1,4 @@
 ﻿using Backend.Common.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend.Common.Models
 {
@@ -28,7 +23,7 @@ namespace Backend.Common.Models
     public class PagingParamenters<TFilter>
     {
         public TFilter Filter { get; set;}
-        public PagingOrderModel OrderBy { get; set; }
+        public PagingOrderModel? OrderBy { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
     }

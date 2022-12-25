@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.DBContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221218011709_init-media")]
-    partial class initmedia
+    [Migration("20221225105549_init-tbl-file-media")]
+    partial class inittblfilemedia
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,11 +83,14 @@ namespace Backend.DBContext.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CreateBy")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Extension")
                         .IsRequired()
@@ -99,19 +102,20 @@ namespace Backend.DBContext.Migrations
                     b.Property<string>("FileUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<double>("Size")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdateDate")
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("File", "Media");
                 });
@@ -430,15 +434,6 @@ namespace Backend.DBContext.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("File");
-                });
-
-            modelBuilder.Entity("Backend.Entities.Entities.FileMedia", b =>
-                {
-                    b.HasOne("Backend.Entities.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Backend.Entities.Entities.RefreshToken", b =>

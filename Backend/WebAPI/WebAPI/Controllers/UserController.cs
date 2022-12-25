@@ -38,8 +38,17 @@ namespace WebAPI.Controllers
             });
         }
 
+        [HttpPost("create")]
+        public Task<ResponseBase<UserModel>> CreateUser()
+        {
+            return _mediator.Send(new CreateUserCommand
+            {
+
+            });
+        }
+
         [HttpGet("list-users")]
-        public Task<ResponseBase<PagingResultModel<UserModel>>> GetPagingUser(PagingParamenters<UserFilterModel> pagingParameter)
+        public Task<ResponseBase<PagingResultModel<UserModel>>> GetPagingUser([FromQuery]PagingParamenters<UserFilterModel> pagingParameter)
         {
             return _mediator.Send(new GetPagingUserQuery
             {
