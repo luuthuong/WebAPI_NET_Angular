@@ -1,7 +1,6 @@
-# WebAPI_NET_Angular
 
 # What It Covers ?
-## This project cover all fundamentals 
+## This project cover all fundamentals of
 ### Angular 
 - Cross Component Communication
 - Component, Template, Data-Binding
