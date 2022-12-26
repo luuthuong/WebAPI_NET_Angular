@@ -3,6 +3,7 @@ using Backend.Common.Enums;
 using Backend.Entities.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using System.Security.Claims;
 
 namespace Backend.DBContext.SeedDataMigrations
 {
@@ -14,8 +15,9 @@ namespace Backend.DBContext.SeedDataMigrations
         public override async Task UpAsync(AppDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
-            await AddRole(dbContext, RoleConstants.AdminId, RoleTypeEnum.Admin);
-            await AddRole(dbContext, RoleConstants.ReaderId, RoleTypeEnum.Reader);
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
+            await AddRole(roleManager, RoleConstants.AdminId, RoleTypeEnum.Admin);
+            await AddRole(roleManager, RoleConstants.ReaderId, RoleTypeEnum.Reader);
 
             await AddUser(userManager, new User
             {
@@ -42,9 +44,10 @@ namespace Backend.DBContext.SeedDataMigrations
                 SecurityStamp = Guid.NewGuid().ToString("D"),
                 CreatedDate = DateTime.Now
             }, RoleTypeEnum.Reader);
+            await dbContext.SaveChangesAsync();
         }
 
-        private async Task AddRole(AppDbContext dbContext, Guid id, RoleTypeEnum roleType)
+        private async Task AddRole(RoleManager<Role> roleManger, Guid id, RoleTypeEnum roleType)
         {
             var role = new Role
             {
@@ -52,8 +55,8 @@ namespace Backend.DBContext.SeedDataMigrations
                 Name = roleType.ToString(),
                 NormalizedName = roleType.ToString()
             };
-            await dbContext.Roles.AddAsync(role);
-            await dbContext.SaveChangesAsync();
+            await roleManger.CreateAsync(role);
+            await roleManger.AddClaimAsync(role, new Claim(ClaimTypeConstants.Role, roleType.ToString()));
         }
 
         private async Task AddUser(UserManager<User> userManager, User user, RoleTypeEnum roleType)
@@ -68,7 +71,6 @@ namespace Backend.DBContext.SeedDataMigrations
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

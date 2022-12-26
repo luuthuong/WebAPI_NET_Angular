@@ -7,11 +7,6 @@ using LinqKit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend.Business.CQRS.Queries.Users
 {
@@ -31,7 +26,7 @@ namespace Backend.Business.CQRS.Queries.Users
             public async Task<ResponseBase<bool>> Handle(ValidUserQuery request, CancellationToken cancellationToken)
             {
                 string email = request.Email.Trim() ?? string.Empty;
-                Guid userId = request.UserId;
+                Guid userId = request?.UserId ?? Guid.Empty;
                 if(string.IsNullOrEmpty(email))
                 {
                     return new ResponseBase<bool>()

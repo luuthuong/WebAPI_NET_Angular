@@ -8,12 +8,7 @@ using Backend.Entities.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend.Business.Services.Services
 {
@@ -21,7 +16,6 @@ namespace Backend.Business.Services.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IConfigurationService _configuration;
         private readonly ITokenService _tokenService;
 
 
@@ -31,10 +25,10 @@ namespace Backend.Business.Services.Services
             UserManager<User> userManager, 
             IConfigurationService configuration,
             ITokenService tokenService,
+            RoleManager<Role> roleManager,
             SignInManager<User> signInManager) : base(dBContext, logger, mapper) {
             _userManager = userManager;
             _signInManager = signInManager;
-            _configuration = configuration;
             _tokenService = tokenService;
         }
 

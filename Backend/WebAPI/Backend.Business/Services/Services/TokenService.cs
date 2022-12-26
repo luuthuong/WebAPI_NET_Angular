@@ -10,14 +10,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend.Business.Services.Services
 {
@@ -47,7 +43,7 @@ namespace Backend.Business.Services.Services
             var phone = user.PhoneNumber?.ToString() ?? string.Empty;
             var claimIdentity = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypeConstants.Role, string.Join(",", roles)),
+                new Claim(ClaimTypes.Role, string.Join(",", roles)),
                 new Claim(ClaimTypeConstants.Email, user?.Email ?? string.Empty),
                 new Claim(ClaimTypeConstants.PhoneNumber, phone),
                 new Claim(ClaimTypeConstants.UserId, user.Id.ToString())
@@ -103,7 +99,7 @@ namespace Backend.Business.Services.Services
             var user = DBContext.Users.SingleOrDefault(usr => usr.RefreshTokens.Any(t => t.Token == request.RefreshToken));
             if (user == null) return null;
             var refreshToken = await DBContext.RefreshTokens.FirstOrDefaultAsync(t => t.UserId == user.Id && t.Token == request.RefreshToken);
-            if(refreshToken.Expires< DateTime.UtcNow || !refreshToken.IsActive) throw new SecurityTokenExpiredException("Token invalid or was expired");
+            if(refreshToken.Expires < DateTime.UtcNow || !refreshToken.IsActive) throw new SecurityTokenExpiredException("Token invalid or was expired");
 
             var newRefreshToken = GenerateRefreshToken(user.Id);
             newRefreshToken.OriginalToken = refreshToken.OriginalToken;    

@@ -15,7 +15,7 @@ namespace WebAPI.Extensions
 
         public static List<string> GetRoles(this ClaimsPrincipal claimsPrincipal)
         {
-            var claim = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypeConstants.Role);
+            var claim = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
             if(claim == null) return new List<string>();
             return claim.Value.Split(",").ToList<string>();
         }

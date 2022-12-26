@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Backend.Common.Enums;
 using Backend.Common.Models;
+using Backend.Common.Requests;
 using Backend.Entities.Entities;
 
 namespace Backend.Business.AutoMapperProfile
@@ -53,6 +55,19 @@ namespace Backend.Business.AutoMapperProfile
                     UpdateDate = entity.UpdateDate,
                     DisplayName = entity.DisplayName,
                     Roles = entity.Roles
+                };
+            });
+
+            CreateMap<RegisterUserRequest, User>().ConvertUsing((model,entity) =>
+            {
+                return new User()
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    DisplayName = model.DisplayName,
+                    CreatedDate= DateTime.Now,
+                    SecurityStamp = Guid.NewGuid().ToString("D"),
+                    Status = StatusEnum.Active
                 };
             });
         }

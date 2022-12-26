@@ -15,6 +15,8 @@ using Backend.Business;
 using Backend.Business.Services.Interfaces;
 using System.Reflection;
 using MediatR;
+using Backend.Common.Enums;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace WebAPI.Extensions
 {
@@ -90,7 +92,7 @@ namespace WebAPI.Extensions
 
         public static void ConfigureIdentity(this IServiceCollection service)
         {
-            service.AddIdentity<User, Role>()
+            service.AddIdentity<User,Role>()
                 .AddRoles<Role>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -108,12 +110,18 @@ namespace WebAPI.Extensions
             });
         }
 
+        private static void RoleConfiguration(EntityTypeBuilder<Role> roleBuilder)
+        {
+
+        }
+
         public static void ConfigureAuthorization(this IServiceCollection service)
         {
             service.AddAuthorization(option =>
             {
                 var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
                 defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+                //defaultAuthorizationPolicyBuilder.RequireRole(RoleTypeEnum.Admin.ToString(), RoleTypeEnum.Reader.ToString());
                 option.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
             });
         }

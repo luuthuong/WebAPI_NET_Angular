@@ -16,4 +16,11 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AuthUnit\" />
+    <Folder Include="BlogUnit\" />
+    <Folder Include="FileUnit\" />
+    <Folder Include="UserUnit\" />
+  </ItemGroup>
+
 </Project>

@@ -14,11 +14,13 @@ namespace Backend.DBContext
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<SeedDataHistory> SeedDataHistory { get; set; }
 
-        //public DbSet<Blog> Blogs { get; set; }
-
         public DbSet<FileMedia> File { get; set; }
         public DbSet<CategoryMedia> CategoryMedia { get; set; }
         public DbSet<FileCategory> FileCategory { get; set; }
+        public DbSet<Blog> Blog { get; set; }
+        public DbSet<BlogComment> BlogComment { get; set; }
+        public DbSet<BlogCategory> BlogCategory { get; set; }
+
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }

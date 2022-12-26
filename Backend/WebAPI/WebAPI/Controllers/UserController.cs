@@ -1,8 +1,9 @@
 ﻿using Backend.Business.CQRS.Commands.Users;
 using Backend.Business.CQRS.Queries.Users;
 using Backend.Business.Services.Interfaces;
-using Backend.Business.Services.Services;
+using Backend.Common.Constants;
 using Backend.Common.Models;
+using Backend.Common.Requests;
 using Backend.Common.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,7 +17,6 @@ namespace WebAPI.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserController : ControllerBase
     {
-
         private readonly IMediator _mediator;
         private readonly IAuthService _authService;
         public UserController(
@@ -39,15 +39,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("create")]
-        public Task<ResponseBase<UserModel>> CreateUser()
+        public Task<ResponseBase<UserModel>> CreateUser(RegisterUserRequest request)
         {
             return _mediator.Send(new CreateUserCommand
             {
-
+                RegisterUser = request
             });
         }
 
         [HttpGet("list-users")]
+        [Authorize(Roles = RoleConstants.Admin)]
         public Task<ResponseBase<PagingResultModel<UserModel>>> GetPagingUser([FromQuery]PagingParamenters<UserFilterModel> pagingParameter)
         {
             return _mediator.Send(new GetPagingUserQuery
@@ -67,6 +68,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = RoleConstants.Admin)]
         public Task<ResponseBase<bool>> DeleteUserById(Guid id)
         {
             return _mediator.Send(new DeleteUserCommand

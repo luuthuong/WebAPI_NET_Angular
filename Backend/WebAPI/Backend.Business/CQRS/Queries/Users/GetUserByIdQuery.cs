@@ -35,7 +35,7 @@ namespace Backend.Business.CQRS.Queries.Users
                 return new ResponseBase<UserModel>
                 {
                     ResponseStatus = ResponseStatusEnum.Success,
-                    Data = Mapper.Map<User,UserModel>(user)
+                    Data = Mapper.Map<User,UserModel>(user),
                 };
             }
         }
