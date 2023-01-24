@@ -1,6 +1,0 @@
-// Default flex- center
-@mixin alignFlex($justifyContent: center,$alignItem: center){
-	display: flex;
-	justify-content: $justifyContent;
-	align-items: $alignItem;
-}
